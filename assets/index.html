@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+<meta charset="utf-8" />
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<script type="text/javascript" src="js/eventemitter2.min.js"></script>
+<script type="text/javascript" src="js/roslib.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<!-- sudo ufw allow 22
+-->
+<body>
+		
+			<div id="gamepadPrompt"></div>
+			<div id="gamepadDisplay"></div>
+				
+			<script>
+			var hasGP = false;
+			var repGP;
+			var axis1, axi2;
+			var twist;
+			axis1=0.0, axis2=0.0;
+			function canGame() {
+				return "getGamepads" in navigator;
+			}
+		
+			function reportOnGamepad() {
+				var gp = navigator.getGamepads()[0];
+				var html = "";
+					html += "id: you are using a"+gp.id+"<br/>";
+				
+				for(var i=0;i<gp.buttons.length;i++) {
+					html+= "Button "+(i+1)+": ";
+					if(gp.buttons[i].pressed) html+= " pressed";
+					html+= "<br/>";
+				}
+				
+				for(var i=0;i<gp.axes.length; i+=2) {
+					html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
+				}
+				
+				axis1=gp.axes[0];
+				axis2=gp.axes[1];
+
+				twist = new ROSLIB.Message({
+    				linear : {
+      				x : axis1,
+      				y : 0.0,
+      				z : 0.0 
+    				},
+    				angular : {
+      				x : 0.0,
+      				y : 0.0,
+      				z : axis2
+						}
+    			});
+				$("#gamepadDisplay").html(html);
+			}
+				
+			$(document).ready(function() {
+		
+				if(canGame()) {
+		
+					var prompt = "To begin using your gamepad, connect it and press any button!";
+					$("#gamepadPrompt").text(prompt);
+					
+					$(window).on("gamepadconnected", function() {
+						hasGP = true;
+						$("#gamepadPrompt").html("Gamepad connected!");
+						console.log("connection event");
+						repGP = window.setInterval(reportOnGamepad,100);
+					});
+		
+					$(window).on("gamepaddisconnected", function() {
+						console.log("disconnection event");
+						$("#gamepadPrompt").text(prompt);
+						window.clearInterval(repGP);
+					});
+		
+					//setup an interval for Chrome
+					var checkGP = window.setInterval(function() {
+						console.log('checkGP');
+						if(navigator.getGamepads()[0]) {
+							if(!hasGP) $(window).trigger("gamepadconnected");
+							window.clearInterval(checkGP);
+						}
+					}, 500);
+				}
+				
+			});
+
+			//_____________________________________________________________
+
+    var ros_server_url = document.location.hostname + ":9090";
+    var ros = new ROSLIB.Ros({
+    url : "ws://" + ros_server_url
+  });
+
+  ros.on('connection', function() {
+    console.log('Connected to websocket server.');
+  });
+
+  ros.on('error', function(error) {
+    console.log('Error connecting to websocket server: ', error);
+  });
+
+  ros.on('close', function() {
+    console.log('Connection to websocket server closed.');
+  });
+
+  // Publishing a Topic
+  // ------------------
+
+  var cmdVel = new ROSLIB.Topic({
+    ros : ros,
+    name : '/husky_velocity_controller/cmd_vel',
+	messageType : 'geometry_msgs/Twist'
+	
+  });
+
+
+  window.onload = function start() {
+    slide();
+}
+function slide() {
+    window.setInterval(function () {
+			  console.log("axis1: " + axis1 + " axis2: " + axis2)
+        cmdVel.publish(twist)
+    }, 250); // repeat forever, polling every 3 seconds
+}
+			</script>
+</body>
+</html>
