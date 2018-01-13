@@ -1,0 +1,42 @@
+
+@media screen and (min-width: 768px){
+.map-sm{
+    position: relative;
+    height: 600px;
+    width: 800px;
+    border-color: #bb2c1a;
+    }
+}
+
+
+.map-sm{
+    position: relative;
+    height: 600px;
+    width: 100%;
+    border-style: solid;
+    border-width: 3px;
+    border-color: gray
+    }
+
+.map-bg{
+    position: absolute;
+    height: 92vh;
+    width: 98vw;
+}
+.waypoint {
+    background-image: url('../images/itu_rover.png');
+    background-size: cover;
+    width: 50px;
+    height: 25px;
+    border-radius: 50%;
+    cursor:pointer;
+}
+
+.mapboxgl-popup {
+    max-width: 200px;
+}
+
+#focus-btn, .disabled{
+    cursor: pointer !important; 
+}
+

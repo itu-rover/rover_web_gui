@@ -1,136 +1,233 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
-<meta charset="utf-8" />
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-<script type="text/javascript" src="js/eventemitter2.min.js"></script>
-<script type="text/javascript" src="js/roslib.min.js"></script>
-<script type="text/javascript" src="js/jquery.min.js"></script>
+    <title>ROVER UI V1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/source-sans-pro.css" />
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/AdminLTE.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/_all-skins.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./css/mapstyle.css" />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.js'></script>
+    <script type="text/javascript" src="./js/external/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="./js/external/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/external/eventemitter2.min.js"></script>
+    <script type="text/javascript" src="./js/external/roslib.min.js"></script>
+    <script type="text/javascript" src="./js/external/app.min.js"></script>
+    <script type="text/javascript" src="./js/ui-customizations.js"></script>
+    <!-- Uncomment below for debugging
+    <script type="text/javascript" src="./js/debug/jquery-2.2.4.js"></script>
+    <script type="text/javascript" src="./js/debug/bootstrap.js" ></script>
+    <script type="text/javascript" src="./js/debug/eventemitter2.js"></script>
+    <script type="text/javascript" src="./js/debug/roslib.js"></script>
+    <script type="text/javascript" src="./js/debug/three.js"></script>
+    <script type="text/javascript" src="./js/debug/STLLoader.js"></script>
+    <script type="text/javascript" src="./js/debug/ros3d.js"></script>
+    <script type="text/javascript" src="./js/debug/app.js"></script>
+    <script type="text/javascript" src="./js/ui-customizations.js"></script>
+    -->
 </head>
-<!-- sudo ufw allow 22
--->
-<body>
-		
-			<div id="gamepadPrompt"></div>
-			<div id="gamepadDisplay"></div>
-				
-			<script>
-			var hasGP = false;
-			var repGP;
-			var axis1, axi2;
-			var twist;
-			axis1=0.0, axis2=0.0;
-			function canGame() {
-				return "getGamepads" in navigator;
-			}
-		
-			function reportOnGamepad() {
-				var gp = navigator.getGamepads()[0];
-				var html = "";
-					html += "id: you are using a"+gp.id+"<br/>";
-				
-				for(var i=0;i<gp.buttons.length;i++) {
-					html+= "Button "+(i+1)+": ";
-					if(gp.buttons[i].pressed) html+= " pressed";
-					html+= "<br/>";
-				}
-				
-				for(var i=0;i<gp.axes.length; i+=2) {
-					html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
-				}
-				
-				axis1=gp.axes[0];
-				axis2=gp.axes[1];
 
-				twist = new ROSLIB.Message({
-    				linear : {
-      				x : axis1,
-      				y : 0.0,
-      				z : 0.0 
-    				},
-    				angular : {
-      				x : 0.0,
-      				y : 0.0,
-      				z : axis2
-						}
-    			});
-				$("#gamepadDisplay").html(html);
-			}
-				
-			$(document).ready(function() {
-		
-				if(canGame()) {
-		
-					var prompt = "To begin using your gamepad, connect it and press any button!";
-					$("#gamepadPrompt").text(prompt);
-					
-					$(window).on("gamepadconnected", function() {
-						hasGP = true;
-						$("#gamepadPrompt").html("Gamepad connected!");
-						console.log("connection event");
-						repGP = window.setInterval(reportOnGamepad,100);
-					});
-		
-					$(window).on("gamepaddisconnected", function() {
-						console.log("disconnection event");
-						$("#gamepadPrompt").text(prompt);
-						window.clearInterval(repGP);
-					});
-		
-					//setup an interval for Chrome
-					var checkGP = window.setInterval(function() {
-						console.log('checkGP');
-						if(navigator.getGamepads()[0]) {
-							if(!hasGP) $(window).trigger("gamepadconnected");
-							window.clearInterval(checkGP);
-						}
-					}, 500);
-				}
-				
-			});
+<body class="hold-transition skin-black layout-top-nav">
+    <div class="wrapper">
+        <header class="main-header">
+            <nav class="navbar navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#"><img src="./images/itu_rover.png" alt="ITU Rover Team" style = "box-sizing: border-box; 
+                                                                                                                         width: 60px"></a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a>DASHBOARD <span class="sr-only">(current)</span></a></li>
+                            <li><a href="mission-planning.html">PLAN</a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <section class="content-header">
+                <h1>Altınay-2</h1>
+            </section>
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-5 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <!-- State Info -->
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div id="boxState" class="info-box bg-gray collapsed-box">
+                                    <span class="info-box-icon">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">STATE</span>
+                                        <span class="info-box-number" id="txtState">SRD STATE</span>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="info-box-detail no-padding">
+                                        <table class="table table-striped table-hover no-margin">
+                                            <tr>
+                                                <th>Armed</th>
+                                                <td id="txtArmedStatus">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th>PX4 Mode</th>
+                                                <td id="txtPx4Mode">N/A</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Battery Info -->
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div id="boxBattery" class="info-box bg-gray collapsed-box">
+                                    <span class="info-box-icon">
+                                        <i class="fa fa-bolt" id="icnBattery"></i>
+                                    </span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">BATTERY</span>
+                                        <span class="info-box-number" id="txtBatteryPercentage">N/A</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" id="progBatteryPercent" style="width: 0%;"></div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="info-box-detail no-padding">
+                                        <table class="table table-striped table-hover no-margin">
+                                            <tr>
+                                                <th>Voltage</th>
+                                                <td id="txtBatteryVoltage">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Current</th>
+                                                <td id="txtBatteryCurrent">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Consumed</th>
+                                                <td id="txtBatteryConsumed">N/A</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Global Info -->
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="info-box bg-gray collapsed-box">
+                                    <span class="info-box-icon">
+                                        <i class="fa fa-location-arrow" id="icnMotorStatus"></i>
+                                    </span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">GLOBAL</span>
+                                        <span class="info-box-number" id="txtFixStatus">N/A</span>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="info-box-detail no-padding">
+                                        <table class="table table-striped table-hover no-margin">
+                                            <tr>
+                                                <th>Latitude</th>
+                                                <td id="txtLatitude">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Longitude</th>
+                                                <td id="txtLongitude">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Altitude</th>
+                                                <td id="txtGlobalAltitude">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Heading</th>
+                                                <td id="txtCompassHeading">N/A</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Local Info -->
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div id="boxInduction" class="info-box bg-gray collapsed-box">
+                                    <span class="info-box-icon">
+                                        <i class="fa fa-map-marker " id="icnStrip"></i>
+                                    </span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">LOCAL</span>
+                                        <span class="info-box-number" id="txtLocalInfo">N/A</span>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="info-box-detail no-padding">
+                                        <table class="table table-striped table-hover no-margin">
+                                            <tr>
+                                                <th class="col-xs-3 text-left"> </th>
+                                                <th class="col-xs-3 text-center">x</th>
+                                                <th class="col-xs-3 text-center">y</th>
+                                                <th class="col-xs-3 text-center">z</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left" id="txtPosition">Position</th>
+                                                <td class="text-center" id="txtPositionX">N/A</td>
+                                                <td class="text-center" id="txtPositionY">N/A</td>
+                                                <td class="text-center" id="txtPositionZ">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left" id="txtVelocity">Velocity</th>
+                                                <td class="text-center" id="txtVelocityX">N/A</td>
+                                                <td class="text-center" id="txtVelocityY">N/A</td>
+                                                <td class="text-center" id="txtVelocityZ">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left" id="txtAcceleration">Acceleration</th>
+                                                <td class="text-center" id="txtAccelerationX">N/A</td>
+                                                <td class="text-center" id="txtAccelerationY">N/A</td>
+                                                <td class="text-center" id="txtAccelerationZ">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left" id="txtOrientation">Orientation</th>
+                                                <td class="text-center" id="txtOrientationX">N/A</td>
+                                                <td class="text-center" id="txtOrientationY">N/A</td>
+                                                <td class="text-center" id="txtOrientationZ">N/A</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- map field -->
+                    <div class="col-md-7 col-xs-12">
+                        <div id="map" class="map-sm"></div>
+                    </div>
+                    <!-- map field ends-->
+                </div>
+            </section>
+        </div>
+    </div>
 
-			//_____________________________________________________________
-
-    var ros_server_url = document.location.hostname + ":9090";
-    var ros = new ROSLIB.Ros({
-    url : "ws://" + ros_server_url
-  });
-
-  ros.on('connection', function() {
-    console.log('Connected to websocket server.');
-  });
-
-  ros.on('error', function(error) {
-    console.log('Error connecting to websocket server: ', error);
-  });
-
-  ros.on('close', function() {
-    console.log('Connection to websocket server closed.');
-  });
-
-  // Publishing a Topic
-  // ------------------
-
-  var cmdVel = new ROSLIB.Topic({
-    ros : ros,
-    name : '/husky_velocity_controller/cmd_vel',
-	messageType : 'geometry_msgs/Twist'
-	
-  });
-
-
-  window.onload = function start() {
-    slide();
-}
-function slide() {
-    window.setInterval(function () {
-			  console.log("axis1: " + axis1 + " axis2: " + axis2)
-        cmdVel.publish(twist)
-    }, 250); // repeat forever, polling every 3 seconds
-}
-			</script>
+    <script src="./js/dashboard_map.js" type="application/javascript"></script>
+    <script src="./js/dashboard_ros-connection.js" type="text/javascript"></script>
 </body>
+
 </html>
