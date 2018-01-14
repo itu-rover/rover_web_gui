@@ -2,14 +2,19 @@
 // the code. map-operations.js only includes special constructor functions to be used with mapbox-gl.js library. Constructor functions does not 
 // contain any mapboxgl functions.They only contain the needed data, functions to manipulalate this data and create html pieces.
 
-var marker_rs = function (features) {
+var marker_rs = function (pos_init) {
     this.index = 0;
     this.setIndex = function(idx){
         this.index = idx;
+        this.id = "waypoint-" + idx ;
+        this.marker_div.className = "waypoint";
+        this.marker_div.id = this.id;
+        this.marker_div.setAttribute("index", idx);
+        this.marker_div.innerHTML = this.index;
     }
     this.id = null;
-    
-    this.coordinates = [features.coordinates.lng, features.coordinates.lat];
+
+    this.coordinates = pos_init;
     
     this.setPosition = function(pos){
         this.coordinates = pos;
@@ -53,6 +58,8 @@ var marker_rs = function (features) {
     },
     
     this.marker_div = null;
+    
+    this.marker = null;
     
 }
 /* marker_rs*/

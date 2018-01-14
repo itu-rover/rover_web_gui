@@ -41,6 +41,7 @@
           }
         }
     }
+    
 }(jQuery));
 
 $.AdminLTE.expandableInfoBox.activate();
@@ -53,3 +54,8 @@ $.fn.extend({
         });
     }
 });
+
+jQuery(".toggle-btn").click(function () { 
+    $(this).toggleClass("disabled");
+    
+});  

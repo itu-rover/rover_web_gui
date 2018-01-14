@@ -24,11 +24,14 @@
     width: 98vw;
 }
 .waypoint {
-    background-image: url('../images/itu_rover.png');
-    background-size: cover;
-    width: 50px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba( 55, 102, 143, 0.602 );
     border-radius: 50%;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 10px;
+    color:rgba( 255, 255, 255, 0.602 );
     cursor:pointer;
 }
 
