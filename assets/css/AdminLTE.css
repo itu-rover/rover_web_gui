@@ -1110,7 +1110,7 @@ a:focus {
   font-size: 12px;
 }
 .navbar-nav > .user-menu > .dropdown-menu > .user-body {
-  padding: 15px;
+  padding: 15px;}
   border-bottom: 1px solid #f4f4f4;
   border-top: 1px solid #dddddd;
 }

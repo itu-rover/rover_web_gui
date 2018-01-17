@@ -102,23 +102,6 @@ function initSubscribers() {
     //--Position x, y, z (m)
     //--Orientation x, y, z, w (angle)(TODO convert to euler angles AND to degrees bc
     //--Velocity x, y, z, (m/s)
-    local_odom_listener.subscribe(function(msg) {
-        jQuery("#txtPositionX").html(msg.pose.pose.position.x.toFixed(3) + " m");
-        jQuery("#txtPositionY").html(msg.pose.pose.position.y.toFixed(3) + " m");
-        jQuery("#txtPositionZ").html(msg.pose.pose.position.z.toFixed(3) + " m");
-        jQuery("#txtVelocityX").html(msg.twist.twist.linear.x.toFixed(3) + " m/s");
-        jQuery("#txtVelocityY").html(msg.twist.twist.linear.y.toFixed(3) + " m/s");
-        jQuery("#txtVelocityZ").html(msg.twist.twist.linear.z.toFixed(3) + " m/s");
-        jQuery("#txtOrientationX").html(msg.pose.pose.orientation.x.toFixed(3));
-        jQuery("#txtOrientationY").html(msg.pose.pose.orientation.y.toFixed(3));
-        jQuery("#txtOrientationZ").html(msg.pose.pose.orientation.z.toFixed(3));
-    });
-    //--Acceleration x, y, z (m/s/s)
-    imu_listener.subscribe(function(msg) {
-        jQuery("#txtAccelerationX").html(msg.linear_acceleration.x.toFixed(2) + " m/s/s");
-        jQuery("#txtAccelerationY").html(msg.linear_acceleration.y.toFixed(2) + " m/s/s");
-        jQuery("#txtAccelerationZ").html(msg.linear_acceleration.z.toFixed(2) + " m/s/s");
-    });
 
     //-Mission
     //--TODO Mission type (topic to be determined)
