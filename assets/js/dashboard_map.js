@@ -10,20 +10,21 @@ var joy_msg = new ROSLIB.Message({
       z : 0.0
     },
     angular : {
-      x : -0.0,
-      y : -0.0,
-      z : -0.0
+      x : 0.0,
+      y : 0.0,
+      z : 0.0
     }
   });
-var joystick_datas = {
-    axis_0 : 0.0,
-    axis_1 : 0.0,
-    axis_2 : 0.0,
-    axis_3 : 0.0,
-    axis_4 : 0.0,
-    axis_5 : 0.0
-}
-var joystick_publisher;
+
+var joystick_datas = new Array();
+
+var joystick_publisher = new ROSLIB.Topic({
+       ros : ros,
+       name : 'rover_joy/cmd_vel',
+       messageType : 'geometry_msgs/Twist'
+    });
+
+
 window.gamepad = new Gamepad();
 var focused = false;
 var monument = [-110.791941, 38.406320];
@@ -57,6 +58,8 @@ function initPublishers(){
        name : 'rover_joy/cmd_vel',
        messageType : 'geometry_msgs/Twist'
     });
+    
+    joystick_publisher(joy_msg);
 }
 function initSubscribers() {
     ////Define subscribers
@@ -261,12 +264,12 @@ gamepad.bind(Gamepad.Event.AXIS_CHANGED, function (e) {
     for (j = 0; j < e.gamepad.axes.length; j++) {
         var axis_value = e.gamepad.axes[j].toFixed(3);
         joystick_datas[j] = axis_value;
-        console.log("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .progress-bar");
+        console.log(joy_msg);
         $("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .progress-bar").css("width", Math.abs(axis_value * 100) + "%");
         $("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .badge").text(axis_value);
     }
-    joystick_datas[1] = -joy_msg.linear.y;
-    joystick_datas[0] = joy_msg.angular.z;
+     joy_msg.linear.x = -joystick_datas[1];
+     joy_msg.angular.z = +joystick_datas[2]; 
     
     if(rosConnected){ 
         joystick_publisher.publish(joy_msg);
