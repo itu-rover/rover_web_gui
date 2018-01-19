@@ -3,12 +3,11 @@
  var ros_server_url = document.location.hostname + ":9090";
  var ros = new ROSLIB.Ros();
  var rosConnected = false; //control variable
- var pos_msg = new ROSLIB.Message({
-     latitude: null,
-     longitude: null
-  });
+ 
 
- var ui_variables = {
+
+
+ var ui_variables = {  // control değişkenleri oluşturuldu
      focused: false,
      editable: false,
      remove: false,
@@ -28,12 +27,56 @@
     ]
  };
 
+//Define ros messages
+ var pos_msg = new ROSLIB.Message({ //position mesaj objesini oluşturdum.
+     latitude: null,
+     longitude: null
+  });
+//-------------------------------------------------------------------------
+//define publishers--
 var position_publisher = new ROSLIB.Topic({
        ros : ros,
        name : 'rover_gps/waypoint',
        messageType : 'sensor_msgs/NavSatFix'
     });
+//----------------------------------------------
+//define subscribers
+     var battery_listener = new ROSLIB.Topic({
+         ros: ros,
+         name: '/mavros/battery',
+         messageType: 'sensor_msgs/BatteryState'
+     });
 
+     var state_listener = new ROSLIB.Topic({
+         ros: ros,
+         name: '/mavros/state',
+         messageType: 'mavros_msgs/State'
+     }); 
+
+     var global_position_listener = new ROSLIB.Topic({
+         ros: ros,
+         name: 'gps/fix',
+         messageType: 'sensor_msgs/NavSatFix'
+     });
+
+     var compass_hdg_listener = new ROSLIB.Topic({
+         ros: ros,
+         name: '/mavros/global_position/compass_hdg',
+         messageType: 'std_msgs/Float64'
+     });
+
+     var local_odom_listener = new ROSLIB.Topic({
+         ros: ros,
+         name: '/mavros/local_position/odom',
+         messageType: 'nav_msgs/Odometry'
+     });
+
+     var imu_listener = new ROSLIB.Topic({
+         ros: ros,
+         name: '/mavros/imu/data',
+         messageType: 'sensor_msgs/Imu'
+     });
+//-------------------------------------------
  var markerLineString = {
 
 
@@ -88,11 +131,12 @@ var position_publisher = new ROSLIB.Topic({
  }
 
  ros.connect("ws://" + ros_server_url); //connected to ros
-
+ 
  ros.on("connection", function () {
      console.debug("Connected to ROS server");
      rosConnected = true;
-     initSubscribers(); //this function contains everything about realtime tracking
+     initSubscribers(); 
+     initPublishers();
  });
 
  ros.on("close", function () {
@@ -124,7 +168,8 @@ var position_publisher = new ROSLIB.Topic({
          moveMarker(ui_variables.target_index, [e.lngLat.lng, e.lngLat.lat]);
      }
  });
-
+ 
+ 
  //if you want to do realtime operations on map, use this
  map.on('load', function () {
      //CREATES source for waypoints
@@ -214,47 +259,13 @@ var position_publisher = new ROSLIB.Topic({
      });
 
  });
-
+    
+ function initPublishers(){
+     position_publisher.publish(pos_msg);
+ }
 
  //obtain data from ros
  function initSubscribers() {
-     ////Define subscribers
-
-     var battery_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/battery',
-         messageType: 'sensor_msgs/BatteryState'
-     });
-
-     var state_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/state',
-         messageType: 'mavros_msgs/State'
-     });
-
-     var global_position_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/global_position/global',
-         messageType: 'sensor_msgs/NavSatFix'
-     });
-
-     var compass_hdg_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/global_position/compass_hdg',
-         messageType: 'std_msgs/Float64'
-     });
-
-     var local_odom_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/local_position/odom',
-         messageType: 'nav_msgs/Odometry'
-     });
-
-     var imu_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/imu/data',
-         messageType: 'sensor_msgs/Imu'
-     });
 
      //State
      //TODO Add Robostate /State topic
@@ -298,7 +309,7 @@ var position_publisher = new ROSLIB.Topic({
  });
 
  $("#addMarkBtn").click(function (){
-     var data = [$("#addMarkLat").val(), $("#addMarkLng").val()];
+     var data = [Number($("#addMarkLat").val()), Number($("#addMarkLng").val())];
      addMark(data);
  });
 
