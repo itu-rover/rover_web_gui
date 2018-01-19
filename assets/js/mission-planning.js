@@ -3,6 +3,11 @@
  var ros_server_url = document.location.hostname + ":9090";
  var ros = new ROSLIB.Ros();
  var rosConnected = false; //control variable
+ var pos_msg = new ROSLIB.Message({
+     latitude: null,
+     longitude: null
+  });
+
  var ui_variables = {
      focused: false,
      editable: false,
@@ -22,6 +27,12 @@
      "features": [
     ]
  };
+
+var position_publisher = new ROSLIB.Topic({
+       ros : ros,
+       name : 'rover_gps/waypoint',
+       messageType : 'sensor_msgs/NavSatFix'
+    });
 
  var markerLineString = {
 
@@ -82,6 +93,11 @@
      console.debug("Connected to ROS server");
      rosConnected = true;
      initSubscribers(); //this function contains everything about realtime tracking
+ });
+
+ ros.on("close", function () {
+     console.debug("Disconnected from ROS server");
+     rosConnected = false;
  });
 
  // Used to draw a line between points
@@ -334,6 +350,13 @@
  $(document).on("click", ".waypoint", function (e) {
      if (ui_variables.remove && ui_variables.editable) {
          removeMarker(e.target);
+     }
+     else if (!ui_variables.editable && rosConnected == true){
+         var target_index = e.target.getAttribute("index"); 
+         var target_pos = waypoints[target_index].coordinates;
+         pos_msg.latitude = target_pos[0];
+         pos_msg.longitude = target_pos[1];
+         position_publisher.publish(pos_msg);
      }
  });
 

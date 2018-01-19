@@ -58,17 +58,18 @@
                             <button type="button" class="btn btn-default btn-flat toggle-btn" id="edit-markers">EDIT MARKERS</button>
 
                         </div>
+
                         <div class="col-md-4 pull-right">
                             <div class="input-group" id="marker-adder">
                                 <span class="input-group-addon bg-gray">lat:</span>
-                                <input type="text" class="form-control" placeholder="Latitude">
+                                <input type="text" class="form-control" placeholder="Latitude" id="addMarkLat">
                                 <span class="input-group-addon bg-gray">lng:</span>
-                                <input type="text" class="form-control" placeholder="Longtitude">
+                                <input type="text" class="form-control" placeholder="Longtitude" id="addMarkLng">
                                 <span class="input-group-btn">
-                                <button type="button" class="btn btn-info">Add</button>
+                                <button type="button" class="btn btn-default bg-purple" id="addMarkBtn">Add</button>
                             </span>
                             </div>
-                        </div>
+                        </div>git
 
                         <div class="col-md-3 ">
                             <div class="input-group" id="go-on-map">
@@ -88,10 +89,12 @@
                     <div class="btn-group-vertical">
                         <button type="button" class="btn btn-default btn-lg bg-grey  toggle-btn" id="add-marker"><span class="fa fa-plus"></span></button>
                         <button type="button" class="btn btn-default bg-grey btn-lg toggle-btn" id="move-marker"><span class="fa fa-arrows"></span></button>
-                        <button type="button" class="btn btn-default bg-grey btn-lg toggle-btn" id="remove-marker"><span class="fa fa-trash"></span></button><br><br>
+                        <button type="button" class="btn btn-default bg-grey btn-lg toggle-btn" id="remove-marker"><span class="fa fa-trash"></span></button>
+                        <br>
+                        <br>
                         <button type="button" class="btn btn-default btn-lg bg-red" id="remove-all-markers"><span class="fa fa-trash"></span></button>
                         <br>
-                        
+
                     </div>
 
                 </div>
