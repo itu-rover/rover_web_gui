@@ -281,6 +281,11 @@
      map.setCenter(drone.coordinates);
  });
 
+ $("#addMarkBtn").click(function (){
+     var data = [$("#addMarkLat").val(), $("#addMarkLng").val()];
+     addMark(data);
+ });
+
  $("#edit-markers").click(function () {
      if (!ui_variables.editable) {
          initControl("#move-marker");
