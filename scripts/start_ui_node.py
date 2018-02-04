@@ -69,7 +69,7 @@ def main():
     # Run the web server!
     http_handler = SimpleHTTPServer.SimpleHTTPRequestHandler
     global http_server
-    http_server = SocketServer.TCPServer(("127.0.0.1", port), http_handler)
+    http_server = SocketServer.TCPServer(("0.0.0.0", port), http_handler)
     http_thread = threading.Thread(target = http_server.serve_forever)
     http_thread.start()
     rospy.loginfo("Itu Rover Web Client: listening on port %d" % (port))

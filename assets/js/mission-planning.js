@@ -3,19 +3,89 @@
  var ros_server_url = document.location.hostname + ":9090";
  var ros = new ROSLIB.Ros();
  var rosConnected = false; //control variable
+
+
+ //map style 'Ları burada tanımlanıyor-----
+ var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116,41.1139016927532]);
+ var itu_map = {
+     "version": 8,
+     "sources": {
+         "itu_map_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/itu-ayazaga/{z}/{x}/{y}.pbf"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
+
+         }
+     },
+     "layers": [{
+         "id": "itu_map_tile",
+         "type": "raster",
+         "source": "itu_map_tile",
+         "minzoom": 0,
+         "maxzoom": 19
+        }]
+ };
  
+ var utah_1_bound = new mapboxgl.LngLatBounds([-110.79389650482354, 38.4057982037259], [-110.78977663177666, 38.406956319882759]);
+ var utah_1 = {
+     "version": 8,
+     "sources": {
+         "utah_1_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-1/{z}/{x}/{y}.pbf"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
 
+         }
+     },
+     "layers": [{
+         "id": "utah_1_tile",
+         "type": "raster",
+         "source": "utah_1_tile",
+         "minzoom": 0,
+         "maxzoom": 19
+        }]
+ };
 
+ var utah_2_bound = new mapboxgl.LngLatBounds([-110.80391473427945, 38.394643283958821], [-110.77716804847765, 38.415678114259329]);
+ var utah_2 = {
+     "version": 8,
+     "sources": {
+         "utah_2_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-2/{z}/{x}/{y}.pbf"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
 
- var ui_variables = {  // control değişkenleri oluşturuldu
+         }
+     },
+     "layers": [{
+         "id": "utah_2_tile",
+         "type": "raster",
+         "source": "utah_2_tile",
+         "minzoom": 0,
+         "maxzoom": 19
+        }]
+ };
+
+ //----------------------------map-stylelarının sonu
+
+ var ui_variables = { // control değişkenleri oluşturuldu
      focused: false,
      editable: false,
      remove: false,
      move: false,
      add: false,
      target_index: null,
-     marker_moving:false
-     
+     marker_moving: false
+
  }
  var monument = [-110.791941, 38.406320, ];
  var waypoints = new Array(); //stores marker_rs
@@ -27,56 +97,56 @@
     ]
  };
 
-//Define ros messages
+ //Define ros messages
  var pos_msg = new ROSLIB.Message({ //position mesaj objesini oluşturdum.
      latitude: null,
      longitude: null
-  });
-//-------------------------------------------------------------------------
-//define publishers--
-var position_publisher = new ROSLIB.Topic({
-       ros : ros,
-       name : 'rover_gps/waypoint',
-       messageType : 'sensor_msgs/NavSatFix'
-    });
-//----------------------------------------------
-//define subscribers
-     var battery_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/battery',
-         messageType: 'sensor_msgs/BatteryState'
-     });
+ });
+ //-------------------------------------------------------------------------
+ //define publishers--
+ var position_publisher = new ROSLIB.Topic({
+     ros: ros,
+     name: 'rover_gps/waypoint',
+     messageType: 'sensor_msgs/NavSatFix'
+ });
+ //----------------------------------------------
+ //define subscribers
+ var battery_listener = new ROSLIB.Topic({
+     ros: ros,
+     name: '/mavros/battery',
+     messageType: 'sensor_msgs/BatteryState'
+ });
 
-     var state_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/state',
-         messageType: 'mavros_msgs/State'
-     }); 
+ var state_listener = new ROSLIB.Topic({
+     ros: ros,
+     name: '/mavros/state',
+     messageType: 'mavros_msgs/State'
+ });
 
-     var global_position_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: 'gps/fix',
-         messageType: 'sensor_msgs/NavSatFix'
-     });
+ var global_position_listener = new ROSLIB.Topic({
+     ros: ros,
+     name: 'gps/fix',
+     messageType: 'sensor_msgs/NavSatFix'
+ });
 
-     var compass_hdg_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/global_position/compass_hdg',
-         messageType: 'std_msgs/Float64'
-     });
+ var compass_hdg_listener = new ROSLIB.Topic({
+     ros: ros,
+     name: '/mavros/global_position/compass_hdg',
+     messageType: 'std_msgs/Float64'
+ });
 
-     var local_odom_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/local_position/odom',
-         messageType: 'nav_msgs/Odometry'
-     });
+ var local_odom_listener = new ROSLIB.Topic({
+     ros: ros,
+     name: '/mavros/local_position/odom',
+     messageType: 'nav_msgs/Odometry'
+ });
 
-     var imu_listener = new ROSLIB.Topic({
-         ros: ros,
-         name: '/mavros/imu/data',
-         messageType: 'sensor_msgs/Imu'
-     });
-//-------------------------------------------
+ var imu_listener = new ROSLIB.Topic({
+     ros: ros,
+     name: '/mavros/imu/data',
+     messageType: 'sensor_msgs/Imu'
+ });
+ //-------------------------------------------
  var markerLineString = {
 
 
@@ -131,11 +201,11 @@ var position_publisher = new ROSLIB.Topic({
  }
 
  ros.connect("ws://" + ros_server_url); //connected to ros
- 
+
  ros.on("connection", function () {
      console.debug("Connected to ROS server");
      rosConnected = true;
-     initSubscribers(); 
+     initSubscribers();
      initPublishers();
  });
 
@@ -164,14 +234,14 @@ var position_publisher = new ROSLIB.Topic({
  });
 
  map.on('mousemove', function (e) {
-     if(ui_variables.move && ui_variables.editable && ui_variables.marker_moving){
+     if (ui_variables.move && ui_variables.editable && ui_variables.marker_moving) {
          moveMarker(ui_variables.target_index, [e.lngLat.lng, e.lngLat.lat]);
      }
  });
- 
- 
+
+
  //if you want to do realtime operations on map, use this
- map.on('load', function () {
+ map.on('styledata', function () {
      //CREATES source for waypoints
      map.addSource('waypoints', {
          "type": 'geojson',
@@ -251,16 +321,16 @@ var position_publisher = new ROSLIB.Topic({
              "line-cap": "round"
          },
          "paint": {
-             "line-color": "#fff",
-             "line-width": 4,
-             "line-opacity": 0.4
+             "line-color": "#b80909",
+             "line-width": 8,
+             "line-opacity": 0.6
          }
 
      });
 
  });
-    
- function initPublishers(){
+
+ function initPublishers() {
      position_publisher.publish(pos_msg);
  }
 
@@ -308,7 +378,7 @@ var position_publisher = new ROSLIB.Topic({
      map.setCenter(drone.coordinates);
  });
 
- $("#addMarkBtn").click(function (){
+ $("#addMarkBtn").click(function () {
      var data = [Number($("#addMarkLat").val()), Number($("#addMarkLng").val())];
      addMark(data);
  });
@@ -338,9 +408,9 @@ var position_publisher = new ROSLIB.Topic({
  });
 
  $("#move-marker").click(function () {
-     if(!ui_variables.move){
+     if (!ui_variables.move) {
          map.dragPan.disable();
-     }else{
+     } else {
          map.dragPan.enable();
      }
      ui_variables.move = !ui_variables.move;
@@ -358,12 +428,39 @@ var position_publisher = new ROSLIB.Topic({
 
  });
 
+ $("#map-online").click(function () {
+     map.setStyle('mapbox://styles/mapbox/satellite-streets-v9');
+     map.setCenter([-110.791941, 38.406320]);
+     map.setMaxBounds(null);
+ });
+
+ $("#map-offline-1").click(function () {
+     map.setStyle(itu_map);
+     map.setCenter([29.02677916503476, 41.104005936601482]);
+     map.setMaxBounds(itu_map_bound);
+     map.setZoom(15);
+ });
+
+ $("#map-offline-2").click(function () {
+     map.setStyle(utah_1);
+     map.setCenter([-110.791941, 38.406320]);
+     map.setMaxBounds(utah_1_bound);
+     map.setZoom(15);
+ });
+
+ $("#map-offline-3").click(function () {
+     map.setStyle(utah_2);
+     map.setCenter([-110.791941, 38.406320]);
+     map.setMaxBounds(utah_2_bound);
+     map.setZoom(15);
+     
+ });
+
  $(document).on("click", ".waypoint", function (e) {
      if (ui_variables.remove && ui_variables.editable) {
          removeMarker(e.target);
-     }
-     else if (!ui_variables.editable && rosConnected == true){
-         var target_index = e.target.getAttribute("index"); 
+     } else if (!ui_variables.editable && rosConnected == true) {
+         var target_index = e.target.getAttribute("index");
          var target_pos = waypoints[target_index].coordinates;
          pos_msg.latitude = target_pos[0];
          pos_msg.longitude = target_pos[1];
@@ -371,20 +468,20 @@ var position_publisher = new ROSLIB.Topic({
      }
  });
 
-$(document).on("mousedown", ".waypoint", function(e){
-    e.preventDefault();
-    if (ui_variables.move && ui_variables.editable) {
+ $(document).on("mousedown", ".waypoint", function (e) {
+     e.preventDefault();
+     if (ui_variables.move && ui_variables.editable) {
          ui_variables.target_index = e.target.getAttribute("index");
          ui_variables.marker_moving = true;
      }
-});
+ });
 
-$(document).on("mouseup", ".waypoint", function(e){
-    if (ui_variables.move && ui_variables.editable) {
+ $(document).on("mouseup", ".waypoint", function (e) {
+     if (ui_variables.move && ui_variables.editable) {
          ui_variables.target_index = null;
          ui_variables.marker_moving = false;
      }
-});
+ });
 
  function addMark(data) {
      var marker_prototype = new marker_rs(data);
@@ -417,12 +514,12 @@ $(document).on("mouseup", ".waypoint", function(e){
      */
      var temp_index = waypoints.indexOf(marker_prototype);
      var el = document.createElement('div');
-     if(temp_index == 0){
+     if (temp_index == 0) {
          el.style.backgroundColor = "green";
      }
      waypoints[temp_index].marker_div = el;
      waypoints[temp_index].setIndex(temp_index);
-     
+
      map.getSource("waypoints").setData(markerDatas); //this "waypoints" is not the array that marker_rs s are stored.It is name of the source.
      waypoints[temp_index].marker = new mapboxgl.Marker(el)
          .setLngLat(data)
@@ -435,9 +532,9 @@ $(document).on("mouseup", ".waypoint", function(e){
  function updateLines() {
      markerLineString.geometry.coordinates = [];
      for (i = 0; i < markerDatas.features.length; i++) {
-             markerLineString.geometry.coordinates[i] = markerDatas.features[i].geometry.coordinates;
+         markerLineString.geometry.coordinates[i] = markerDatas.features[i].geometry.coordinates;
      }
-     if(markerDatas.features.length < 2){
+     if (markerDatas.features.length < 2) {
          markerLineString.geometry.coordinates = [[], []];
      }
      map.getSource("lines").setData(markerLineString);
@@ -448,13 +545,11 @@ $(document).on("mouseup", ".waypoint", function(e){
      element.remove();
      waypoints.splice(idx, 1);
      markerDatas.features.splice(idx, 1);
-     console.log(markerLineString.geometry.coordinates);
-     console.log(markerDatas.features);
-     for(k = idx; k < markerDatas.features.length;k++ ){
+     for (k = idx; k < markerDatas.features.length; k++) {
          waypoints[k].setIndex(k);
          waypoints[k].marker = new mapboxgl.Marker(waypoints[k].marker_div).setLngLat(waypoints[k].coordinates).addTo(map);
      }
-     
+
      map.getSource("waypoints").setData(markerDatas);
      updateLines();
  }
