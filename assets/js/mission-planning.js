@@ -28,6 +28,28 @@
          "maxzoom": 19
         }]
  };
+var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659,37.774211111850491]);
+ var isp_map = {
+     "version": 8,
+     "sources": {
+         "isp_map_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/isparta/{z}/{x}/{y}.png"],
+             //"maxzoom": 19,
+             //"minzoom": 12,        
+
+         }
+     },
+     "layers": [{
+         "id": "isp_map_tile",
+         "type": "raster",
+         "source": "isp_map_tile",
+         "minzoom": 12,
+         "maxzoom": 19
+        }]
+ };
  
  var utah_1_bound = new mapboxgl.LngLatBounds([-110.79389650482354, 38.4057982037259], [-110.78977663177666, 38.406956319882759]);
  var utah_1 = {
@@ -452,6 +474,13 @@
      map.setStyle(utah_2);
      map.setCenter([-110.791941, 38.406320]);
      map.setMaxBounds(utah_2_bound);
+     map.setZoom(15);
+     
+ });
+ $("#map-offline-4").click(function () {
+     map.setStyle(isp_map);
+     map.setCenter([30.565229347940253, 37.768412819763086]);
+     map.setMaxBounds();
      map.setZoom(15);
      
  });
