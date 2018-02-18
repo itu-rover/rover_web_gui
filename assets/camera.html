@@ -48,7 +48,21 @@
         <div class="container-fluid">
             <section class="content">
                 <div class="row">
-                    <div id='camera' class="camera-bg"></div>
+                    <div id='canvascontainer'>
+                    <canvas width="500" height="500"></canvas>
+                    </div>
+                    <br>
+                  
+                    <button type="button" tabindex="W" id="upbutton" ontouchstart="moveup()" onmousedown="moveup()" onmouseup="clearmove()" onclick="upbutton">Up</button>
+                    <br>
+                    
+                    <button ontouchstart="moveleft()" onmousedown="moveleft()" onmouseup="clearmove()" tabIndex="a">Left</button>
+                    <br>
+                    <button ontouchstart="moveright()" onmousedown="moveright()" onmouseup="clearmove()" tabIndex="D">Right</button>
+                    <br>
+                    
+                    <button ontouchstart="movedown()" onmousedown="movedown()" onmouseup="clearmove()" tabIndex="S">Down</button>
+                   
                 </div>
                 <div class="row">
                     <!-- Global Info -->
@@ -61,7 +75,78 @@
       </div>
     </div>
                         
-                        
+    <script>
+
+
+var myGameArea;
+var myGamePiece;
+        
+function myFunction() {
+    document.getElementById("upbutton").click();
+}
+function startGame() {
+    myGameArea = new gamearea();
+    myGamePiece = new component(30, 30, "grey", 10, 75);
+    myGameArea.start();    
+}
+
+function gamearea() {
+    this.canvas = document.createElement("canvas");
+    this.canvas.width = 320;
+    this.canvas.height = 180;    
+    document.getElementById("canvascontainer").appendChild(this.canvas);
+    this.context = this.canvas.getContext("2d");
+    this.start = function() {
+        this.interval = setInterval(updateGameArea, 20);
+    }
+    this.clear = function(){
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }        
+}
+
+function component(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y; 
+    this.speedX = 0;
+    this.speedY = 0;       
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+}
+
+function updateGameArea() {
+    myGameArea.clear();
+    myGamePiece.x += myGamePiece.speedX;
+    myGamePiece.y += myGamePiece.speedY;    
+    myGamePiece.update();
+}
+
+function moveup(e) {
+    myGamePiece.speedY = -1; 
+}
+
+function movedown() {
+    myGamePiece.speedY = 1; 
+}
+
+function moveleft() {
+    myGamePiece.speedX = -1; 
+}
+
+function moveright() {
+    myGamePiece.speedX = 1; 
+}
+
+function clearmove(e) {
+    myGamePiece.speedX = 0; 
+    myGamePiece.speedY = 0; 
+}
+startGame();
+</script>  
     <script type="text/javascript" src="./js/external/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="./js/mission-planning.js"></script>
     <script type="text/javascript" src="./js/external/bootstrap.min.js"></script>
