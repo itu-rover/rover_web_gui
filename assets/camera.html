@@ -3,6 +3,7 @@
 
 <head>
     <meta charset='utf-8' />
+ 
     <title>CAMERA-Joystick</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link href='http://admin:admin@192.168.1.101:8081/' rel='stylesheet' />
@@ -19,6 +20,7 @@
 
 </head>
 <body class="hold-transition skin-real-dark layout-top-nav">
+
     <div class="wrapper">
         <header class="main-header">
             <nav class="navbar navbar-static-top">
@@ -35,7 +37,6 @@
                             <li><a href="index.html">DASHBOARD</a> </li>
                             <li><a href="mission-planning.html">PLAN</a> </li>
                             <li class="active"><a>CAMERA-Joystick <span class="sr-only">(current)</span></a></li>
-                            <li><a href="http://admin:admin@192.168.1.101:8081/" target="_blank">Camera</a></li>
                             
                             
                         </ul>
@@ -49,11 +50,11 @@
             <section class="content">
                 <div class="row">
                     <div id='canvascontainer'>
-                    <canvas width="500" height="500"></canvas>
+                    <canvas width="600"  height="600"></canvas>
                     </div>
                     <br>
                   
-                    <button type="button" tabindex="W" id="upbutton" ontouchstart="moveup()" onmousedown="moveup()" onmouseup="clearmove()" onclick="upbutton">Up</button>
+                    <button  ontouchstart="moveup()" onmousedown="moveup()" onmouseup="clearmove()" onclick="upbutton">Up</button>
                     <br>
                     
                     <button ontouchstart="moveleft()" onmousedown="moveleft()" onmouseup="clearmove()" tabIndex="a">Left</button>
@@ -63,30 +64,23 @@
                     
                     <button ontouchstart="movedown()" onmousedown="movedown()" onmouseup="clearmove()" tabIndex="S">Down</button>
                    
-                </div>
-                <div class="row">
-                    <!-- Global Info -->
-                    <div class="col-md-12">
-                        
-                        
-    </div> 
+                
+                
+                   
+            
                 </div>
             </section>
       </div>
     </div>
-                        
-    <script>
 
-
-var myGameArea;
+   <script>
+    var myGameArea;
 var myGamePiece;
         
-function myFunction() {
-    document.getElementById("upbutton").click();
-}
+
 function startGame() {
     myGameArea = new gamearea();
-    myGamePiece = new component(30, 30, "grey", 10, 75);
+    myGamePiece = new component(30, 30, "grey", 10, 75)
     myGameArea.start();    
 }
 
@@ -98,7 +92,14 @@ function gamearea() {
     this.context = this.canvas.getContext("2d");
     this.start = function() {
         this.interval = setInterval(updateGameArea, 20);
-    }
+         window.addEventListener('keydown', function (e) {
+            myGameArea.key = e.keyCode; 
+         })
+                window.addEventListener('keyup', function (e) {
+            myGameArea.key = false;
+        })
+    },
+                
     this.clear = function(){
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }        
@@ -116,15 +117,26 @@ function component(width, height, color, x, y) {
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;        
+    }
 }
 
 function updateGameArea() {
     myGameArea.clear();
+    myGamePiece.newPos();
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;
     myGamePiece.x += myGamePiece.speedX;
     myGamePiece.y += myGamePiece.speedY;    
+    if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -1; }
+    if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1; }
+    if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
+    if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+        
     myGamePiece.update();
 }
-
 function moveup(e) {
     myGamePiece.speedY = -1; 
 }
@@ -146,7 +158,10 @@ function clearmove(e) {
     myGamePiece.speedY = 0; 
 }
 startGame();
-</script>  
+    
+    </script>                   
+                                    
+                        
     <script type="text/javascript" src="./js/external/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="./js/mission-planning.js"></script>
     <script type="text/javascript" src="./js/external/bootstrap.min.js"></script>
