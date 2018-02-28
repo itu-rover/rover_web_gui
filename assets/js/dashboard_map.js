@@ -3,27 +3,38 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGVrc3ByaW1lIiwiYSI6ImNqOGsxb3dyYzA4b2wyeHBsd
 var ros_server_url = document.location.hostname + ":9090";
 var ros = new ROSLIB.Ros();
 var rosConnected = false;
-var joy_msg = new ROSLIB.Message({
-    linear : {
-      x : 0.0,
-      y : 0.0,
-      z : 0.0
+var joy_msg1 = new ROSLIB.Message({
+    linear: {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
     },
-    angular : {
-      x : 0.0,
-      y : 0.0,
-      z : 0.0
+    angular: {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
     }
-  });
+});
+var joy_msg2 = new ROSLIB.Message({
+    linear: {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
+    },
+    angular: {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0
+    }
+});
 
-var joystick_datas = new Array();
+var joystick_datas1 = new Array();
 
-var joystick_publisher = new ROSLIB.Topic({
-       ros : ros,
-       name : 'rover_joy/cmd_vel',
-       messageType : 'geometry_msgs/Twist'
-    });
+var joystick_datas2 = new Array();
 
+var joystick_publisher1;
+
+var joystick_publisher2;
 
 window.gamepad = new Gamepad();
 var focused = false;
@@ -52,15 +63,24 @@ ros.on("close", function () {
 // Create connection
 ros.connect("ws://" + ros_server_url);
 
-function initPublishers(){
-       joystick_publisher = new ROSLIB.Topic({
-       ros : ros,
-       name : 'rover_joy/cmd_vel',
-       messageType : 'geometry_msgs/Twist'
+function initPublishers() {
+    joystick_publisher1 = new ROSLIB.Topic({
+        ros: ros,
+        name: 'rover_joy/cmd_vel',
+        messageType: 'geometry_msgs/Twist'
     });
-    
-    joystick_publisher(joy_msg);
+
+    joystick_publisher2 = new ROSLIB.Topic({
+        ros: ros,
+        name: 'robotic_arm/data',
+        messageType: 'geometry_msgs/Twist'
+    });
+
+    joystick_publisher1.publish(joy_msg1);
+    joystick_publisher2.publish(joy_msg2);
+
 }
+
 function initSubscribers() {
     ////Define subscribers
 
@@ -102,20 +122,18 @@ function initSubscribers() {
     humidty_listener.subscribe(function (msg) {
         //msg.string şeklinde mesajı alabilirsin
     });
-    barometer_listener.subscribe(function (msg) {
-    });
+    barometer_listener.subscribe(function (msg) {});
 
-    temp_listener.subscribe(function (msg) {
-    });
+    temp_listener.subscribe(function (msg) {});
 
     carbon_listener.subscribe(function (msg) {
 
     });
-    
+
     etanol_listener.subscribe(function (msg) {
 
     });
-    
+
 
     //-Mission
     //--TODO Mission type (topic to be determined)
@@ -261,18 +279,37 @@ if (!gamepad.init()) {
 }
 
 gamepad.bind(Gamepad.Event.AXIS_CHANGED, function (e) {
-    for (j = 0; j < e.gamepad.axes.length; j++) {
-        var axis_value = e.gamepad.axes[j].toFixed(3);
-        joystick_datas[j] = axis_value;
-        console.log(joy_msg);
-        $("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .progress-bar").css("width", Math.abs(axis_value * 100) + "%");
-        $("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .badge").text(axis_value);
+    if (e.gamepad.index == 0) {
+        for (j = 0; j < e.gamepad.axes.length; j++) {
+            var axis_value = e.gamepad.axes[j].toFixed(3);
+            joystick_datas1[j] = axis_value;
+            console.log(joy_msg1);
+            $("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .progress-bar").css("width", Math.abs(axis_value * 100) + "%");
+            $("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .badge").text(axis_value);
+        }
+        joy_msg1.linear.x = -joystick_datas1[1];
+        joy_msg1.angular.z = +joystick_datas1[2];
     }
-     joy_msg.linear.x = -joystick_datas[1];
-     joy_msg.angular.z = +joystick_datas[2]; 
-    
-    if(rosConnected){ 
-        joystick_publisher.publish(joy_msg);
+    if (e.gamepad.index == 1) {
+        for (j = 0; j < e.gamepad.axes.length; j++) {
+            var axis_value = e.gamepad.axes[j].toFixed(3);
+            joystick_datas2[j] = axis_value;
+            console.log(joy_msg2);
+            $("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .progress-bar").css("width", Math.abs(axis_value * 100) + "%");
+            $("#joy" + (e.gamepad.index + 1) + "-axis-" + j + " .badge").text(axis_value);
+        }
+        joy_msg2.linear.x = +joystick_datas2[0];
+        joy_msg2.linear.y = +joystick_datas2[1];
+        joy_msg2.linear.z = +joystick_datas2[2];
+        
+        joy_msg2.angular.x = +joystick_datas2[3];
+        joy_msg2.angular.y = +joystick_datas2[4];
+        joy_msg2.angular.z = +joystick_datas2[5];
+    }
+
+    if (rosConnected) {
+        joystick_publisher1.publish(joy_msg1);
+        joystick_publisher2.publish(joy_msg2);
     }
 });
 
