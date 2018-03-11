@@ -37,7 +37,7 @@ var marker_rs = function (pos_init) {
         this.comment = cmt;
     }
     
-    this.icon_path = "./images/logo.png";
+    this.icon_path = "./images/itu.png";
     
     this.setIcon = function (path){
         this.icon_path = path;

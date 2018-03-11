@@ -291,7 +291,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
              "source": "drone",
              "paint": {
                  "circle-radius": 18,
-                 "circle-color": "#fff",
+                 "circle-color": "#000",
                  "circle-opacity": 0.4
              }
          });
@@ -302,7 +302,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
              "source": "drone",
              "paint": {
                  "circle-radius": 40,
-                 "circle-color": "#fff",
+                 "circle-color": "#000",
                  "circle-opacity": 0.1
              }
          });
@@ -327,7 +327,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
          "source": "waypoints",
          "paint": {
              "circle-radius": 30,
-             "circle-color": "#fff",
+             "circle-color": "#000",
              "circle-opacity": 0.5
          }
 
