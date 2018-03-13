@@ -53,7 +53,7 @@
                         <ul class="nav navbar-nav">
                             <li class="active"><a>DASHBOARD <span class="sr-only">(current)</span></a></li>
                             <li><a href="mission-planning.html">PLAN</a></li>
-                            <li><a href="camera_yedek.html">Camera</a></li>         
+                            <li><a href="camera_yedek.html">Camera</a></li>
                         </ul>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                                                     <tr id="joy1-axis-0">
                                                         <td>1.</td>
                                                         <td>axis-0</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-bg">
                                                                 <div class="progress-bar progress-bar-danger" style="width: 0%"></div>
                                                             </div>
@@ -132,7 +132,7 @@
                                                     <tr id="joy1-axis-1">
                                                         <td>2.</td>
                                                         <td>axis-1</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-xs">
                                                                 <div class="progress-bar progress-bar-yellow" style="width: 0%"></div>
                                                             </div>
@@ -142,7 +142,7 @@
                                                     <tr id="joy1-axis-2">
                                                         <td>3.</td>
                                                         <td>axis-2</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-xs progress-striped active">
                                                                 <div class="progress-bar progress-bar-primary" style="width: 0%"></div>
                                                             </div>
@@ -152,7 +152,7 @@
                                                     <tr id="joy1-axis-3">
                                                         <td>4.</td>
                                                         <td>axis-3</td>
-                                                        <td > 
+                                                        <td>
                                                             <div class="progress progress-xs progress-striped active">
                                                                 <div class="progress-bar progress-bar-success" style="width: 0%"></div>
                                                             </div>
@@ -162,7 +162,7 @@
                                                     <tr id="joy1-axis-4">
                                                         <td>5.</td>
                                                         <td>axis-4</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-xs progress-striped active">
                                                                 <div class="progress-bar progress-bar-success" style="width: 0%"></div>
                                                             </div>
@@ -172,7 +172,7 @@
                                                     <tr id="joy1-axis-5">
                                                         <td>6.</td>
                                                         <td>axis-5</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-xs progress-striped active">
                                                                 <div class="progress-bar progress-bar-success" style="width: 0%"></div>
                                                             </div>
@@ -211,7 +211,7 @@
                                                     <tr id="joy2-axis-0">
                                                         <td>1.</td>
                                                         <td>axis-0</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-bg">
                                                                 <div class="progress-bar progress-bar-danger" style="width: 0%"></div>
                                                             </div>
@@ -222,7 +222,7 @@
                                                     <tr id="joy2-axis-1">
                                                         <td>2.</td>
                                                         <td>axis-1</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-xs">
                                                                 <div class="progress-bar progress-bar-yellow" style="width: 0%"></div>
                                                             </div>
@@ -232,7 +232,7 @@
                                                     <tr id="joy2-axis-2">
                                                         <td>3.</td>
                                                         <td>axis-2</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-xs progress-striped active">
                                                                 <div class="progress-bar progress-bar-primary" style="width: 0%"></div>
                                                             </div>
@@ -242,7 +242,7 @@
                                                     <tr id="joy2-axis-3">
                                                         <td>4.</td>
                                                         <td>axis-3</td>
-                                                        <td > 
+                                                        <td>
                                                             <div class="progress progress-xs progress-striped active">
                                                                 <div class="progress-bar progress-bar-success" style="width: 0%"></div>
                                                             </div>
@@ -252,7 +252,7 @@
                                                     <tr id="joy2-axis-4">
                                                         <td>5.</td>
                                                         <td>axis-4</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-xs progress-striped active">
                                                                 <div class="progress-bar progress-bar-success" style="width: 0%"></div>
                                                             </div>
@@ -262,7 +262,7 @@
                                                     <tr id="joy2-axis-5">
                                                         <td>6.</td>
                                                         <td>axis-5</td>
-                                                        <td >
+                                                        <td>
                                                             <div class="progress progress-xs progress-striped active">
                                                                 <div class="progress-bar progress-bar-success" style="width: 0%"></div>
                                                             </div>
@@ -277,8 +277,26 @@
                                 </div>
                                 <div>
                                 </div>
-                                
-                                                            
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div id="boxState" class="info-box bg-gray collapsed-box">
+                                    <div class="box box-info">
+                                        <div class="box-header bg-gray with-border">
+                                            <h3 class="box-title">Line Chart</h3>
+
+                                            <div class="box-tools bg-gray pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body bg-gray" style="">
+                                            <div class="chart">
+                                                <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
