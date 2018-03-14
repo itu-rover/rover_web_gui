@@ -36,6 +36,8 @@ var joystick_publisher1;
 
 var joystick_publisher2;
 
+
+
 window.gamepad = new Gamepad();
 var focused = false;
 var monument = [-110.791941, 38.406320];
@@ -84,9 +86,9 @@ function initPublishers() {
 function initSubscribers() {
     ////Define subscribers
 
-    var humidty_listener = new ROSLIB.Topic({
+    var humidity_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'humidity_topic', //dinlenecek topic adı
+        name: 'humiditiy_topic', //dinlenecek topic adı
         messageType: 'sensor_msgs/string' //topicin mesaj tipi
     });
 
@@ -113,13 +115,21 @@ function initSubscribers() {
         name: '/mavros/local_position/odom',
         messageType: 'nav_msgs/Odometry'
     });
+    
+     var metane_listener = new ROSLIB.Topic({
+        ros: ros,
+        name: '/cece_sensor',
+        messageType: 'string'
+    });
+    
+    
 
 
     //State
     //TODO Add Robostate /State topic
     //--Armed Status(True,False)
     //--Px4Mode(AUTO, OFFBOARD etc.)
-    humidty_listener.subscribe(function (msg) {
+    humidity_listener.subscribe(function (msg) {
         //msg.string şeklinde mesajı alabilirsin
     });
     barometer_listener.subscribe(function (msg) {});
@@ -132,6 +142,10 @@ function initSubscribers() {
 
     etanol_listener.subscribe(function (msg) {
 
+    });
+    
+    metane_listener.subscribe("chart","full-width-chart","badge")(function(xVal){
+        
     });
 
 
@@ -147,6 +161,41 @@ function initSubscribers() {
     ///
 }
 
+var chart = new CanvasJS.Chart("chartContainer1",
+    {
+        animationEnabled: true,
+        title: {
+            text: "Spline Area Chart"
+        },
+        axisX: {
+            interval: 10,
+        },
+        data: [
+        {
+            type: "splineArea",
+            color: "rgba(255,12,32,.3)",
+            type: "splineArea",
+            dataPoints: [
+                { x: new Date(1992, 0), y: 2506000 },
+                { x: new Date(1993, 0), y: 2798000 },
+                { x: new Date(1994, 0), y: 3386000 },
+                { x: new Date(1995, 0), y: 6944000 },
+                { x: new Date(1996, 0), y: 6026000 },
+                { x: new Date(1997, 0), y: 2394000 },
+                { x: new Date(1998, 0), y: 1872000 },
+                { x: new Date(1999, 0), y: 2140000 },
+                { x: new Date(2000, 0), y: 7289000 },
+                { x: new Date(2001, 0), y: 4830000 },
+                { x: new Date(2002, 0), y: 2009000 },
+                { x: new Date(2003, 0), y: 2840000 },
+                { x: new Date(2004, 0), y: 2396000 },
+                { x: new Date(2005, 0), y: 1613000 },
+                { x: new Date(2006, 0), y: 2821000 }
+            ]
+        },
+        ]
+    });
+chart.render();
 
 //GeoJson object for drone marker
 var drone = {
