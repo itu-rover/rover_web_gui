@@ -48,6 +48,11 @@ var carbon_data;
 
 var baro_data;
 
+var data = "87643567890876";
+
+var yVal = data.split('', 1);
+
+
 
 
 window.gamepad = new Gamepad();
@@ -100,41 +105,48 @@ function initSubscribers() {
 
     var humidty_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'cece', //dinlenecek topic adı
+        name: 'sensor_data', //dinlenecek topic adı
         messageType: 'sensor_msgs/string' //topicin mesaj tipi
     });
 
     var barometer_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'cece',
+        name: 'sensor_data',
         messageType: 'sensor_msgs/string'
     });
 
     var temp_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'cece',
+        name: 'sensor_data',
         messageType: 'sensor_msgs/string'
     });
 
     var carbon_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'cece',
+        name: 'sensor_data',
         messageType: 'sensor_msgs/string'
     });
 
     var etanol_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'cece',
-        messageType: 'sensor_msgs/string'
-    });
-   
-    var metane_listener = new ROSLIB.Topic({
-        ros: ros,
-        name: 'cece',
+        name: 'sensor_data',
         messageType: 'sensor_msgs/string'
     });
 
-    
+    var metane_listener = new ROSLIB.Topic({
+        ros: ros,
+        name: 'sensor_data',
+        messageType: 'sensor_msgs/string'
+    });
+
+    var sensor_listener = new ROSLIB.Topic({
+        ros: ros,
+        name: 'sensor', //dinlenecek topic adı
+        messageType: 'sensor_msgs/string' //topicin mesaj tipi
+    });
+
+
+
 
 
     //State
@@ -162,6 +174,13 @@ function initSubscribers() {
 
     });
 
+    sensor_listener.subscribe(function (msg) {
+        msg = sensor_data;
+
+
+    });
+
+
 
     //-Mission
     //--TODO Mission type (topic to be determined)
@@ -177,43 +196,51 @@ function initSubscribers() {
 
 
 
+window.onload = function () {
 
-
-var chart = new CanvasJS.Chart("chartContainer1",
-    {
-        animationEnabled: true,
+    var dps = []; // dataPoints
+    var chart = new CanvasJS.Chart("chartContainer2", {
         title: {
-            text: "Spline Area Chart"
+            text: "Dynamic Data"
         },
-        axisX: {
-            interval: 10,
+        axisY: {
+            includeZero: false
         },
-        data: [
-        {
-            type: "splineArea",
-            color: "rgba(255,12,32,.3)",
-            type: "splineArea",
-            dataPoints: [
-                { x: new Date(1, 0), y: humidity_data},
-                { x: new Date(2, 0), y: baro_data },
-                { x: new Date(3, 0), y: temp_data },
-                { x: new Date(4, 0), y: carbon_data },
-                { x: new Date(5, 0), y: etanol_data },
-                { x: new Date(5, 0), y: metane_data }
-                
-            ]
-        },
-        ]
+        data: [{
+            type: "line",
+            dataPoints: dps
+	}]
     });
-chart.render();
 
+    var xVal = 0;
 
+    var updateInterval = 1000;
+    var dataLength = 20; // number of dataPoints visible at any point
 
+    var updateChart = function (count) {
 
+        count = count || 1;
 
+        dps.push({
+            x: xVal,
+            y: yVal
+        });
+        xVal++;
+        yVal++;
 
+        if (dps.length > dataLength) {
+            dps.shift();
+        }
 
+        chart.render();
+    };
 
+    updateChart(dataLength);
+    setInterval(function () {
+        updateChart()
+    }, updateInterval);
+
+}
 
 
 
@@ -372,7 +399,7 @@ gamepad.bind(Gamepad.Event.AXIS_CHANGED, function (e) {
         joy_msg2.linear.x = +joystick_datas2[0];
         joy_msg2.linear.y = +joystick_datas2[1];
         joy_msg2.linear.z = +joystick_datas2[2];
-        
+
         joy_msg2.angular.x = +joystick_datas2[3];
         joy_msg2.angular.y = +joystick_datas2[4];
         joy_msg2.angular.z = +joystick_datas2[5];
