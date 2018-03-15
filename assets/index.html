@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="./css/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="./css/AdminLTE.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/AdminLTE.css" />
     <link rel="stylesheet" type="text/css" href="./css/_all-skins.css" />
     <link rel="stylesheet" type="text/css" href="./css/animate.css" />
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
@@ -25,7 +26,6 @@
     <script type="text/javascript" src="./js/ui-customizations.js"></script>
     <script type="text/javascript" src="./js/external/gamepad.js"></script>
     <script type="text/javascript" src="./js/external/canvasjs.min.js"></script>
-
     <!-- Uncomment below for debugging
     <script type="text/javascript" src="./js/debug/jquery-2.2.4.js"></script>
     <script type="text/javascript" src="./js/debug/bootstrap.js" ></script>
@@ -77,352 +77,244 @@
                                     <span class="info-box-icon">
                                         <i class="fa fa-heartbeat"></i>
                                     </span>
-                                    <div class="info-box-content bg-gray">
+                                    <div class="info-box-content">
                                         <span class="info-box-text">state</span>
                                         <span class="info-box-number" id="txtState">Sensor Monitor</span>
                                         <div class="pull-right">
                                             <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
-                                    <div class="info-box-detail no-padding bg-gray">
-
-                                        <table class="table table-striped table-hover bg-gray no-margin">
-
-                                            <!-- Linechart-1 -->
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <div class="box box-info">
-                                                    <div class="box-header bg-gray with-border">
-                                                        <h3 class="box-title">carbonmonoxyde</h3>
-
-                                                        <div class="box-tools bg-gray pull-right">
-                                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="box-body bg-gray" style="">
-
-
-                                                        <div class="chart">
-                                                            <canvas id="chartContainer1" style="height: 251px; width: 514px;;display: inline-block;" width="514" height="251"></canvas>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.box-body -->
-                                                </div>
-                                            </div>
+                                    <div class="info-box-detail no-padding">
+                                        <table class="table table-striped table-hover no-margin">
+                                            <tr>
+                                                <th>Armed</th>
+                                                <td id="txtArmedStatus">N/A</td>
+                                            </tr>
+                                            <tr>
+                                                <th>PX4 Mode</th>
+                                                <td id="txtPx4Mode">N/A</td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                    <!-- Linechart-2 -->
-                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <div id="boxState" class="info-box bg-aqua collapsed-box">
-                                            <div class="box box-info">
-                                                <div class="box-header bg-gray with-border">
-                                                    <h3 class="box-title">temperature</h3>
-
-                                                    <div class="box-tools bg-gray pull-right">
-                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="box-body bg-gray" style="">
-                                                    <div class="chart">
-                                                        <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
-                                                    </div>
-                                                </div>
-                                                <!-- /.box-body -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Linechart-3 -->
-                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <div id="boxState" class="info-box bg-aqua collapsed-box">
-                                            <div class="box box-info">
-                                                <div class="box-header bg-gray with-border">
-                                                    <h3 class="box-title">etanol</h3>
-
-                                                    <div class="box-tools bg-gray pull-right">
-                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="box-body bg-gray" style="">
-                                                    <div class="chart">
-                                                        <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
-                                                    </div>
-                                                </div>
-                                                <!-- /.box-body -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Linechart-4 -->
-                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <div id="boxState" class="info-box bg-aqua collapsed-box">
-                                            <div class="box box-info">
-                                                <div class="box-header bg-gray with-border">
-                                                    <h3 class="box-title">humidity</h3>
-
-                                                    <div class="box-tools bg-gray pull-right">
-                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="box-body bg-gray" style="">
-                                                    <div class="chart">
-                                                        <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
-                                                    </div>
-                                                </div>
-                                                <!-- /.box-body -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Linechart-5 -->
-                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <div id="boxState" class="info-box bg-aqua collapsed-box">
-                                            <div class="box box-info">
-                                                <div class="box-header bg-gray with-border">
-                                                    <h3 class="box-title">barometer</h3>
-
-                                                    <div class="box-tools bg-gray pull-right">
-                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="box-body bg-gray" style="">
-                                                    <div class="chart">
-                                                        <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
-                                                    </div>
-                                                </div>
-                                                <!-- /.box-body -->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                        <div id="boxState" class="info-box bg-aqua collapsed-box">
-                                            <div class="box box-info">
-                                                <div class="box-header bg-gray with-border">
-                                                    <h3 class="box-title">metane</h3>
-
-                                                    <div class="box-tools bg-gray pull-right">
-                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="box-body bg-gray" style="">
-                                                    <div class="chart">
-                                                        <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
-                                                    </div>
-                                                </div>
-                                                <div class="chart-legend">
-                                                    <div class="full-width-chart">
-                                                        <span class="badge bg-blue"></span>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </table>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div id="boxState" class="info-box bg-gray collapsed-box">
-                                <span class="info-box-icon">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div id="boxState" class="info-box bg-gray collapsed-box">
+                                    <span class="info-box-icon">
                                         <i class="fa fa-gamepad"></i>
                                     </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">state</span>
-                                    <span class="info-box-number" id="txtState">Joystick-1</span>
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">state</span>
+                                        <span class="info-box-number" id="txtState">Joystick-1</span>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="info-box-detail no-padding" style="background-color: #636363 ">
-                                    <div style="padding:5px; box-sizing: border-box;">
-                                        <table class="table table-condensed">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 10px">#</th>
-                                                    <th>Control</th>
-                                                    <th>Value</th>
-                                                    <th style="width: 40px">Label</th>
-                                                </tr>
-                                                <tr id="joy1-axis-0">
-                                                    <td>1.</td>
-                                                    <td>axis-0</td>
-                                                    <td>
-                                                        <div class="progress progress-bg">
-                                                            <div class="progress-bar progress-bar-danger" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
+                                    <div class="info-box-detail no-padding" style="background-color: #636363 ">
+                                        <div style="padding:5px; box-sizing: border-box;">
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="width: 10px">#</th>
+                                                        <th>Control</th>
+                                                        <th>Value</th>
+                                                        <th style="width: 40px">Label</th>
+                                                    </tr>
+                                                    <tr id="joy1-axis-0">
+                                                        <td>1.</td>
+                                                        <td>axis-0</td>
+                                                        <td>
+                                                            <div class="progress progress-bg">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
 
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy1-axis-1">
-                                                    <td>2.</td>
-                                                    <td>axis-1</td>
-                                                    <td>
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-yellow" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy1-axis-2">
-                                                    <td>3.</td>
-                                                    <td>axis-2</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-primary" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy1-axis-3">
-                                                    <td>4.</td>
-                                                    <td>axis-3</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-success" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy1-axis-4">
-                                                    <td>5.</td>
-                                                    <td>axis-4</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-success" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy1-axis-5">
-                                                    <td>6.</td>
-                                                    <td>axis-5</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-success" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy1-axis-1">
+                                                        <td>2.</td>
+                                                        <td>axis-1</td>
+                                                        <td>
+                                                            <div class="progress progress-xs">
+                                                                <div class="progress-bar progress-bar-yellow" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy1-axis-2">
+                                                        <td>3.</td>
+                                                        <td>axis-2</td>
+                                                        <td>
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-primary" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy1-axis-3">
+                                                        <td>4.</td>
+                                                        <td>axis-3</td>
+                                                        <td>
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy1-axis-4">
+                                                        <td>5.</td>
+                                                        <td>axis-4</td>
+                                                        <td>
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy1-axis-5">
+                                                        <td>6.</td>
+                                                        <td>axis-5</td>
+                                                        <td>
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="info-box bg-gray collapsed-box">
-                                <span class="info-box-icon">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="info-box bg-gray collapsed-box">
+                                    <span class="info-box-icon">
                                         <i class="fa fa-gamepad"></i>
                                     </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">state</span>
-                                    <span class="info-box-number">Joystick-2</span>
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">state</span>
+                                        <span class="info-box-number">Joystick-2</span>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="info-box-detail no-padding" style="background-color: #636363 ">
+                                        <div style="padding:5px; box-sizing: border-box;">
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="width: 10px">#</th>
+                                                        <th>Control</th>
+                                                        <th>Value</th>
+                                                        <th style="width: 40px">Label</th>
+                                                    </tr>
+                                                    <tr id="joy2-axis-0">
+                                                        <td>1.</td>
+                                                        <td>axis-0</td>
+                                                        <td>
+                                                            <div class="progress progress-bg">
+                                                                <div class="progress-bar progress-bar-danger" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy2-axis-1">
+                                                        <td>2.</td>
+                                                        <td>axis-1</td>
+                                                        <td>
+                                                            <div class="progress progress-xs">
+                                                                <div class="progress-bar progress-bar-yellow" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy2-axis-2">
+                                                        <td>3.</td>
+                                                        <td>axis-2</td>
+                                                        <td>
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-primary" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy2-axis-3">
+                                                        <td>4.</td>
+                                                        <td>axis-3</td>
+                                                        <td>
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy2-axis-4">
+                                                        <td>5.</td>
+                                                        <td>axis-4</td>
+                                                        <td>
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                    <tr id="joy2-axis-5">
+                                                        <td>6.</td>
+                                                        <td>axis-5</td>
+                                                        <td>
+                                                            <div class="progress progress-xs progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+                                                            </div>
+                                                        </td>
+                                                        <td><span class="badge bg-red">0</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="info-box-detail no-padding" style="background-color: #636363 ">
-                                    <div style="padding:5px; box-sizing: border-box;">
-                                        <table class="table table-condensed">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 10px">#</th>
-                                                    <th>Control</th>
-                                                    <th>Value</th>
-                                                    <th style="width: 40px">Label</th>
-                                                </tr>
-                                                <tr id="joy2-axis-0">
-                                                    <td>1.</td>
-                                                    <td>axis-0</td>
-                                                    <td>
-                                                        <div class="progress progress-bg">
-                                                            <div class="progress-bar progress-bar-danger" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
+                                <div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div id="boxState" class="info-box bg-gray collapsed-box">
+                                    <div class="box box-info">
+                                        <div class="box-header bg-gray with-border">
+                                            <h3 class="box-title">Line Chart</h3>
 
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy2-axis-1">
-                                                    <td>2.</td>
-                                                    <td>axis-1</td>
-                                                    <td>
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-yellow" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy2-axis-2">
-                                                    <td>3.</td>
-                                                    <td>axis-2</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-primary" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy2-axis-3">
-                                                    <td>4.</td>
-                                                    <td>axis-3</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-success" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy2-axis-4">
-                                                    <td>5.</td>
-                                                    <td>axis-4</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-success" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr id="joy2-axis-5">
-                                                    <td>6.</td>
-                                                    <td>axis-5</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar progress-bar-success" style="width: 0%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
+                                            <div class="box-tools bg*gray pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body bg-gray" style="">
+                                            <div class="chart">
+                                                
+                                                <div id="chartContainer1" style="width: 100%; height: 300px;display: inline-block;"></div>
+                                            </div>
+                                        </div>
+                                         
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                            </div>
+
                         </div>
 
                     </div>
+                    <!-- map field -->
+                    <div class="col-md-7 col-xs-12">
+                        <div id="map" class="map-sm"></div>
+                    </div>
+                    <!-- map field ends-->
+                </div>
 
-                </div>
-                <!-- map field -->
-                <div class="col-md-7 col-xs-12">
-                    <div id="map" class="map-sm"></div>
-                </div>
-                <!-- map field ends-->
+            </section>
         </div>
-
-        </section>
-    </div>
-    </div>
+    </div> 
 
 
 
