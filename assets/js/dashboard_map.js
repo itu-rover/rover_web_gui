@@ -48,9 +48,14 @@ var carbon_data;
 
 var baro_data;
 
-var data = "87643567890876";
+var data_a = new String();
+var yVal = data_a.split('');
 
-var yVal = data.split('', 1);
+
+//var data = new Array();
+
+
+
 
 
 
@@ -149,6 +154,7 @@ function initSubscribers() {
 
 
 
+
     //State
     //TODO Add Robostate /State topic
     //--Armed Status(True,False)
@@ -175,11 +181,11 @@ function initSubscribers() {
     });
 
     sensor_listener.subscribe(function (msg) {
-        msg = sensor_data;
-
-
+        msg = data_a;
     });
-
+    
+    //data0 : data
+    
 
 
     //-Mission
@@ -198,7 +204,7 @@ function initSubscribers() {
 
 window.onload = function () {
 
-    var dps = []; // dataPoints
+    var dps = [];
     var chart = new CanvasJS.Chart("chartContainer2", {
         title: {
             text: "Dynamic Data"
@@ -219,14 +225,15 @@ window.onload = function () {
 
     var updateChart = function (count) {
 
-        count = count || 1;
+        count = count || 5;
+        // count is number of times loop runs to generate random dataPoints.
 
         dps.push({
             x: xVal,
             y: yVal
         });
         xVal++;
-        yVal++;
+        
 
         if (dps.length > dataLength) {
             dps.shift();
@@ -241,6 +248,9 @@ window.onload = function () {
     }, updateInterval);
 
 }
+
+
+
 
 
 
