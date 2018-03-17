@@ -48,8 +48,8 @@ var carbon_data;
 
 var baro_data;
 
-var data_a = new String();
-var yVal = data_a.split('');
+var data_a = 0;
+var yVal;
 
 
 //var data = new Array();
@@ -105,6 +105,7 @@ function initPublishers() {
 
 }
 
+
 function initSubscribers() {
     ////Define subscribers
 
@@ -146,8 +147,8 @@ function initSubscribers() {
 
     var sensor_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'sensor', //dinlenecek topic adı
-        messageType: 'sensor_msgs/string' //topicin mesaj tipi
+        name: '/sensor', //dinlenecek topic adı
+        messageType: 'std_msgs/String' //topicin mesaj tipi
     });
 
 
@@ -181,7 +182,8 @@ function initSubscribers() {
     });
 
     sensor_listener.subscribe(function (msg) {
-        msg = data_a;
+        data_a = msg;
+        yVal = data_a.split('');
     });
     
     //data0 : data
@@ -202,8 +204,8 @@ function initSubscribers() {
 
 
 
-window.onload = function () {
-
+window.onload = function() {
+alert("rgdhgfjyf");
     var dps = [];
     var chart = new CanvasJS.Chart("chartContainer2", {
         title: {
@@ -217,7 +219,7 @@ window.onload = function () {
             dataPoints: dps
 	}]
     });
-
+console.log(chart);
     var xVal = 0;
 
     var updateInterval = 1000;
@@ -244,7 +246,7 @@ window.onload = function () {
 
     updateChart(dataLength);
     setInterval(function () {
-        updateChart()
+        updateChart();
     }, updateInterval);
 
 }
