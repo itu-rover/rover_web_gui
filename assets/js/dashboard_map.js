@@ -48,10 +48,18 @@ var carbon_data;
 
 var baro_data;
 
-var data_a = 0;
-var yVal;
+var data_a;
+var data_split;
+var dps;
 
 
+//var data_a = "1,3,5,3,90,5,3,7";
+//var data_split = data_a.split(/,/);
+//console.log(data_split);
+//var dps = data_split;
+
+
+//var dps = [78,22,34,12,50,63,77,98];
 //var data = new Array();
 
 
@@ -182,11 +190,23 @@ function initSubscribers() {
     });
 
     sensor_listener.subscribe(function (msg) {
-        data_a = msg;
-        yVal = data_a.split('');
-    });
+        console.log(msg);
+       msg = data_a;
+        var data_split = data_a.split(/,/);
+        console.log(data_split);
+        var dps = data_split;
+        //buralar silinip diğerleri çift slaşa alınabilir
+        // data_split = data_a.split(/,/);
+        //console.log(data_split);
+        //dps = data_split;
+        });
+   
+        
+        
+   
+  
     
-    //data0 : data
+  
     
 
 
@@ -202,56 +222,42 @@ function initSubscribers() {
     ///
 }
 
+//var data_split = data_a.split(/,/);
+//console.log(data_split);
+//var dps = data_split;
 
 
-window.onload = function() {
-alert("rgdhgfjyf");
-    var dps = [];
-    var chart = new CanvasJS.Chart("chartContainer2", {
-        title: {
-            text: "Dynamic Data"
-        },
-        axisY: {
-            includeZero: false
-        },
-        data: [{
-            type: "line",
-            dataPoints: dps
+
+
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer2", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Simple Line Chart"
+	},
+	axisY:{
+		includeZero: false
+	},
+	data: [{        
+		type: "line",       
+		dataPoints: [
+			{ y: parseInt(dps[0])},
+			{ y: parseInt(dps[1])},
+			{ y: parseInt(dps[2])},
+			{ y: parseInt(dps[3])},
+			{ y: parseInt(dps[4])},
+			{ y: parseInt(dps[5])},
+			{ y: parseInt(dps[6])},
+			{ y: parseInt(dps[7])},
+			{ y: parseInt(dps[8])}
+		]
 	}]
-    });
-console.log(chart);
-    var xVal = 0;
-
-    var updateInterval = 1000;
-    var dataLength = 20; // number of dataPoints visible at any point
-
-    var updateChart = function (count) {
-
-        count = count || 5;
-        // count is number of times loop runs to generate random dataPoints.
-
-        dps.push({
-            x: xVal,
-            y: yVal
-        });
-        xVal++;
-        
-
-        if (dps.length > dataLength) {
-            dps.shift();
-        }
-
-        chart.render();
-    };
-
-    updateChart(dataLength);
-    setInterval(function () {
-        updateChart();
-    }, updateInterval);
+});
+chart.render();
 
 }
-
-
 
 
 
