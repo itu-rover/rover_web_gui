@@ -48,12 +48,13 @@ var carbon_data;
 
 var baro_data;
 
-var data_a;
-var data_split;
+var data;
 var dps;
 
+//var data_a;
+//var data_split;
+//var dps;
 
-//var data_a = "1,3,5,3,90,5,3,7";
 //var data_split = data_a.split(/,/);
 //console.log(data_split);
 //var dps = data_split;
@@ -188,26 +189,45 @@ function initSubscribers() {
         msg = etanol_data;
 
     });
+    
+    sensor_listener.subscribe(function(msg){
+        console.log(msg.data);
+        msg = data;
+    });
 
-    sensor_listener.subscribe(function (msg) {
-        console.log(msg);
-       msg = data_a;
-        var data_split = data_a.split(/,/);
-        console.log(data_split);
-        var dps = data_split;
-        //buralar silinip diğerleri çift slaşa alınabilir
-        // data_split = data_a.split(/,/);
-        //console.log(data_split);
-        //dps = data_split;
-        });
-   
-        
-        
-   
-  
+
+    //function log(msg) {
+    // $('#log').append(msg.toString();
+    //}
+    //sensor_listener.subscribe(function (msg) {
     
-  
+        //log(msg.data)
     
+        
+    //});
+
+
+
+
+
+
+
+    //dps = msg_s.split(',');
+
+    //data_split = data_a.split(/,/);
+
+    //var dps = data_split;
+    //buralar silinip diğerleri çift slaşa alınabilir
+    // data_split = data_a.split(/,/);
+    //console.log(data_split);
+    //dps = data_split;
+
+
+
+
+
+
+
 
 
     //-Mission
@@ -222,6 +242,7 @@ function initSubscribers() {
     ///
 }
 
+
 //var data_split = data_a.split(/,/);
 //console.log(data_split);
 //var dps = data_split;
@@ -231,33 +252,56 @@ function initSubscribers() {
 
 window.onload = function () {
 
-var chart = new CanvasJS.Chart("chartContainer2", {
-	animationEnabled: true,
-	theme: "light2",
-	title:{
-		text: "Simple Line Chart"
-	},
-	axisY:{
-		includeZero: false
-	},
-	data: [{        
-		type: "line",       
-		dataPoints: [
-			{ y: parseInt(dps[0])},
-			{ y: parseInt(dps[1])},
-			{ y: parseInt(dps[2])},
-			{ y: parseInt(dps[3])},
-			{ y: parseInt(dps[4])},
-			{ y: parseInt(dps[5])},
-			{ y: parseInt(dps[6])},
-			{ y: parseInt(dps[7])},
-			{ y: parseInt(dps[8])}
+    
+    var dps = [data];
+    //console.log(data_b);
+    //var dps = [data_b];
+
+    console.log(dps);
+
+
+
+    var chart = new CanvasJS.Chart("chartContainer2", {
+        animationEnabled: true,
+        theme: "light2",
+        title: {
+            text: "Simple Line Chart"
+        },
+        axisY: {
+            includeZero: false
+        },
+        data: [{
+            type: "line",
+            dataPoints: [
+                {
+                    y: parseInt(dps[0])
+                    },
+                {
+                    y: parseInt(dps[1])
+                    },
+
+                {
+                    y: parseInt(dps[2])
+                    },
+                {
+                    y: parseInt(dps[3])
+                    },
+                {
+                    y: parseInt(dps[4])
+                    },
+                {
+                    y: parseInt(dps[5])
+                    },
+
+
 		]
 	}]
-});
-chart.render();
+    });
+    chart.render();
+	};
 
-}
+	// update chart every second
+	setInterval(function(){updateChart()}, 1000);
 
 
 
