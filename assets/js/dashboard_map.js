@@ -51,6 +51,7 @@ var baro_data;
 var data;
 var dps;
 
+
 //var data_a;
 //var data_split;
 //var dps;
@@ -189,10 +190,12 @@ function initSubscribers() {
         msg = etanol_data;
 
     });
-    
-    sensor_listener.subscribe(function(msg){
+
+    sensor_listener.subscribe(function (msg) {
         console.log(msg.data);
         msg = data;
+        console.log(data);
+        //console.log(data);
     });
 
 
@@ -200,10 +203,10 @@ function initSubscribers() {
     // $('#log').append(msg.toString();
     //}
     //sensor_listener.subscribe(function (msg) {
-    
-        //log(msg.data)
-    
-        
+
+    //log(msg.data)
+
+
     //});
 
 
@@ -221,15 +224,6 @@ function initSubscribers() {
     // data_split = data_a.split(/,/);
     //console.log(data_split);
     //dps = data_split;
-
-
-
-
-
-
-
-
-
     //-Mission
     //--TODO Mission type (topic to be determined)
     //--TODO add percentage bar design animation here as well
@@ -250,15 +244,27 @@ function initSubscribers() {
 
 
 
+
+
 window.onload = function () {
+    alert("sasdgdsds");
 
+    var dps = [];
+    dps.push(data);
     
-    var dps = [data];
-    //console.log(data_b);
-    //var dps = [data_b];
-
+    //var i,j;
+    
+  
+    //for (var i = 0, t = 40; i < t; i++) {
+        
+    
+        
+        
+        //dps.push(Math.round(Math.random() * 99))
+   // };
+    
+   
     console.log(dps);
-
 
 
     var chart = new CanvasJS.Chart("chartContainer2", {
@@ -298,10 +304,12 @@ window.onload = function () {
 	}]
     });
     chart.render();
-	};
+};
 
-	// update chart every second
-	setInterval(function(){updateChart()}, 1000);
+// update chart every second
+setInterval(function () {
+    updateChart()
+}, 1000);
 
 
 
