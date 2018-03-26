@@ -48,9 +48,9 @@ var carbon_data;
 
 var baro_data;
 
-var data;
+var data = new Array();
 var dps;
-var msg_f = [];
+
 //for (var i = 0, t = 100; i < t; i++) {
 //        msg_f.push(Math.round(Math.random() * 99))
 //    };
@@ -164,7 +164,7 @@ function initSubscribers() {
     var sensor_listener = new ROSLIB.Topic({
         ros: ros,
         name: '/sensor', //dinlenecek topic adı
-        messageType: 'std_msgs/String' //topicin mesaj tipi
+        messageType: 'std_msgs/Int32MultiArray' //topicin mesaj tipi
     });
 
 
@@ -199,7 +199,7 @@ function initSubscribers() {
 
     sensor_listener.subscribe(function (msg) {
         console.log(msg);
-        msg.push(msg_f);
+        msg = data;
         //console.log(data);
         //console.log(data);
     });
@@ -277,7 +277,7 @@ var updateChart = function () {
 
     dps.push({
         x: xVal,
-        y: parseInt(msg_f[yVal])
+        y: parseInt(data[yVal])
     });
     //parseInt(msg[i])
 
