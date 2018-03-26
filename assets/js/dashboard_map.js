@@ -50,6 +50,11 @@ var baro_data;
 
 var data;
 var dps;
+var msg_f = [];
+//for (var i = 0, t = 100; i < t; i++) {
+//        msg_f.push(Math.round(Math.random() * 99))
+//    };
+//console.log(msg_f);
 
 
 //var data_a;
@@ -117,6 +122,7 @@ function initPublishers() {
 
 
 function initSubscribers() {
+    alert("sddghgsdffg")
     ////Define subscribers
 
     var humidty_listener = new ROSLIB.Topic({
@@ -192,9 +198,9 @@ function initSubscribers() {
     });
 
     sensor_listener.subscribe(function (msg) {
-        console.log(msg.data);
-        msg = data;
-        console.log(data);
+        console.log(msg);
+        msg.push(msg_f);
+        //console.log(data);
         //console.log(data);
     });
 
@@ -237,81 +243,67 @@ function initSubscribers() {
 }
 
 
+
+
+var dps = [];
+
+//dataPoints. 
+
+var chart = new CanvasJS.Chart("chartContainer2", {
+    title: {
+        text: "Live Data"
+    },
+    axisX: {
+        title: "Axis X Title"
+    },
+    axisY: {
+        title: "Units"
+    },
+    data: [{
+        type: "line",
+        dataPoints: dps
+	}]
+});
+
+chart.render();
+var xVal = dps.length + 1;
+var yVal = 0;
+var updateInterval = 1000;
+
+var updateChart = function () {
+
+
+
+
+    dps.push({
+        x: xVal,
+        y: parseInt(msg_f[yVal])
+    });
+    //parseInt(msg[i])
+
+    yVal++;
+    xVal++;
+
+
+
+    chart.render();
+
+    // update chart after specified time. 
+
+};
+setInterval(function () {
+    updateChart()
+}, updateInterval);
+if (dps.length > 10) {
+    dps.shift();
+}
+console.log(dps);
+
+
+
 //var data_split = data_a.split(/,/);
 //console.log(data_split);
 //var dps = data_split;
-
-
-
-
-
-
-window.onload = function () {
-    alert("sasdgdsds");
-
-    var dps = [];
-    dps.push(data);
-    
-    //var i,j;
-    
-  
-    //for (var i = 0, t = 40; i < t; i++) {
-        
-    
-        
-        
-        //dps.push(Math.round(Math.random() * 99))
-   // };
-    
-   
-    console.log(dps);
-
-
-    var chart = new CanvasJS.Chart("chartContainer2", {
-        animationEnabled: true,
-        theme: "light2",
-        title: {
-            text: "Simple Line Chart"
-        },
-        axisY: {
-            includeZero: false
-        },
-        data: [{
-            type: "line",
-            dataPoints: [
-                {
-                    y: parseInt(dps[0])
-                    },
-                {
-                    y: parseInt(dps[1])
-                    },
-
-                {
-                    y: parseInt(dps[2])
-                    },
-                {
-                    y: parseInt(dps[3])
-                    },
-                {
-                    y: parseInt(dps[4])
-                    },
-                {
-                    y: parseInt(dps[5])
-                    },
-
-
-		]
-	}]
-    });
-    chart.render();
-};
-
-// update chart every second
-setInterval(function () {
-    updateChart()
-}, 1000);
-
-
 
 
 
