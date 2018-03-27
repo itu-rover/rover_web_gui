@@ -25,9 +25,9 @@
     <script type="text/javascript" src="./js/ui-customizations.js"></script>
     <script type="text/javascript" src="./js/external/gamepad.js"></script>
     <script type="text/javascript" src="./js/external/canvasjs.min.js"></script>
-  
-    
-   
+
+
+
 
     <!-- Uncomment below for debugging
     <script type="text/javascript" src="./js/debug/jquery-2.2.4.js"></script>
@@ -105,7 +105,9 @@
                                                         </div>
                                                         <div class="box-body bg-gray" style="">
                                                             <div class="chart">
-                                                                <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
+                                                                <!-- Linechart-1 -->
+                                                                <div id="chartContainer1" style="height: 251px; width: 100%;" width="514" height="251"></div>
+
                                                             </div>
                                                         </div>
                                                         <!-- /.box-body -->
@@ -126,7 +128,8 @@
                                                         </div>
                                                         <div class="box-body bg-gray" style="">
                                                             <div class="chart">
-                                                                <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
+                                                                <!-- Linechart-2 -->
+                                                                <div id="chartContainer2" style="height: 251px; width: 100%;" width="514" height="251"></div>
                                                             </div>
                                                         </div>
                                                         <!-- /.box-body -->
@@ -147,7 +150,8 @@
                                                         </div>
                                                         <div class="box-body bg-gray" style="">
                                                             <div class="chart">
-                                                                <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
+                                                                <!-- Linechart-3 -->
+                                                                <div id="chartContainer3" style="height: 251px; width: 100%;" width="514" height="251"></div>
                                                             </div>
                                                         </div>
                                                         <!-- /.box-body -->
@@ -168,7 +172,8 @@
                                                         </div>
                                                         <div class="box-body bg-gray" style="">
                                                             <div class="chart">
-                                                                <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
+                                                                <!-- Linechart-4 -->
+                                                                <div id="chartContainer4" style="height: 251px; width: 100%;" width="514" height="251"></div>
                                                             </div>
                                                         </div>
                                                         <!-- /.box-body -->
@@ -189,13 +194,16 @@
                                                         </div>
                                                         <div class="box-body bg-gray" style="">
                                                             <div class="chart">
-                                                                <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
+                                                                <!-- Linechart-5 -->
+
+                                                                <div id="chartContainer5" style="height: 251px; width: 100%;" width="514" height="251"></div>
                                                             </div>
                                                         </div>
                                                         <!-- /.box-body -->
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- Linechart-6 -->
 
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                 <div id="boxState" class="info-box bg-aqua collapsed-box">
@@ -210,7 +218,66 @@
                                                         </div>
                                                         <div class="box-body bg-gray" style="">
                                                             <div class="chart">
-                                                                <canvas id="lineChart" style="height: 251px; width: 514px;" width="514" height="251"></canvas>
+                                                                <!-- Linechart-6 -->
+                                                                <div id="chartContainer6" style="height: 251px; width: 100%;" width="514" height="251"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="chart-legend">
+                                                            <div class="full-width-chart">
+                                                                <span class="badge bg-blue"></span>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Linechart-7 -->
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div id="boxState" class="info-box bg-aqua collapsed-box">
+                                                    <div class="box box-info">
+                                                        <div class="box-header bg-gray with-border">
+                                                            <h3 class="box-title">metane</h3>
+
+                                                            <div class="box-tools bg-gray pull-right">
+                                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body bg-gray" style="">
+                                                            <div class="chart">
+                                                                <!-- Linechart-7-->
+                                                                <div id="chartContainer7" style="height: 251px; width: 100%;" width="514" height="251"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="chart-legend">
+                                                            <div class="full-width-chart">
+                                                                <span class="badge bg-blue"></span>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Linechart-8 -->
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div id="boxState" class="info-box bg-aqua collapsed-box">
+                                                    <div class="box box-info">
+                                                        <div class="box-header bg-gray with-border">
+                                                            <h3 class="box-title">metane</h3>
+
+                                                            <div class="box-tools bg-gray pull-right">
+                                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-body bg-gray" style="">
+                                                            <div class="chart">
+                                                                <!-- Linechart-7-->
+                                                                <div id="chartContainer8" style="height: 251px; width: 100%;" width="514" height="251"></div>
                                                             </div>
                                                         </div>
                                                         <div class="chart-legend">

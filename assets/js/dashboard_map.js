@@ -52,8 +52,8 @@ var data = new Array();
 var dps;
 
 //for (var i = 0, t = 100; i < t; i++) {
-//        msg_f.push(Math.round(Math.random() * 99))
-//    };
+//    data.push(Math.round(Math.random() * 99))
+ //  };
 //console.log(msg_f);
 
 
@@ -92,6 +92,7 @@ ros.on("connection", function () {
     rosConnected = true;
     initSubscribers();
     initPublishers();
+    chart.render();
 });
 
 ros.on("close", function () {
@@ -199,7 +200,8 @@ function initSubscribers() {
 
     sensor_listener.subscribe(function (msg) {
         console.log(msg);
-        msg = data;
+        data = msg;
+        console.log(data);
         //console.log(data);
         //console.log(data);
     });
@@ -241,23 +243,20 @@ function initSubscribers() {
     //--TODO Function
     ///
 }
-
-
-
-
+//Chart of X Sensor
 var dps = [];
 
 //dataPoints. 
 
-var chart = new CanvasJS.Chart("chartContainer2", {
+var chart = new CanvasJS.Chart("chartContainer1", {
     title: {
-        text: "Live Data"
+        text: ""
     },
     axisX: {
-        title: "Axis X Title"
+        title: ""
     },
     axisY: {
-        title: "Units"
+        title: ""
     },
     data: [{
         type: "line",
@@ -265,7 +264,282 @@ var chart = new CanvasJS.Chart("chartContainer2", {
 	}]
 });
 
-chart.render();
+//chart.render();
+var xVal = 1;
+var yVal = 0;
+var updateInterval = 1000;
+
+var updateChart = function () {
+
+
+
+
+    dps.push({
+        x: xVal,
+        y: +data[yVal]
+    });
+    
+
+    yVal++;
+    xVal++;
+
+
+
+    chart.render();
+
+    // update chart after specified time. 
+
+};
+setInterval(function () {
+    updateChart()
+}, updateInterval);
+if (dps.length > 10) {
+    dps.shift();
+}
+console.log(dps);
+
+
+//Chart of X Sensor
+var dps = [];
+
+//dataPoints. 
+
+var chart = new CanvasJS.Chart("chartContainer2", {
+    title: {
+        text: ""
+    },
+    axisX: {
+        title: ""
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{
+        type: "line",
+        dataPoints: dps
+	}]
+});
+
+//chart.render();
+var xVal =  1;
+var yVal = 0;
+var updateInterval = 1000;
+
+var updateChart = function () {
+
+
+
+
+    dps.push({
+        x: xVal,
+        y: +data[yVal]
+    });
+    //parseInt(msg[i])
+
+    yVal++;
+    xVal++;
+
+
+
+    chart.render();
+
+    // update chart after specified time. 
+
+};
+setInterval(function () {
+    updateChart()
+}, updateInterval);
+if (dps.length > 10) {
+    dps.shift();
+}
+console.log(dps);
+
+//Chart of X Sensor
+var dps = [];
+
+//dataPoints. 
+
+var chart = new CanvasJS.Chart("chartContainer3", {
+    title: {
+        text: ""
+    },
+    axisX: {
+        title: ""
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{
+        type: "line",
+        dataPoints: dps
+	}]
+});
+
+//chart.render();
+var xVal = 1;
+var yVal = 0;
+var updateInterval = 1000;
+
+var updateChart = function () {
+
+
+
+
+    dps.push({
+        x: xVal,
+        y: +data[yVal]
+    });
+    //parseInt(msg[i])
+
+    yVal++;
+    xVal++;
+
+
+
+    chart.render();
+
+    // update chart after specified time. 
+
+};
+setInterval(function () {
+    updateChart()
+}, updateInterval);
+if (dps.length > 10) {
+    dps.shift();
+}
+console.log(dps);
+//Chart of X Sensor
+var dps = [];
+
+//dataPoints. 
+
+var chart = new CanvasJS.Chart("chartContainer4", {
+    title: {
+        text: ""
+    },
+    axisX: {
+        title: ""
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{
+        type: "line",
+        dataPoints: dps
+	}]
+});
+
+//chart.render();
+var xVal = 1;
+var yVal = 0;
+var updateInterval = 1000;
+
+var updateChart = function () {
+
+
+
+
+    dps.push({
+        x: xVal,
+        y: +data[yVal]
+    });
+    //parseInt(msg[i])
+
+    yVal++;
+    xVal++;
+
+
+
+    chart.render();
+
+    // update chart after specified time. 
+
+};
+setInterval(function () {
+    updateChart()
+}, updateInterval);
+if (dps.length > 10) {
+    dps.shift();
+}
+console.log(dps);
+
+//Chart of X Sensor
+var dps = [];
+
+//dataPoints. 
+
+var chart = new CanvasJS.Chart("chartContainer5", {
+    title: {
+        text: ""
+    },
+    axisX: {
+        title: ""
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{
+        type: "line",
+        dataPoints: dps
+	}]
+});
+
+//chart.render();
+var xVal =  1;
+var yVal = 0;
+var updateInterval = 1000;
+
+var updateChart = function () {
+
+
+
+
+    dps.push({
+        x: xVal,
+        y: +data[yVal]
+    });
+    //parseInt(msg[i])
+
+    yVal++;
+    xVal++;
+
+
+
+    chart.render();
+
+    // update chart after specified time. 
+
+};
+setInterval(function () {
+    updateChart()
+}, updateInterval);
+if (dps.length > 10) {
+    dps.shift();
+}
+console.log(dps);
+
+//Chart of X Sensor
+var dps = [];
+
+//dataPoints. 
+
+var chart = new CanvasJS.Chart("chartContainer6", {
+    title: {
+        text: ""
+    },
+    axisX: {
+        title: ""
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{
+        type: "line",
+        dataPoints: dps
+	}]
+});
+
+//chart.render();
 var xVal = dps.length + 1;
 var yVal = 0;
 var updateInterval = 1000;
@@ -277,7 +551,115 @@ var updateChart = function () {
 
     dps.push({
         x: xVal,
-        y: parseInt(data[yVal])
+        y: +data[yVal]
+    });
+    //parseInt(msg[i])
+
+    yVal++;
+    xVal++;
+
+
+
+    chart.render();
+
+    // update chart after specified time. 
+
+};
+setInterval(function () {
+    updateChart()
+}, updateInterval);
+if (dps.length > 10) {
+    dps.shift();
+}
+console.log(dps);
+//Chart of X Sensor
+var dps = [];
+
+//dataPoints. 
+
+var chart = new CanvasJS.Chart("chartContainer7", {
+    title: {
+        text: ""
+    },
+    axisX: {
+        title: ""
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{
+        type: "line",
+        dataPoints: dps
+	}]
+});
+
+//chart.render();
+var xVal =  1;
+var yVal = 0;
+var updateInterval = 1000;
+
+var updateChart = function () {
+
+
+
+
+    dps.push({
+        x: xVal,
+        y: +data[yVal]
+    });
+    //parseInt(msg[i])
+
+    yVal++;
+    xVal++;
+
+
+
+    chart.render();
+
+    // update chart after specified time. 
+
+};
+setInterval(function () {
+    updateChart()
+}, updateInterval);
+if (dps.length > 10) {
+    dps.shift();
+}
+console.log(dps);
+//Chart of X Sensor
+var dps = [];
+
+//dataPoints. 
+
+var chart = new CanvasJS.Chart("chartContainer8", {
+    title: {
+        text: ""
+    },
+    axisX: {
+        title: ""
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{
+        type: "line",
+        dataPoints: dps
+	}]
+});
+
+//chart.render();
+var xVal = 1;
+var yVal = 0;
+var updateInterval = 1000;
+
+var updateChart = function () {
+
+
+
+
+    dps.push({
+        x: xVal,
+        y: +data[yVal]
     });
     //parseInt(msg[i])
 
