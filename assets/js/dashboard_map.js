@@ -48,8 +48,19 @@ var carbon_data;
 
 var baro_data;
 
-var data = [0,0,0,0,0,0,0,0];
-var dps;
+var data_metane = [56, 0, 78, 0, 0, 0, 0, 0];
+var data_carbon = [0, 90, 0, 0, 0, 112, 0, 0];
+var data_hum = [0, 0, 0, 45, 0, 0,0, 0];
+var data_temp = [0, 87, 0, 0, 0, 75, 0, 0];
+var data_baro = [0, 0, 66, 0, 0, 0, 0, 90];
+var data_etanol = [0, 0, 34, 0, 0, 56, 0, 0];
+
+var dps_metane=[];
+var dps_carbon=[];
+var dps_hum=[];
+var dps_temp=[];
+var dps_baro=[];
+var dps_etanol=[];
 
 //for (var i = 0, t = 100; i < t; i++) {
 //    data.push(Math.round(Math.random() * 99))
@@ -178,23 +189,30 @@ function initSubscribers() {
     //--Armed Status(True,False)
     //--Px4Mode(AUTO, OFFBOARD etc.)
     humidty_listener.subscribe(function (msg) {
-        msg = humidity_data;
+        data_hum = msg.data;
     });
     barometer_listener.subscribe(function (msg) {
-        msg = baro_data;
+        data_baro = msg.data;
     });
 
     temp_listener.subscribe(function (msg) {
-        msg = temp_data;
+        data_temp = msg.data;
     });
 
     carbon_listener.subscribe(function (msg) {
-        msg = carbon_data;
+        data_carbon = msg.data;
 
     });
 
     etanol_listener.subscribe(function (msg) {
-        msg = etanol_data;
+        data_etanol = msg.data;
+
+
+    });
+    metane_listener.subscribe(function (msg) {
+        console.log(msg);
+        data_metane = msg.data;
+
 
     });
 
@@ -249,20 +267,70 @@ var dps = [];
 //dataPoints. 
 
 var chart = new CanvasJS.Chart("chartContainer1", {
-    title: {
-        text: ""
-    },
-    axisX: {
-        title: ""
-    },
-    axisY: {
-        title: ""
-    },
-    data: [{
-        type: "line",
-        dataPoints: dps
-	}]
-});
+        title: {
+            text: ""
+        },
+        axisX: {
+            title: ""
+        },
+        axisY: {
+            title: ""
+        },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor: "pointer",
+            itemclick: toggleDataSeries
+        },
+        data: [{
+                type: "spline",
+                name: "Metane",
+                showInLegend: true,
+                dataPoints: dps_metane
+	},
+            {
+                type: "spline",
+                name: "Barometer",
+                showInLegend: true,
+                dataPoints: dps_baro
+	},
+            {
+                type: "spline",
+                name: "Temperature",
+                showInLegend: true,
+                dataPoints: dps_temp
+	},
+            {
+                type: "spline",
+                name: "Carbon",
+                showInLegend: true,
+                dataPoints: dps_carbon
+	},
+            {
+                type: "spline",
+                name: "Etanol",
+                showInLegend: true,
+                dataPoints: dps_etanol
+	},
+            {
+                type: "spline",
+                name: "Humidity",
+                showInLegend: true,
+                dataPoints: dps_hum
+	}],
+    }
+
+
+);
+      function toggleDataSeries(e) {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        chart.render();
+    }
 
 //chart.render();
 var xVal = 1;
@@ -274,29 +342,52 @@ var updateChart = function () {
 
 
 
-    dps.push({
+    dps_baro.push({
         x: xVal,
-        y: +data[yVal]
+        y: +data_baro[yVal]
     });
+    dps_carbon.push({
+        x: xVal,
+        y: +data_carbon[yVal]
+    });
+    dps_etanol.push({
+        x: xVal,
+        y: +data_etanol[yVal]
+    });
+    dps_hum.push({
+        x: xVal,
+        y: +data_hum[yVal]
+    });
+    dps_temp.push({
+        x: xVal,
+        y: +data_temp[yVal]
+    });
+    dps_metane.push({
+        x: xVal,
+        y: +data_metane[yVal]
+    });
+
 
 
     yVal++;
     xVal++;
 
-
-
+  
     chart.render();
+
+
 
     // update chart after specified time. 
 
 };
-setInterval(function () {
-    updateChart()
-}, updateInterval);
-if (dps.length > 10) {
-    dps.shift();
-}
-console.log(dps);
+updateChart(100);	
+setInterval(function(){updateChart()}, updateInterval);
+
+
+
+
+
+console.log(dps_baro);
 
 
 
