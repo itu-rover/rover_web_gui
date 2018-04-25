@@ -394,8 +394,8 @@ setInterval(function () {
 
 function converter(){
    var degree = document.getElementById('deg').value;
-    var minute = document.getElementById('min').value;
-var second = document.getElementById('sec').value;
+   var minute = document.getElementById('min').value;
+   var second = document.getElementById('sec').value;
 
     //alert(degree);
     longitude = parseFloat(degree) + parseFloat(minute/60) + parseFloat(second/3600);
