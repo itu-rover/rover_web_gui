@@ -560,11 +560,14 @@ gamepad.bind(Gamepad.Event.AXIS_CHANGED, function (e) {
 });
 
 
+//Halo taha
+//nasılsın knk.d.d.d
+//Isparta Türkiyenin New York'dur
 
-//TODO Add marker arrays
+
 //TODO Add list items and connect them to markers
 //TODO Align the map and the info box - look at the columns
 //TODO Draw linestrings in between the markers
 //TODO Find a way to store array elements and save them into a file within the server
-//when it is submitted
+
 //TODO Make the waypoint markers draggable
