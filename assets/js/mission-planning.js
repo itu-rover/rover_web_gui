@@ -377,6 +377,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
      //--Altitude (m)AMSL
      //TODO add artificial horizon
      global_position_listener.subscribe(function (msg) {
+         console.log(msg.data);
          drone.coordinates[1] = msg.latitude;
          drone.coordinates[0] = msg.longitude;
      });
@@ -401,7 +402,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
  });
 
  $("#addMarkBtn").click(function () {
-     var data = [Number($("#addMarkLat").val()), Number($("#addMarkLng").val())];
+     var data = [Number($("#addMarkLng").val()), Number($("#addMarkLat").val())];
      addMark(data);
  });
 
