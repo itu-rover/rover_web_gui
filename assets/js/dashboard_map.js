@@ -560,6 +560,10 @@ gamepad.bind(Gamepad.Event.AXIS_CHANGED, function (e) {
 });
 
 
+// sdasasdasdasda
+// ben bilmirem aybalam 
+// asdasdasda
+// adsasasdads
 
 //TODO Add marker arrays
 //TODO Add list items and connect them to markers
