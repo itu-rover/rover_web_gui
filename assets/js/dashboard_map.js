@@ -396,11 +396,32 @@ function converter(){
    var degree = document.getElementById('deg').value;
    var minute = document.getElementById('min').value;
    var second = document.getElementById('sec').value;
+    var longitude_i = document.getElementById('long').value;
+    
 
     //alert(degree);
     longitude = parseFloat(degree) + parseFloat(minute/60) + parseFloat(second/3600);
     document.getElementById("outputLong").innerHTML=longitude;
     //alert(longitude);
+    
+    long_deg = Math.floor(longitude_i);
+    document.getElementById("outputDeg").innerHTML=long_deg;
+    
+     long_min_i = 60 * (longitude_i-long_deg);
+    
+    long_min = Math.floor(long_min_i);
+    
+    
+    document.getElementById("outputMin").innerHTML=long_min;
+     
+    long_sec = 60*(long_min_i - long_min);
+    
+    document.getElementById("outputSec").innerHTML=long_sec;
+    
+    
+    
+     
+    
 }
 
 
