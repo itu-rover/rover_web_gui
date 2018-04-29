@@ -6,7 +6,7 @@
 
 
  //map style 'Ları burada tanımlanıyor-----
- var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116,41.1139016927532]);
+ var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116, 41.1139016927532]);
  var itu_map = {
      "version": 8,
      "sources": {
@@ -28,7 +28,7 @@
          "maxzoom": 19
         }]
  };
-var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659,37.774211111850491]);
+ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659, 37.774211111850491]);
  var isp_map = {
      "version": 8,
      "sources": {
@@ -50,7 +50,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
          "maxzoom": 19
         }]
  };
- 
+
  var utah_1_bound = new mapboxgl.LngLatBounds([-110.79389650482354, 38.4057982037259], [-110.78977663177666, 38.406956319882759]);
  var utah_1 = {
      "version": 8,
@@ -352,37 +352,38 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
      });
 
  });
-function converter(){
-   var degree = document.getElementById('deg').value;
-   var minute = document.getElementById('min').value;
-   var second = document.getElementById('sec').value;
-    var longitude_i = document.getElementById('long').value;
-    
 
-    //alert(degree);
-    longitude = parseFloat(degree) + parseFloat(minute/60) + parseFloat(second/3600);
-    document.getElementById("outputLong").innerHTML=longitude;
-    //alert(longitude);
-    
-    long_deg = Math.floor(longitude_i);
-    document.getElementById("outputDeg").innerHTML=long_deg;
-    
-     long_min_i = 60 * (longitude_i-long_deg);
-    
-    long_min = Math.floor(long_min_i);
-    
-    
-    document.getElementById("outputMin").innerHTML=long_min;
-     
-    long_sec = 60*(long_min_i - long_min);
-    
-    document.getElementById("outputSec").innerHTML=long_sec;
-    
-    
-    
-     
-    
-}
+ function converter() {
+     var degree = document.getElementById('deg').value;
+     var minute = document.getElementById('min').value;
+     var second = document.getElementById('sec').value;
+     var longitude_i = document.getElementById('long').value;
+
+
+     //alert(degree);
+     longitude = parseFloat(degree) + parseFloat(minute / 60) + parseFloat(second / 3600);
+     document.getElementById("outputLong").innerHTML = longitude;
+     //alert(longitude);
+
+     long_deg = Math.floor(longitude_i);
+     document.getElementById("outputDeg").innerHTML = long_deg;
+
+     long_min_i = 60 * (longitude_i - long_deg);
+
+     long_min = Math.floor(long_min_i);
+
+
+     document.getElementById("outputMin").innerHTML = long_min;
+
+     long_sec = 60 * (long_min_i - long_min);
+
+     document.getElementById("outputSec").innerHTML = long_sec;
+
+
+
+
+
+ }
 
 
  function initPublishers() {
@@ -454,17 +455,17 @@ function converter(){
      $("#edit-controls").slideToggle(500);
 
  });
-$("#converter").click(function () {
+ $("#converter").click(function () {
      if (!ui_variables.editable) {
          initControl("#convert_section");
-         
+
          ui_variables.add = false;
          ui_variables.move = false;
          ui_variables.remove = false;
      }
      ui_variables.editable = !ui_variables.editable;
      $("#convert").slideToggle(500);
-     
+
 
  });
 
@@ -523,14 +524,14 @@ $("#converter").click(function () {
      map.setCenter([-110.791941, 38.406320]);
      map.setMaxBounds(utah_2_bound);
      map.setZoom(15);
-     
+
  });
  $("#map-offline-4").click(function () {
      map.setStyle(isp_map);
      map.setCenter([30.565229347940253, 37.768412819763086]);
      map.setMaxBounds();
      map.setZoom(15);
-     
+
  });
 
  $(document).on("click", ".waypoint", function (e) {

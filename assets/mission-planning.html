@@ -52,61 +52,6 @@
                 <div class="row">
                     <div id='map' class="map-bg"></div>
                 </div>
-                <div class="box box-info bg-gray" id="converter_section">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Converter</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn open.btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <!-- form start -->
-                    <form class="form-horizontal">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Degrees</label>
-
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="deg" placeholder="Degrees">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Minutes</label>
-
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="min" placeholder="Minutes">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Seconds</label>
-
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="sec" placeholder="Seconds">
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer bg-gray">
-
-                            <input type="button" value="convert" onclick="converter()" id="convert" class="btn btn-info pull-right bg-red" onload="longitude" />
-                            <p>Longitude/Latitude: <span id="outputLong"></span></p>
-
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Longitude <br>
-                                                            /Latitude</label>
-
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="long" placeholder="Longitude">
-                                    <p>degree: <span id="outputDeg"></span>
-                                        <p>minute: <span id="outputMin"></span></p>
-                                        <p>second: <span id="outputSec"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
                 <div class="row">
                     <!-- Global Info -->
                     <div class="col-md-12">
@@ -114,7 +59,6 @@
                             <button type="button" class="btn btn-default btn-flat" id="go-to-rover">GO TO ROVER</button>
                             <button type="button" class="btn btn-default btn-flat toggle-btn" id="focus-on-rover">FOCUS ON ROVER</button>
                             <button type="button" class="btn btn-default btn-flat toggle-btn" id="edit-markers">EDIT MARKERS</button>
-                            <button type="button" class="btn btn-default btn-flat toggle-btn" id="converter">CONVERTER</button>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                           <span class="caret"></span>
@@ -165,6 +109,67 @@
                         <br>
                         <button type="button" class="btn btn-default btn-lg bg-red" id="remove-all-markers"><span class="fa fa-trash"></span></button>
                         <br> </div>
+                </div>
+                                /////////////////////////////////////////////
+                <div class="col-md-4 col-sm-4 col-xs-4 pull-left">
+                    <div class="box box-info bg-gray " id="converter_section">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Converter</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn open.btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form class="form-horizontal">
+                            <div class="box-body" style="display: none;">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Degrees</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="deg" placeholder="Degrees">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">Minutes</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="min" placeholder="Minutes">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Seconds</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="sec" placeholder="Seconds">
+                                    </div>
+                                </div>
+
+
+                                <!-- /.box-body -->
+                                <div class="box-footer bg-gray">
+
+                                    <input type="button" value="convert" onclick="converter()" id="convert" class="btn btn-info pull-right bg-red" onload="longitude" />
+                                    <p>Longitude/Latitude: <span id="outputLong"></span></p>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-2 control-label">Longitude <br>
+                                                            /Latitude</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="long" placeholder="Longitude">
+                                            <p>degree: <span id="outputDeg"></span>
+                                                <p>minute: <span id="outputMin"></span></p>
+                                                <p>second: <span id="outputSec"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
                 </div>
 
             </section>
