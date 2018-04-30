@@ -6,7 +6,7 @@
 
 
  //map style 'Ları burada tanımlanıyor-----
- var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116, 41.1139016927532]);
+ var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116,41.1139016927532]);
  var itu_map = {
      "version": 8,
      "sources": {
@@ -28,7 +28,7 @@
          "maxzoom": 19
         }]
  };
- var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659, 37.774211111850491]);
+var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659,37.774211111850491]);
  var isp_map = {
      "version": 8,
      "sources": {
@@ -50,7 +50,7 @@
          "maxzoom": 19
         }]
  };
-
+ 
  var utah_1_bound = new mapboxgl.LngLatBounds([-110.79389650482354, 38.4057982037259], [-110.78977663177666, 38.406956319882759]);
  var utah_1 = {
      "version": 8,
@@ -168,8 +168,14 @@
      name: '/mavros/imu/data',
      messageType: 'sensor_msgs/Imu'
  });
+ var gps_control_listener = new ROSLIB.Topic({
+     ros: ros,
+     name: 'gps/control',
+     messageType: 'sensor_msgs/NavSatFix'
+ });
  //-------------------------------------------
- var markerLineString = {
+
+var markerLineString = {
 
 
      "type": "Feature",
@@ -183,8 +189,8 @@
 
  $(document).ready(function () {
      $("#marker-adder").hide();
-     $("converter_section").hide();
      $("#edit-controls").hide();
+     $("converter_section").hide();
  });
  var map = new mapboxgl.Map({
      container: 'map',
@@ -352,8 +358,7 @@
      });
 
  });
-
- function converter() {
+function converter() {
      var degree = document.getElementById('deg').value;
      var minute = document.getElementById('min').value;
      var second = document.getElementById('sec').value;
@@ -415,6 +420,11 @@
          drone.coordinates[1] = msg.latitude;
          drone.coordinates[0] = msg.longitude;
      });
+        gps_control_listener.subscribe(function (msg) {
+         console.log(msg.data);
+         drone.coordinates[1] = msg.latitude;
+         drone.coordinates[0] = msg.longitude;
+     });
      //--Compass heading
      compass_hdg_listener.subscribe(function (msg) {
          direction = msg.data;
@@ -452,10 +462,12 @@
      }
      ui_variables.editable = !ui_variables.editable;
      $("#marker-adder").slideToggle(500);
+      
      $("#edit-controls").slideToggle(500);
 
  });
- $("#converter").click(function () {
+
+$("#converter").click(function () {
      if (!ui_variables.editable) {
          initControl("#convert_section");
 
@@ -468,7 +480,6 @@
 
 
  });
-
 
  $("#add-marker").click(function () {
      ui_variables.add = !ui_variables.add;
@@ -524,14 +535,14 @@
      map.setCenter([-110.791941, 38.406320]);
      map.setMaxBounds(utah_2_bound);
      map.setZoom(15);
-
+     
  });
  $("#map-offline-4").click(function () {
      map.setStyle(isp_map);
      map.setCenter([30.565229347940253, 37.768412819763086]);
      map.setMaxBounds();
      map.setZoom(15);
-
+     
  });
 
  $(document).on("click", ".waypoint", function (e) {
