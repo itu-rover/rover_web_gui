@@ -145,12 +145,6 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
      messageType: 'mavros_msgs/State'
  });
 
- var global_position_listener = new ROSLIB.Topic({
-     ros: ros,
-     name: 'gps/fix',
-     messageType: 'sensor_msgs/NavSatFix'
- });
-
  var compass_hdg_listener = new ROSLIB.Topic({
      ros: ros,
      name: '/mavros/global_position/compass_hdg',
@@ -222,7 +216,7 @@ var markerLineString = {
  function setDronePos() {
      map.getSource('drone').setData(drone);
 
-     map.setLayoutProperty('drone', 'icon-rotate', direction);
+     //map.setLayoutProperty('drone', 'icon-rotate', direction);
 
      if (ui_variables.focused === true) {
          map.setCenter(drone.coordinates);
@@ -415,11 +409,6 @@ function converter() {
      //--Longitude (degrees)
      //--Altitude (m)AMSL
      //TODO add artificial horizon
-     global_position_listener.subscribe(function (msg) {
-         console.log(msg.data);
-         drone.coordinates[1] = msg.latitude;
-         drone.coordinates[0] = msg.longitude;
-     });
         gps_control_listener.subscribe(function (msg) {
          console.log(msg.data);
          drone.coordinates[1] = msg.latitude;
