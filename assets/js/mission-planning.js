@@ -208,6 +208,10 @@ var markerLineString = {
      "type": "Point",
      "coordinates": monument
  };
+ var rover = {
+     "type": "Point",
+     "coordinates": monument
+ };
 
  //heading value fo drone marker
  var direction;
@@ -220,6 +224,15 @@ var markerLineString = {
 
      if (ui_variables.focused === true) {
          map.setCenter(drone.coordinates);
+     }
+ }
+function setDronePos() {
+     map.getSource('rover').setData(rover);
+
+     //map.setLayoutProperty('drone', 'icon-rotate', direction);
+
+     if (ui_variables.focused === true) {
+         map.setCenter(rover.coordinates);
      }
  }
 
@@ -283,6 +296,10 @@ var markerLineString = {
              type: 'geojson',
              data: drone
          });
+          map.addSource('rover', {
+             type: 'geojson',
+             data: rover
+         });
 
          map.setCenter(drone.coordinates);
 
@@ -296,11 +313,32 @@ var markerLineString = {
                  "circle-opacity": 0.4
              }
          });
+         map.addLayer({
+             "id": "rover-glow-strong",
+             "type": "circle",
+             "source": "rover",
+             "paint": {
+                 "circle-radius": 18,
+                 "circle-color": "#549",
+                 "circle-opacity": 0.4
+             }
+         });
+
 
          map.addLayer({
              "id": "drone-glow",
              "type": "circle",
              "source": "drone",
+             "paint": {
+                 "circle-radius": 40,
+                 "circle-color": "#392",
+                 "circle-opacity": 0.1
+             }
+         });
+            map.addLayer({
+             "id": "rover-glow",
+             "type": "circle",
+             "source": "rover",
              "paint": {
                  "circle-radius": 40,
                  "circle-color": "#000",
@@ -411,8 +449,8 @@ function converter() {
      //TODO add artificial horizon
         gps_control_listener.subscribe(function (msg) {
          console.log(msg.data);
-         drone.coordinates[1] = msg.latitude;
-         drone.coordinates[0] = msg.longitude;
+         rover.coordinates[1] = msg.latitude;
+         rover.coordinates[0] = msg.longitude;
      });
      //--Compass heading
      compass_hdg_listener.subscribe(function (msg) {
@@ -432,6 +470,9 @@ function converter() {
  //go to drone's location
  jQuery("#go-to-rover").click(function () {
      map.setCenter(drone.coordinates);
+ });
+jQuery("#add-rover").click(function () {
+     map.setCenter(rover.coordinates);
  });
 
  $("#addMarkBtn").click(function () {
