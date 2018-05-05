@@ -302,6 +302,7 @@ function setDronePos() {
          });
 
          map.setCenter(drone.coordinates);
+         map.setCenter(rover.coordinates);
 
          map.addLayer({
              "id": "drone-glow-strong",
@@ -451,6 +452,11 @@ function converter() {
          console.log(msg.data);
          rover.coordinates[1] = msg.latitude;
          rover.coordinates[0] = msg.longitude;
+     });
+     gps_listener.subscribe(function (msg) {
+         console.log(msg.data);
+         drone.coordinates[1] = msg.latitude;
+         drone.coordinates[0] = msg.longitude;
      });
      //--Compass heading
      compass_hdg_listener.subscribe(function (msg) {
