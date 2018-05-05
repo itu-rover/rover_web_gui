@@ -167,6 +167,11 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
      name: 'gps/control',
      messageType: 'sensor_msgs/NavSatFix'
  });
+ var gps_listener = new ROSLIB.Topic({
+     ros: ros,
+     name: 'gps/fix',
+     messageType: 'sensor_msgs/NavSatFix'
+ });
  //-------------------------------------------
 
 var markerLineString = {
@@ -458,6 +463,7 @@ function converter() {
          drone.coordinates[1] = msg.latitude;
          drone.coordinates[0] = msg.longitude;
      });
+     
      //--Compass heading
      compass_hdg_listener.subscribe(function (msg) {
          direction = msg.data;
