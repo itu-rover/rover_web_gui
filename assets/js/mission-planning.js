@@ -231,7 +231,7 @@ var markerLineString = {
          map.setCenter(drone.coordinates);
      }
  }
-function setDronePos() {
+function setRoverPos() {
      map.getSource('rover').setData(rover);
 
      //map.setLayoutProperty('drone', 'icon-rotate', direction);
@@ -364,6 +364,7 @@ function setDronePos() {
 
 
          window.setInterval(setDronePos, 250);
+           window.setInterval(setRoverPos, 250);
      }
      //creates layer for waypoints
      map.addLayer({
