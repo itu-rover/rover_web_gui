@@ -217,7 +217,7 @@ var drone = {
 };
 var rover = {
     "type": "Point",
-    "coordinates": null
+    "coordinates": [0, 0]
 };
 
 //heading value fo drone marker
