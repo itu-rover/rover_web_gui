@@ -399,16 +399,11 @@ map.on('styledata', function () {
 
 });
 
-function converter() {
-    var degree = document.getElementById('deg').value;
-    var minute = document.getElementById('min').value;
-    var second = document.getElementById('sec').value;
-    var longitude_i = document.getElementById('long').value;
-
+function converter(degree, minute, second, coordinate) {
 
     //alert(degree);
-    longitude = parseFloat(degree) + parseFloat(minute / 60) + parseFloat(second / 3600);
-    document.getElementById("outputLong").innerHTML = longitude;
+    return (parseFloat(degree) + parseFloat(minute / 60) + parseFloat(second / 3600));
+    /*document.getElementById("outputLong").innerHTML = longitude;
     //alert(longitude);
 
     long_deg = Math.floor(longitude_i);
@@ -424,11 +419,7 @@ function converter() {
     long_sec = 60 * (long_min_i - long_min);
 
     document.getElementById("outputSec").innerHTML = long_sec;
-
-
-
-
-
+   */
 }
 
 
@@ -495,6 +486,14 @@ jQuery("#add-rover").click(function () {
 
 $("#addMarkBtn").click(function () {
     var data = [Number($("#addMarkLng").val()), Number($("#addMarkLat").val())];
+    addMark(data);
+});
+
+$("#addMarkBtn-deg").click(function () {
+    var lng = converter(Number($("#addMarkLng-deg").val()), Number($("#addMarkLng-min").val()) , Number($("#addMarkLng-sec").val()));
+    var lat = converter(Number($("#addMarkLat-deg").val()), Number($("#addMarkLat-min").val()) , Number($("#addMarkLat-sec").val())); 
+    var data = [lng, lat];
+    console.log(data);
     addMark(data);
 });
 
