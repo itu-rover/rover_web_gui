@@ -514,6 +514,7 @@ $("#edit-markers").click(function () {
     $("#edit-controls").slideToggle(500);
 
 });
+ 
 
 $("#converter").click(function () {
     if (!ui_variables.editable) {
