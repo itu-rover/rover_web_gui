@@ -121,6 +121,7 @@ function initSubscribers() {
     
     
     gps_control_listener.subscribe(function (msg) {
+         console.log(msg.data);
          drone.coordinates[1] = msg.latitude;
          drone.coordinates[0] = msg.longitude;
      });
@@ -265,6 +266,8 @@ function getAxisVal(data, axis){
 function publishJoystics(){
         joystick_publisher1.publish(joy_msg1);
         joystick_publisher2.publish(joy_msg2);
+        console.log(joy_msg1);
+        console.log(joy_msg2);
 }
     
     if (rosConnected) {
