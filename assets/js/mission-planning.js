@@ -411,8 +411,8 @@ function converter() {
      //TODO add artificial horizon
         gps_control_listener.subscribe(function (msg) {
          console.log(msg.data);
-         drone.coordinates[1] = msg.latitude;
-         drone.coordinates[0] = msg.longitude;
+         drone.coordinates[0] = msg.latitude;
+         drone.coordinates[1] = msg.longitude;
      });
      //--Compass heading
      compass_hdg_listener.subscribe(function (msg) {
@@ -435,7 +435,7 @@ function converter() {
  });
 
  $("#addMarkBtn").click(function () {
-     var data = [Number($("#addMarkLng").val()), Number($("#addMarkLat").val())];
+     var data = [Number($("#addMarkLat").val()), Number($("#addMarkLng").val())];
      addMark(data);
  });
 
