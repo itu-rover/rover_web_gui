@@ -148,42 +148,42 @@ function initSubscribers() {
     var humidty_listener = new ROSLIB.Topic({
         ros: ros,
         name: 'humidty_data', //dinlenecek topic adı
-        messageType: 'sensor_msgs/string' //topicin mesaj tipi
+        messageType: 'std_msgs/Int32MultiArray' //topicin mesaj tipi
     });
 
     var dust_listener = new ROSLIB.Topic({
         ros: ros,
         name: 'dust_data',
-        messageType: 'sensor_msgs/string'
+        messageType: 'std_msgs/Int32MultiArray'
     });
 
     var air_listener = new ROSLIB.Topic({
         ros: ros,
         name: 'air_data',
-        messageType: 'sensor_msgs/string'
+        messageType: 'std_msgs/Int32MultiArray'
     });
 
     var carbon_listener = new ROSLIB.Topic({
         ros: ros,
         name: 'carbon_data',
-        messageType: 'sensor_msgs/string'
+        messageType: 'std_msgs/Int32MultiArray'
     });
 
     var etanol_listener = new ROSLIB.Topic({
         ros: ros,
         name: 'etanol_data',
-        messageType: 'sensor_msgs/string'
+        messageType: 'std_msgs/Int32MultiArray'
     });
 
     var metane_listener = new ROSLIB.Topic({
         ros: ros,
         name: 'metane_data',
-        messageType: 'sensor_msgs/string'
+        messageType: 'std_msgs/Int32MultiArray'
     });
     var geiger_listener = new ROSLIB.Topic({
         ros: ros,
         name: 'geiger_data',
-        messageType: 'sensor_msgs/string'
+        messageType: 'std_msgs/Int32MultiArray'
     });
 
     var sensor_listener = new ROSLIB.Topic({
