@@ -53,19 +53,22 @@ var baro_data;
 var longitude;
 
 
-var data_metane = [56, 0, 78, 0, 0, 0, 0, 0];
-var data_carbon = [0, 90, 0, 0, 0, 112, 0, 0];
-var data_hum = [0, 0, 0, 45, 0, 0, 0, 0];
-var data_temp = [0, 87, 0, 0, 0, 75, 0, 0];
-var data_baro = [0, 0, 66, 0, 0, 0, 0, 90];
-var data_etanol = [0, 0, 34, 0, 0, 56, 0, 0];
+var data_metane = [0, 0, 0, 0, 0, 0, 0, 0];
+var data_carbon = [0, 0, 0, 0, 0, 0, 0, 0];
+var data_hum = [0, 0, 0, 0, 0, 0, 0, 0];
+var data_air = [0, 0, 0, 0, 0, 0, 0, 0];
+var data_dust = [0, 0, 0, 0, 0, 0, 0, 0];
+var data_etanol = [0, 0, 0, 0, 0, 0, 0, 0];
+var data_geiger = [0, 0, 0, 0, 0, 0, 0, 0];
 
 var dps_metane = [];
 var dps_carbon = [];
 var dps_hum = [];
-var dps_temp = [];
-var dps_baro = [];
+var dps_air = [];
+var dps_dust = [];
 var dps_etanol = [];
+var dps_geiger = [];
+
 
 //for (var i = 0, t = 100; i < t; i++) {
 //    data.push(Math.round(Math.random() * 99))
@@ -144,37 +147,42 @@ function initSubscribers() {
 
     var humidty_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'sensor_data', //dinlenecek topic adı
+        name: 'humidty_data', //dinlenecek topic adı
         messageType: 'sensor_msgs/string' //topicin mesaj tipi
     });
 
-    var barometer_listener = new ROSLIB.Topic({
+    var dust_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'sensor_data',
+        name: 'dust_data',
         messageType: 'sensor_msgs/string'
     });
 
-    var temp_listener = new ROSLIB.Topic({
+    var air_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'sensor_data',
+        name: 'air_data',
         messageType: 'sensor_msgs/string'
     });
 
     var carbon_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'sensor_data',
+        name: 'carbon_data',
         messageType: 'sensor_msgs/string'
     });
 
     var etanol_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'sensor_data',
+        name: 'etanol_data',
         messageType: 'sensor_msgs/string'
     });
 
     var metane_listener = new ROSLIB.Topic({
         ros: ros,
-        name: 'sensor_data',
+        name: 'metane_data',
+        messageType: 'sensor_msgs/string'
+    });
+    var geiger_listener = new ROSLIB.Topic({
+        ros: ros,
+        name: 'geiger_data',
         messageType: 'sensor_msgs/string'
     });
 
@@ -196,12 +204,12 @@ function initSubscribers() {
     humidty_listener.subscribe(function (msg) {
         data_hum = msg.data;
     });
-    barometer_listener.subscribe(function (msg) {
-        data_baro = msg.data;
+    dust_listener.subscribe(function (msg) {
+        data_dust = msg.data;
     });
 
-    temp_listener.subscribe(function (msg) {
-        data_temp = msg.data;
+    air_listener.subscribe(function (msg) {
+        data_air = msg.data;
     });
 
     carbon_listener.subscribe(function (msg) {
@@ -217,6 +225,12 @@ function initSubscribers() {
     metane_listener.subscribe(function (msg) {
         console.log(msg);
         data_metane = msg.data;
+
+
+    });
+     geiger_listener.subscribe(function (msg) {
+        console.log(msg);
+        data_geiger = msg.data;
 
 
     });
@@ -296,15 +310,15 @@ var chart = new CanvasJS.Chart("chartContainer1", {
 	},
             {
                 type: "spline",
-                name: "Barometer",
+                name: "Dust",
                 showInLegend: true,
-                dataPoints: dps_baro
+                dataPoints: dps_dust
 	},
             {
                 type: "spline",
-                name: "Temperature",
+                name: "Air",
                 showInLegend: true,
-                dataPoints: dps_temp
+                dataPoints: dps_air
 	},
             {
                 type: "spline",
@@ -317,6 +331,12 @@ var chart = new CanvasJS.Chart("chartContainer1", {
                 name: "Etanol",
                 showInLegend: true,
                 dataPoints: dps_etanol
+	},
+                {
+                type: "spline",
+                name: "Geiger",
+                showInLegend: true,
+                dataPoints: dps_geiger
 	},
             {
                 type: "spline",
@@ -348,9 +368,9 @@ var updateChart = function () {
 
 
 
-    dps_baro.push({
+    dps_hum.push({
         x: xVal,
-        y: +data_baro[yVal]
+        y: +data_hum[yVal]
     });
     dps_carbon.push({
         x: xVal,
@@ -360,17 +380,21 @@ var updateChart = function () {
         x: xVal,
         y: +data_etanol[yVal]
     });
-    dps_hum.push({
+    dps_dust.push({
         x: xVal,
-        y: +data_hum[yVal]
+        y: +data_dust[yVal]
     });
-    dps_temp.push({
+    dps_air.push({
         x: xVal,
-        y: +data_temp[yVal]
+        y: +data_air[yVal]
     });
     dps_metane.push({
         x: xVal,
         y: +data_metane[yVal]
+    });
+    dps_geiger.push({
+        x: xVal,
+        y: +data_geiger[yVal]
     });
 
 
@@ -425,7 +449,11 @@ function converter(){
 }
 
 
-
+$( function() {
+    $( "#progressbar" ).progressbar({
+      value: 37
+    });
+  } );
 
 
 console.log(dps_baro);
