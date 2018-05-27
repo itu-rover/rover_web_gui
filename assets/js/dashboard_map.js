@@ -48,7 +48,53 @@ var carbon_data;
 
 var baro_data;
 
+var utah_2_bound = new mapboxgl.LngLatBounds([-110.80391473427945, 38.394643283958821], [-110.77716804847765, 38.415678114259329]);
 
+var utah_2 = {
+     "version": 8,
+     "sources": {
+         "utah_2_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-2/{z}/{x}/{y}.pbf"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
+
+         }
+     },
+     "layers": [{
+         "id": "utah_2_tile",
+         "type": "raster",
+         "source": "utah_2_tile",
+         "minzoom": 0,
+         "maxzoom": 19
+        }]
+ };
+
+//alt satır değişecek
+var utah_home_bound = new mapboxgl.LngLatBounds([-110.80391473427945, 38.394643283958821], [-110.77716804847765, 38.415678114259329]);
+var utah_home = {
+     "version": 8,
+     "sources": {
+         "utah_home_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-home/{z}/{x}/{y}.pbf"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
+
+         }
+     },
+     "layers": [{
+         "id": "utah_home_tile",
+         "type": "raster",
+         "source": "utah_home_tile",
+         "minzoom": 0,
+         "maxzoom": 19
+        }]
+ };
 
 var longitude;
 
@@ -448,15 +494,15 @@ function converter(){
     
 }
 
-
+/*
 $( function() {
     $( "#progressbar" ).progressbar({
       value: 37
     });
   } );
+*/
 
-
-console.log(dps_baro);
+//console.log(dps_baro);
 
 
 
@@ -517,7 +563,29 @@ map.on('click', function (e) {
     //JSON.stringify(e.lngLat);
 });
 
-map.on('load', function () {
+ $("#map-online").click(function () {
+    console.log("sdaads");
+     map.setStyle('mapbox://styles/mapbox/satellite-streets-v9');
+     map.setCenter([-110.791941, 38.406320]);
+     map.setMaxBounds(null);
+ });
+
+ $("#map-offline-1").click(function () {
+     map.setStyle(utah_2);
+     map.setCenter([-110.791941, 38.406320]);
+     map.setMaxBounds(utah_2_bound);
+     map.setZoom(15);
+ });
+
+ $("#map-offline-2").click(function () {
+     map.setStyle(utah_home);
+     //alt satır değişecek
+     map.setCenter([29.02677916503476, 41.104005936601482]);
+     map.setMaxBounds(utah_home_bound);
+     map.setZoom(15);
+ });
+
+map.on('styledata', function () {
     // add the GeoJSON above to a new vector tile source
     if (rosConnected) {
         map.addSource('drone', {

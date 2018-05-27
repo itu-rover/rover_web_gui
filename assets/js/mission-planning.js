@@ -74,6 +74,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
         }]
  };
 
+
  var utah_2_bound = new mapboxgl.LngLatBounds([-110.80391473427945, 38.394643283958821], [-110.77716804847765, 38.415678114259329]);
  var utah_2 = {
      "version": 8,
@@ -92,6 +93,31 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
          "id": "utah_2_tile",
          "type": "raster",
          "source": "utah_2_tile",
+         "minzoom": 0,
+         "maxzoom": 19
+        }]
+ };
+
+
+//alt satır değişecek
+ var utah_home_bound = new mapboxgl.LngLatBounds([-110.80391473427945, 38.394643283958821], [-110.77716804847765, 38.415678114259329]);
+ var utah_home = {
+     "version": 8,
+     "sources": {
+         "utah_home_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-home/{z}/{x}/{y}.pbf"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
+
+         }
+     },
+     "layers": [{
+         "id": "utah_home_tile",
+         "type": "raster",
+         "source": "utah_home_tile",
          "minzoom": 0,
          "maxzoom": 19
         }]
@@ -257,9 +283,11 @@ var markerLineString = {
  });
 
  map.on('mousemove', function (e) {
+     var temp_coordinate = [e.lngLat.lng, e.lngLat.lat];
      if (ui_variables.move && ui_variables.editable && ui_variables.marker_moving) {
-         moveMarker(ui_variables.target_index, [e.lngLat.lng, e.lngLat.lat]);
+         moveMarker(ui_variables.target_index, temp_coordinate);
      }
+    $("#temp-pos").html(temp_coordinate[1] + "," + temp_coordinate[0]);
  });
 
 
@@ -530,6 +558,15 @@ $("#converter").click(function () {
      map.setStyle(isp_map);
      map.setCenter([30.565229347940253, 37.768412819763086]);
      map.setMaxBounds();
+     map.setZoom(15);
+     
+ });
+
+ $("#map-offline-5").click(function () {
+     map.setStyle(utah_home);
+     //alt satır değişecek
+     map.setCenter([30.565229347940253, 37.768412819763086]);
+     map.setMaxBounds(utah_home_bound);
      map.setZoom(15);
      
  });
