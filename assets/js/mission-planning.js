@@ -6,7 +6,7 @@
 
 
  //map style 'Ları burada tanımlanıyor-----
- var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116,41.1139016927532]);
+ var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116, 41.1139016927532]);
  var itu_map = {
      "version": 8,
      "sources": {
@@ -28,7 +28,7 @@
          "maxzoom": 19
         }]
  };
-var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659,37.774211111850491]);
+ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659, 37.774211111850491]);
  var isp_map = {
      "version": 8,
      "sources": {
@@ -50,7 +50,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
          "maxzoom": 19
         }]
  };
- 
+
  var utah_1_bound = new mapboxgl.LngLatBounds([-110.79389650482354, 38.4057982037259], [-110.78977663177666, 38.406956319882759]);
  var utah_1 = {
      "version": 8,
@@ -99,8 +99,8 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
  };
 
 
-//alt satır değişecek
- var utah_home_bound = new mapboxgl.LngLatBounds([-110.80391473427945, 38.394643283958821], [-110.77716804847765, 38.415678114259329]);
+ //alt satır değişecek
+ var utah_home_bound = new mapboxgl.LngLatBounds([-109.46275362261424, 38.469826781712378], [-109.43234336853268, 38.502572619836712]);
  var utah_home = {
      "version": 8,
      "sources": {
@@ -108,7 +108,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
              "type": "raster",
              // "url": "mapbox://map-id"
              //"url": location.origin+location.pathname+"itu-ayazaga" 
-             "tiles": [location.origin + "/maps/utah-home/{z}/{x}/{y}.pbf"],
+             "tiles": [location.origin + "/maps/utah-home/{z}/{x}/{y}.png"],
              //"maxzoom": 19,
              //"minzoom": 14,        
 
@@ -118,7 +118,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
          "id": "utah_home_tile",
          "type": "raster",
          "source": "utah_home_tile",
-         "minzoom": 0,
+         "minzoom": 16,
          "maxzoom": 19
         }]
  };
@@ -195,7 +195,7 @@ var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.7626145276
  });
  //-------------------------------------------
 
-var markerLineString = {
+ var markerLineString = {
 
 
      "type": "Feature",
@@ -287,7 +287,7 @@ var markerLineString = {
      if (ui_variables.move && ui_variables.editable && ui_variables.marker_moving) {
          moveMarker(ui_variables.target_index, temp_coordinate);
      }
-    $("#temp-pos").html(temp_coordinate[1] + "," + temp_coordinate[0]);
+     $("#temp-pos").html(temp_coordinate[1] + "," + temp_coordinate[0]);
  });
 
 
@@ -380,7 +380,8 @@ var markerLineString = {
      });
 
  });
-function converter() {
+
+ function converter() {
      var degree = document.getElementById('deg').value;
      var minute = document.getElementById('min').value;
      var second = document.getElementById('sec').value;
@@ -437,7 +438,7 @@ function converter() {
      //--Longitude (degrees)
      //--Altitude (m)AMSL
      //TODO add artificial horizon
-        gps_control_listener.subscribe(function (msg) {
+     gps_control_listener.subscribe(function (msg) {
          console.log(msg.data);
          drone.coordinates[0] = msg.latitude;
          drone.coordinates[1] = msg.longitude;
@@ -479,12 +480,12 @@ function converter() {
      }
      ui_variables.editable = !ui_variables.editable;
      $("#marker-adder").slideToggle(500);
-      
+
      $("#edit-controls").slideToggle(500);
 
  });
 
-$("#converter").click(function () {
+ $("#converter").click(function () {
      if (!ui_variables.editable) {
          initControl("#convert_section");
 
@@ -547,28 +548,35 @@ $("#converter").click(function () {
      map.setZoom(15);
  });
 
+ $("#map-offline").click(function () {
+     map.setStyle(utah_home);
+     map.setCenter([38.486199, -109.447548]);
+     map.setMaxBounds(utah_home_bound);
+     map.setZoom(16);
+ });
+
  $("#map-offline-3").click(function () {
      map.setStyle(utah_2);
      map.setCenter([-110.791941, 38.406320]);
      map.setMaxBounds(utah_2_bound);
      map.setZoom(15);
-     
+
  });
  $("#map-offline-4").click(function () {
      map.setStyle(isp_map);
      map.setCenter([30.565229347940253, 37.768412819763086]);
      map.setMaxBounds();
      map.setZoom(15);
-     
+
  });
 
  $("#map-offline-5").click(function () {
      map.setStyle(utah_home);
      //alt satır değişecek
-     map.setCenter([30.565229347940253, 37.768412819763086]);
+     map.setCenter([-109.44754849557347,38.486199700774549]);
      map.setMaxBounds(utah_home_bound);
      map.setZoom(15);
-     
+
  });
 
  $(document).on("click", ".waypoint", function (e) {
