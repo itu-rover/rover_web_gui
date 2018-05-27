@@ -95,7 +95,6 @@ var utah_home = {
          "maxzoom": 19
         }]
  };
-
 var longitude;
 
 
