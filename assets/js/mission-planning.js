@@ -100,7 +100,7 @@
 
 
  //alt satır değişecek
- var utah_home_bound = new mapboxgl.LngLatBounds([-109.46275362261424, 38.469826781712378], [-109.43234336853268, 38.502572619836712]);
+ var utah_home_bound = new mapboxgl.LngLatBounds([-109.48548157105029, 38.45871958498919], [-109.41147533977734, 38.51431037116815]);
  var utah_home = {
      "version": 8,
      "sources": {
@@ -118,7 +118,7 @@
          "id": "utah_home_tile",
          "type": "raster",
          "source": "utah_home_tile",
-         "minzoom": 16,
+         "minzoom": 0,
          "maxzoom": 19
         }]
  };
@@ -550,7 +550,7 @@
 
  $("#map-offline").click(function () {
      map.setStyle(utah_home);
-     map.setCenter([38.486199, -109.447548]);
+     map.setCenter([ -109.448478, 38.486514]);
      map.setMaxBounds(utah_home_bound);
      map.setZoom(16);
  });
