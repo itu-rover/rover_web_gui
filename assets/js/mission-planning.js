@@ -28,26 +28,27 @@
          "maxzoom": 19
         }]
  };
- var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659, 37.774211111850491]);
- var isp_map = {
+ var utah_down_bound = new mapboxgl.LngLatBounds([-111.00344215235384, 38.751553685542895], [ -110.83489481926759, 
+        38.86109881413995]);
+ var utah_down_map = {
      "version": 8,
      "sources": {
-         "isp_map_tile": {
+         "utah_down_map_tile": {
              "type": "raster",
              // "url": "mapbox://map-id"
              //"url": location.origin+location.pathname+"itu-ayazaga" 
-             "tiles": [location.origin + "/maps/isparta/{z}/{x}/{y}.png"],
+             "tiles": [location.origin + "/maps/utah-down/{z}/{x}/{y}.png"],
              //"maxzoom": 19,
              //"minzoom": 12,        
 
          }
      },
      "layers": [{
-         "id": "isp_map_tile",
+         "id": "utah_down_tile",
          "type": "raster",
-         "source": "isp_map_tile",
-         "minzoom": 12,
-         "maxzoom": 19
+         "source": "utah_down_tile",
+         "minzoom": 14,
+         "maxzoom": 17
         }]
  };
 
@@ -73,7 +74,50 @@
          "maxzoom": 19
         }]
  };
+var utah_3_bound = new mapboxgl.LngLatBounds([-111.00344215235384, 38.751553685542895], [-110.91916848581072, 38.806326249841419]);
+ var utah_3 = {
+     "version": 8,
+     "sources": {
+         "utah_3_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-3/{z}/{x}/{y}.png"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
 
+         }
+     },
+     "layers": [{
+         "id": "utah_3_tile",
+         "type": "raster",
+         "source": "utah_3_tile",
+         "minzoom":14,
+         "maxzoom": 17
+        }]
+ };
+var utah_4_bound = new mapboxgl.LngLatBounds([-110.99749759079766, 38.500701246092532], [-110.83219412916202, 38.711684652915714]);
+ var utah_4 = {
+     "version": 8,
+     "sources": {
+         "utah_4_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-4/{z}/{x}/{y}.png"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
+
+         }
+     },
+     "layers": [{
+         "id": "utah_4_tile",
+         "type": "raster",
+         "source": "utah_4_tile",
+         "minzoom":14,
+         "maxzoom": 17
+        }]
+ };
 
  var utah_2_bound = new mapboxgl.LngLatBounds([-110.80391473427945, 38.394643283958821], [-110.77716804847765, 38.415678114259329]);
  var utah_2 = {
@@ -122,7 +166,7 @@
          "maxzoom": 19
         }]
  };
-
+ 
  //----------------------------map-stylelarının sonu
 
  var ui_variables = { // control değişkenleri oluşturuldu
@@ -562,11 +606,32 @@
      map.setZoom(15);
 
  });
+$("#map-offline-utah-3").click(function () {
+     map.setStyle(utah_3);
+     map.setCenter([-110.919168, 38.806326]);
+     map.setMaxBounds(utah_3_bound);
+     map.setZoom(14);
+
+ });
+$("#map-offline-utah-4").click(function () {
+     map.setStyle(utah_4);
+     map.setCenter([-110.914845, 38.606192]);
+     map.setMaxBounds(utah_4_bound);
+     map.setZoom(14);
+
+ });
  $("#map-offline-4").click(function () {
-     map.setStyle(isp_map);
-     map.setCenter([30.565229347940253, 37.768412819763086]);
+     map.setStyle(utah_down_map);
+     map.setCenter([ -110.91484585997983, 38.60619294950412]);
      map.setMaxBounds();
-     map.setZoom(15);
+     map.setZoom(14);
+
+ });
+$("#map-offline-down").click(function () {
+     map.setStyle(utah_down_map);
+     map.setCenter([ -110.914845, 38.60619]);
+     map.setMaxBounds();
+     map.setZoom(14);
 
  });
 
@@ -578,6 +643,16 @@
      map.setZoom(15);
 
  });
+
+ $("#map-offline-90").click(function () {
+     map.setStyle(utah_demo);
+     //alt satır değişecek
+     map.setCenter([-110.7000, 38.40000]);
+     map.setMaxBounds(utah_demo_bound);
+     map.setZoom(15);
+
+ });
+
 
  $(document).on("click", ".waypoint", function (e) {
      if (ui_variables.remove && ui_variables.editable) {

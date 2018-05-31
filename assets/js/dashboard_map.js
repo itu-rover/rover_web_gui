@@ -460,6 +460,7 @@ setInterval(function () {
     updateChart()
 }, updateInterval);
 
+localStorage.setItem(data_carbon);
 
 function converter(){
    var degree = document.getElementById('deg').value;
