@@ -92,7 +92,7 @@ var utah_3_bound = new mapboxgl.LngLatBounds([-111.00344215235384, 38.7515536855
          "id": "utah_3_tile",
          "type": "raster",
          "source": "utah_3_tile",
-         "minzoom":14,
+         "minzoom":0,
          "maxzoom": 17
         }]
  };
@@ -114,7 +114,79 @@ var utah_4_bound = new mapboxgl.LngLatBounds([-110.99749759079766, 38.5007012460
          "id": "utah_4_tile",
          "type": "raster",
          "source": "utah_4_tile",
-         "minzoom":14,
+         "minzoom":0,
+         "maxzoom": 17
+        }]
+ };
+var utah_5_bound = new mapboxgl.LngLatBounds([ -111.00765372761339, 
+        38.55835409558226], [-110.99155292071923, 
+        38.568023250125528]);
+ var utah_5 = {
+     "version": 8,
+     "sources": {
+         "utah_5_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-5/{z}/{x}/{y}.png"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
+
+         }
+     },
+     "layers": [{
+         "id": "utah_5_tile",
+         "type": "raster",
+         "source": "utah_5_tile",
+         "minzoom":0,
+         "maxzoom": 17
+        }]
+ };
+var utah_6_bound = new mapboxgl.LngLatBounds([ -110.92780084763663, 
+        38.749913679849335], [ -110.8333481512758, 
+        38.83774377939325]);
+ var utah_6 = {
+     "version": 8,
+     "sources": {
+         "utah_6_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-6/{z}/{x}/{y}.png"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
+
+         }
+     },
+     "layers": [{
+         "id": "utah_6_tile",
+         "type": "raster",
+         "source": "utah_6_tile",
+         "minzoom":0,
+         "maxzoom": 17
+        }]
+ };
+var utah_7_bound = new mapboxgl.LngLatBounds([ -110.84311533268679, 
+        38.267784539441365], [ -110.50162806716752, 
+        38.401424723945475]);
+ var utah_7 = {
+     "version": 8,
+     "sources": {
+         "utah_7_tile": {
+             "type": "raster",
+             // "url": "mapbox://map-id"
+             //"url": location.origin+location.pathname+"itu-ayazaga" 
+             "tiles": [location.origin + "/maps/utah-7/{z}/{x}/{y}.png"],
+             //"maxzoom": 19,
+             //"minzoom": 14,        
+
+         }
+     },
+     "layers": [{
+         "id": "utah_7_tile",
+         "type": "raster",
+         "source": "utah_7_tile",
+         "minzoom":0,
          "maxzoom": 17
         }]
  };
@@ -617,6 +689,30 @@ $("#map-offline-utah-4").click(function () {
      map.setStyle(utah_4);
      map.setCenter([-110.914845, 38.606192]);
      map.setMaxBounds(utah_4_bound);
+     map.setZoom(14);
+
+ });
+$("#map-offline-utah-5").click(function () {
+     map.setStyle(utah_5);
+     map.setCenter([-110.9996, 
+        38.5631]);
+     map.setMaxBounds(utah_5_bound);
+     map.setZoom(14);
+
+ });
+$("#map-offline-utah-6").click(function () {
+     map.setStyle(utah_6);
+     map.setCenter([-110.88057, 
+        38.79382]);
+     map.setMaxBounds(utah_6_bound);
+     map.setZoom(14);
+
+ });
+$("#map-offline-utah-7").click(function () {
+     map.setStyle(utah_7);
+     map.setCenter([-110.67237, 
+        38.33460]);
+     map.setMaxBounds(utah_7_bound);
      map.setZoom(14);
 
  });
