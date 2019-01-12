@@ -98,12 +98,12 @@ var utah_home = {
 var longitude;
 
 
-var data_metane = [0, 0, 0, 0, 0, 0, 0, 0];
-var data_carbon = [0, 0, 0, 0, 0, 0, 0, 0];
-var data_hum = [0, 0, 0, 0, 0, 0, 0, 0];
-var data_air = [0, 0, 0, 0, 0, 0, 0, 0];
-var data_dust = [0, 0, 0, 0, 0, 0, 0, 0];
-var data_etanol = [0, 0, 0, 0, 0, 0, 0, 0];
+var data_metane = [];
+var data_carbon = [];
+var data_hum = [];
+var data_air = [];
+var data_dust = [];
+var data_etanol = [];
 var data_geiger = [0, 0, 0, 0, 0, 0, 0, 0];
 
 var dps_metane = [];
@@ -287,6 +287,7 @@ function initSubscribers() {
         //console.log(data);
         //console.log(data);
     });
+    
 
 
     //function log(msg) {
@@ -459,6 +460,9 @@ updateChart(100);
 setInterval(function () {
     updateChart()
 }, updateInterval);
+
+
+    alert("Hello! I am an alert box!");
 
 localStorage.setItem(data_carbon);
 
