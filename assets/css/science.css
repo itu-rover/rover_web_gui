@@ -1,0 +1,35 @@
+.imgedit {
+  height: 32px;
+  width: 60px;
+  margin-top:15px;
+}
+.body {
+  background-color:#252525;
+}
+.spektrometre {
+  background-color: #D1D6DE;
+  width: 1024px;
+  height: 900px;
+  position: fixed;
+  background-attachment: center;
+  margin-left: 200px;
+  margin-right: 200px;
+  display: block;
+}
+.sciencebox {
+    height: 500px;
+
+}
+
+.pushleft {
+    float: left;
+    margin-left: 85px;  
+    border: white 5px;
+    background-color: white;
+    color: black;
+    padding: 200px 200px;
+    margin-top: 200px;
+}
+    
+    
+    

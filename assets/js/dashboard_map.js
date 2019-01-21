@@ -98,13 +98,13 @@ var utah_home = {
 var longitude;
 
 
-var data_metane = [];
-var data_carbon = [];
-var data_hum = [];
-var data_air = [];
-var data_dust = [];
-var data_etanol = [];
-var data_geiger = [0, 0, 0, 0, 0, 0, 0, 0];
+var data_metane = [0, 0, 0, 0, 0, 0, 0, 800];
+var data_carbon = [0, 0, 800, 0, 0, 0, 0, 0];
+var data_hum = [900, 0, 0, 0, 0, 0, 0, 0];
+var data_air = [0, 0, 0, 0, 780, 0, 0, 0];
+var data_dust = [0, 999, 0, 0, 0, 0, 0, 0];
+var data_etanol = [0, 0, 0, 0, 0, 400, 0, 0];
+var data_geiger = [0, 0, 0, 0, 700, 0, 0, 0];
 
 var dps_metane = [];
 var dps_carbon = [];
@@ -218,6 +218,7 @@ function initSubscribers() {
         ros: ros,
         name: 'etanol_data',
         messageType: 'std_msgs/Int32MultiArray'
+      
     });
 
     var metane_listener = new ROSLIB.Topic({
@@ -331,7 +332,7 @@ var dps = [];
 
 //dataPoints. 
 
-var chart = new CanvasJS.Chart("chartContainer1", {
+var chart = new CanvasJS.Chart("chartContainer", {
         title: {
             text: ""
         },
@@ -365,6 +366,7 @@ var chart = new CanvasJS.Chart("chartContainer1", {
                 name: "Air",
                 showInLegend: true,
                 dataPoints: dps_air
+                 
 	},
             {
                 type: "spline",
@@ -396,23 +398,26 @@ var chart = new CanvasJS.Chart("chartContainer1", {
 );
 
 function toggleDataSeries(e) {
+   
     if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
         e.dataSeries.visible = false;
     } else {
         e.dataSeries.visible = true;
     }
     chart.render();
-}
 
-//chart.render();
+
+}
 var xVal = 1;
 var yVal = 0;
 var updateInterval = 1000;
+    
+//chart.render();
+
 
 var updateChart = function () {
 
-
-
+ 
 
     dps_hum.push({
         x: xVal,
@@ -462,7 +467,10 @@ setInterval(function () {
 }, updateInterval);
 
 
-    alert("Hello! I am an alert box!");
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 localStorage.setItem(data_carbon);
 
