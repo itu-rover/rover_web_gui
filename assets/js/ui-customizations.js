@@ -59,3 +59,4 @@ jQuery(".toggle-btn").click(function () {
     $(this).toggleClass("disabled");
     
 });  
+

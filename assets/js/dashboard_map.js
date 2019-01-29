@@ -417,7 +417,7 @@ var updateInterval = 1000;
 
 var updateChart = function () {
 
- 
+
 
     dps_hum.push({
         x: xVal,
@@ -467,14 +467,12 @@ setInterval(function () {
 }, updateInterval);
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 localStorage.setItem(data_carbon);
 
 function converter(){
+     
    var degree = document.getElementById('deg').value;
    var minute = document.getElementById('min').value;
    var second = document.getElementById('sec').value;
@@ -499,11 +497,6 @@ function converter(){
     long_sec = 60*(long_min_i - long_min);
     
     document.getElementById("outputSec").innerHTML=long_sec;
-    
-    
-    
-     
-    
 }
 
 /*
