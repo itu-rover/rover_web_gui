@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var ros_server_url = document.location.hostname + ":9090";
 var ros = new ROSLIB.Ros();
 var rosConnected = false;
@@ -90,6 +91,60 @@ function initSubscribers() {
 
 
                 chart.render();
+=======
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer1", {
+	animationEnabled: true,
+	zoomEnabled: true,
+    backgroundColor: "#d2d6de",
+	title:{
+		text: "Biosensor-EC-PH"
+	},
+	axisX: {
+		title:"TIME",
+		minimum: 790,
+		maximum: 2260
+	},
+	axisY:{
+		title: "VALUE",
+		valueFormatString: "H"
+         
+        
+	},
+	data: [{
+		type: "scatter",
+		toolTipContent: "<b>Area: </b>{x} sq.ft<br/><b>Price: </b>${y}k",
+		dataPoints: [
+			{ x: 800, y: 350 },
+			{ x: 900, y: 450 },
+			{ x: 850, y: 450 },
+			{ x: 1250, y: 700 },
+			{ x: 1100, y: 650 },
+			{ x: 1350, y: 850 },
+			{ x: 1200, y: 900 },
+			{ x: 1410, y: 1250 },
+			{ x: 1250, y: 1100 },
+			{ x: 1400, y: 1150 },
+			{ x: 1500, y: 1050 },
+			{ x: 1330, y: 1120 },
+			{ x: 1580, y: 1220 },
+			{ x: 1620, y: 1400 },
+			{ x: 1250, y: 1450 },
+			{ x: 1350, y: 1600 },
+			{ x: 1650, y: 1300 },
+			{ x: 1700, y: 1620 },
+			{ x: 1750, y: 1700 },
+			{ x: 1830, y: 1800 },
+			{ x: 1900, y: 2000 },
+			{ x: 2050, y: 2200 },
+			{ x: 2150, y: 1960 },
+			{ x: 2250, y: 1990 }
+		]
+	}]
+});
+chart.render();
+>>>>>>> master
 
             };
             updateChart(100);
