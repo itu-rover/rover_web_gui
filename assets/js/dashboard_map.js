@@ -115,25 +115,6 @@ var dps_etanol = [];
 var dps_geiger = [];
 
 
-//for (var i = 0, t = 100; i < t; i++) {
-//    data.push(Math.round(Math.random() * 99))
-//  };
-//console.log(msg_f);
-
-
-//var data_a;
-//var data_split;
-//var dps;
-
-//var data_split = data_a.split(/,/);
-//console.log(data_split);
-//var dps = data_split;
-
-
-//var dps = [78,22,34,12,50,63,77,98];
-//var data = new Array();
-
-
 
 
 
@@ -327,6 +308,7 @@ function initSubscribers() {
     //--TODO Function
     ///
 }
+
 //Chart of X Sensor
 var dps = [];
 
@@ -336,6 +318,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
         title: {
             text: ""
         },
+    exportEnabled: true,
         axisX: {
             title: ""
         },
