@@ -314,7 +314,8 @@ var dps = [];
 
 //dataPoints. 
 
-var chart = new CanvasJS.Chart("chartContainer", {
+var chart = new CanvasJS.Chart("chartContainer1", {
+      backgroundColor: "#d2d6de ",
         title: {
             text: ""
         },

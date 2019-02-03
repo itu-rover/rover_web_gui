@@ -27,21 +27,8 @@
     <script type="text/javascript" src="./js/external/canvasjs.min.js"></script>
     <script type="text/javascript" src="./js/external/geopoint.js"></script>
 
+    <script type="text/javascript" src="./js/science.js"></script>
 
-
-
-    <!-- Uncomment below for debugging
-    <script type="text/javascript" src="./js/debug/jquery-2.2.4.js"></script>
-    <script type="text/javascript" src="./js/debug/bootstrap.js" ></script>
-    <script type="text/javascript" src="./js/debug/eventemitter2.js"></script>
-    <script type="text/javascript" src="./js/debug/roslib.js"></script>
-    <script type="text/javascript" src="./js/debug/three.js"></script>
-    <script type="text/javascript" src="./js/debug/STLLoader.js"></script>
-    <script type="text/javascript" src="./js/debug/ros3d.js"></script>
-    <script type="text/javascript" src="./js/debug/app.js"></script>
-    <script type="text/javascript" src="./js/ui-customizations.js"></script>
-    -->
-</head>
 
 <body class="hold-transition skin-real-dark layout-top-nav">
     <div class="wrapper">
@@ -57,22 +44,18 @@
                     </div>
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a>Dashboard <span class="sr-only">(current)</span></a></li>
+                            <li><a>Dashboard <span class="sr-only">(current)</span></a></li>
                             <li><a href="mission-planning.html">Plan</a></li>
                             <li><a href="control.html">Quick Control</a></li>
                             <li><a href="camera.html">Camera</a></li>
-                            
                         </ul>
-                        
-                          <ul class="nav navbar-nav bg-red">
-
+                        <ul class="nav navbar-nav bg-red">
                             <li><a href="science_ecph.html">BIO-EC-PH</a></li>
                             <li><a href="science_raman.html">RAMAN</a></li>
                             <li><a href="science_nir.html">VIS-NIR</a></li>
-                            <li class="active"><a href="science_sensor.html">SENSOR</a></li>
+                            <li  class="active"><a href="science_sensor.html">SENSOR</a></li>
                         </ul>
                     </div>
-
                 </div>
             </nav>
         </header>
@@ -86,11 +69,11 @@
                         <div class="col-md-5 col-sm-12 col-xs-12">
                             <div class="row">
                                 <!-- State Info -->
-                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-24 col-md-24 col-md-24">
                                     <div id="boxState" class="info-box bg-gray collapsed-box">
                                         <span class="info-box-icon">
-                                        <i class="fa  fa-line-chart"></i>
-                                    </span>
+                                            <i class="fa  fa-line-chart"></i>
+                                        </span>
                                         <div class="info-box-content bg-gray">
                                             <span class="info-box-text">state</span>
                                             <span class="info-box-number" id="txtState">Sensor Monitor</span>
@@ -99,37 +82,32 @@
                                             </div>
                                         </div>
                                         <div class="info-box-detail no-padding bg-gray">
-
-
                                             <table class="table table-striped table-hover bg-gray no-margin">
 
-                                                <div id="chartContainer" style="height: 400px; width: 100%; " width="514" height="251"></div>
-
+                                                <div id="chartContainer1" style="height: 400px; width: 100%; " width="514" height="251"></div>
+                                                
+                                                
                                             </table>
-
-
+                                            
                                         </div>
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    
-                                </div>
-                               
-                                <div id="progressbar"></div>
-
                             </div>
-
-
                         </div>
-                     
-                    </div>
 
+
+
+
+                    </div>
+                    <div id="map" class="map-sm" style="height: 0px; width: 0%; " width="0" height="0"></div>
                 </section>
             </div>
+
         </div>
     </div>
 
+    <script src="./js/science.js" type="application/javascript"></script>
     <script src="./js/dashboard_map.js" type="application/javascript"></script>
 </body>
 
