@@ -104,6 +104,8 @@ function initSubscribers() {
 window.onload = function () {
 
 var chart = new CanvasJS.Chart("chartContainer", {
+    
+
      backgroundColor: "#d2d6de ",
 	animationEnabled: true,
 	title:{
@@ -154,8 +156,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
  	document.getElementById("exportChart").addEventListener("click",function(){
     	chart.exportChart({format: "jpg"});
     });  
+    
 }
-
-
 
 
