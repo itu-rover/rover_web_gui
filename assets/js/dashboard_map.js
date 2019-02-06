@@ -28,40 +28,6 @@ var joy_msg2 = new ROSLIB.Message({
     }
 });
 
-//if no datas from ros connection, using data on the here
-
-var science= new ROSLIB.Message({
-    lineer_sledge: {
-        x: 0,
-        y: 0,
-        z: 0
-    },
-    auger_tray: {
-        x: 0.0,
-        y: 0.0,
-        z: 0.0
-    },
-    auger: {
-        x: 0.0,
-        y: 0.0,
-        z: 0.0
-    },
-      probe: {
-        x: 0.0,
-        y: 0.0,
-        z: 0.0
-    },
-      pump : {
-        x: 0.0,
-        y: 0.0,
-        z: 0.0
-    }
-});
-
-
-//define science publisher variable 
-var science_publisher;
-
 var joystick_datas1 = new Array();
 
 var joystick_datas2 = new Array();
@@ -183,7 +149,6 @@ ros.on("close", function () {
 ros.connect("ws://" + ros_server_url);
 
 function initPublishers() {
-    //joystick section
     joystick_publisher1 = new ROSLIB.Topic({
         ros: ros,
         name: 'rover_joy/cmd_vel',
@@ -198,16 +163,6 @@ function initPublishers() {
 
     joystick_publisher1.publish(joy_msg1);
     joystick_publisher2.publish(joy_msg2);
-    
-    //science system control section for connect to ros topic
-     science_publisher = new ROSLIB.Topic({
-        ros: ros,
-        name: 'science/cmd_vel',
-        messageType: 'std_msgs/String'
-    });
-    //publishing as science 
-    science_publisher.publish(science);
-    
 
 }
 
@@ -265,6 +220,10 @@ function initSubscribers() {
     });
 
 
+
+
+
+
     //State
     //TODO Add Robostate /State topic
     //--Armed Status(True,False)
@@ -311,6 +270,43 @@ function initSubscribers() {
         //console.log(data);
     });
     
+
+
+    //function log(msg) {
+    // $('#log').append(msg.toString();
+    //}
+    //sensor_listener.subscribe(function (msg) {
+
+    //log(msg.data)
+
+
+    //});
+
+
+
+
+
+
+
+    //dps = msg_s.split(',');
+
+    //data_split = data_a.split(/,/);
+
+    //var dps = data_split;
+    //buralar silinip diğerleri çift slaşa alınabilir
+    // data_split = data_a.split(/,/);
+    //console.log(data_split);
+    //dps = data_split;
+    //-Mission
+    //--TODO Mission type (topic to be determined)
+    //--TODO add percentage bar design animation here as well
+    //--TODO Mission Percentage (topic to be determined)
+    //--TODO Horizontal Distance (topic to be determined)
+    //--TODO Waypoints (/mavros/Waypoints)
+    //--TODO Total Distance(squarecube(x,y,z))
+    //--
+    //--TODO Function
+    ///
 }
 
 //Chart of X Sensor
@@ -487,9 +483,16 @@ function converter(){
     document.getElementById("outputSec").innerHTML=long_sec;
 }
 
-function Science(){
-    btn_lineer_sledge_up_up = 
-}
+/*
+$( function() {
+    $( "#progressbar" ).progressbar({
+      value: 37
+    });
+  } );
+*/
+
+//console.log(dps_baro);
+
 
 
 
@@ -675,10 +678,6 @@ gamepad.bind(Gamepad.Event.AXIS_CHANGED, function (e) {
         joy_msg2.angular.y = +joystick_datas2[4];
         joy_msg2.angular.z = +joystick_datas2[5];
     }
-    
-    // science system control section
-    
-
 
     if (rosConnected) {
         joystick_publisher1.publish(joy_msg1);
