@@ -10,9 +10,12 @@ var bio_data;
 var ec_data;
 
 var ph_data;
+var down = "";
+var doubledown = "";
+var up = "";
+var doubleup = "";
 
-
-
+var sledge;
 
 
 var data_bio = [60, 45]
@@ -23,8 +26,6 @@ var data_ph = [40, 90]
 var dps_bio = [];
 var dps_ec = [];
 var dps_ph = [];
-
-
 
 
 
@@ -62,7 +63,7 @@ ros.connect("ws://" + ros_server_url);
 
 
 function initSubscribers() {
-   
+
     ////Define subscribers
 
     var bio_listener = new ROSLIB.Topic({
@@ -83,9 +84,9 @@ function initSubscribers() {
         messageType: 'std_msgs/Int32MultiArray'
     });
 
- 
 
-   
+
+
     bio_listener.subscribe(function (msg) {
         data_bio = msg.data;
     });
@@ -103,60 +104,97 @@ function initSubscribers() {
 
 window.onload = function () {
 
-var chart = new CanvasJS.Chart("chartContainer", {
-    
+    var chart = new CanvasJS.Chart("chartContainer", {
 
-     backgroundColor: "#d2d6de ",
-	animationEnabled: true,
-	title:{
-		text: "BIOSENSOR-EC-PH"
-	},
-    exportEnabled: true,
-	axisX: {
-		title:"Time"
-        
-	},
-	axisY:{
-		title: "Value"
-	},
-	data: [ {
-		type: "scatter",
-		toolTipContent: "<span style=\"color:#4F81BC \"><b>{name}</b></span><br/><b> Value:</b> {x} <br/><b> Time:</b></span> {y} h",
-		name: "BIO",
-		showInLegend: true,
-		dataPoints: [
-	{ x: data_bio[0], y: data_bio[1]  },
-			
+
+        backgroundColor: "#d2d6de ",
+        animationEnabled: true,
+        title: {
+            text: "BIOSENSOR-EC-PH"
+        },
+        exportEnabled: true,
+        axisX: {
+            title: "Value"
+
+        },
+        axisY: {
+            title: "Time"
+        },
+        data: [{
+                type: "scatter",
+                toolTipContent: "<span style=\"color:#4F81BC \"><b>{name}</b></span><br/><b> Value:</b> {x} <br/><b> Time:</b></span> {y} s",
+                name: "BIO",
+                showInLegend: true,
+                dataPoints: [
+                    {
+                        x: data_bio[0],
+                        y: new Date().getMinutes()
+                    },
+
 		]
-     
+
 	},
-           {
-		type: "scatter",
-		toolTipContent: "<span style=\"color:#4F81BC \"><b>{name}</b></span><br/><b> Value:</b> {x} <br/><b> Time:</b></span> {y} h",
-		name: "PH",
-		showInLegend: true,
-		dataPoints: [
-	{ x: data_ph[0], y: data_ph[1]  },
-			
+            {
+                type: "scatter",
+                toolTipContent: "<span style=\"color:#4F81BC \"><b>{name}</b></span><br/><b> Value:</b> {x} <br/><b> Time:</b></span> {y} s",
+                name: "PH",
+                showInLegend: true,
+                dataPoints: [
+                    {
+                        x: data_ph[0],
+                        y: new Date().getMinutes()
+                    },
+
 		]
 	},
-	{
-		type: "scatter",
-		name: "EC",
-		showInLegend: true, 
-		toolTipContent: "<span style=\"color:#4F81BC \"><b>{name}</b></span><br/><b> Value:</b> {x} <br/><b> Time:</b></span> {y} h",
-		dataPoints: [
-			{ x: data_ec[0], y: data_ec[1]  },
-			
+            {
+                type: "scatter",
+                name: "EC",
+                showInLegend: true,
+                toolTipContent: "<span style=\"color:#4F81BC \"><b>{name}</b></span><br/><b> Value:</b> {x} <br/><b> Time:</b></span> {y} s",
+                dataPoints: [
+                    {
+                        x: data_ec[0],
+                        y: new Date().getMinutes()
+                    },
+
 		]
 	}]
-});
+    });
 
-	chart.render();
- 	document.getElementById("exportChart").addEventListener("click",function(){
-    	chart.exportChart({format: "jpg"});
-    });  
+    chart.render();
+    document.getElementById("exportChart").addEventListener("click", function () {
+        chart.exportChart({
+            format: "jpg"
+        });
+    });
+
+}
+//
+//function sledge() {
+// var doubledown;
+//  document.getElementById("double-down").onclick = doubledown;
+//    var down;
+//   document.getElementById("down").onclick = down;
+//  var up;
+// document.getElementById("up").onclick = up;
+//  var doubleup;
+// document.getElementById("double-up").onclick = doubleup;
+
+
+
+//} 
+
+//function sledge() {
+//var x = document.getElementById("sledge_id").value;
+//document.getElementById("demo").innerHTML = "You selected: " + x;
+//}
+
+var sledge = document.getElementsByName("sledge");
+var selectedSledge;
+
+for (var i = 0; i < sledge.length; i++) {
+    if (sledge[i].checked)
+        selectedSledge = sledge[i].value;
     
 }
-
-
