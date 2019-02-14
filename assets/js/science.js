@@ -16,6 +16,8 @@ var up = "";
 var doubleup = "";
 
 var sledge;
+var x ;
+var a ;
 
 
 var data_bio = [60, 45]
@@ -197,4 +199,41 @@ for (var i = 0; i < sledge.length; i++) {
     if (sledge[i].checked)
         selectedSledge = sledge[i].value;
     
+}
+
+function X(){
+    if ( 0<a<20){
+        x = 4;
+    }
+    if ( 20<a<40){
+        x = 8;
+    }
+}
+console.log(x);
+function myFunction() {
+  var x = document.getElementById("myInput").value;
+    var y = new Number;
+    var z;
+   
+    if (parseFloat(x)>80){
+       y = 4;
+        z = "up";
+   } 
+     else if (  parseFloat(x)>60){
+      y = 3;
+         z = "slowly up";
+   } else if ( parseFloat(x)>40) {
+       y = 2;
+        z = "stop";
+   }else if ( parseFloat(x)>20) {
+       y = 1;
+        z = "slowly down";
+   }else if ( parseFloat(x)>0) {
+       y = 0;
+        z = "down";
+   }
+    console.log (y);
+   
+  document.getElementById("demo").innerHTML = "You wrote: " + z;
+
 }
