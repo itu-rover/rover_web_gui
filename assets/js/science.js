@@ -18,6 +18,8 @@ var doubleup = "";
 var sledge;
 var x ;
 var a ;
+var science = new String;
+var science_publisher;
 
 
 var data_bio = [60, 45]
@@ -61,6 +63,14 @@ ros.on("close", function () {
 // Create connection
 ros.connect("ws://" + ros_server_url);
 
+function initPublishers() {
+    joystick_publisher1 = new ROSLIB.Topic({
+        ros: ros,
+        name: 'rover_joy/cmd_vel',
+        messageType: '/sledge'
+    });
+    science_publisher.publish(science);
+}
 
 
 
@@ -172,44 +182,8 @@ window.onload = function () {
     });
 
 }
-//
-//function sledge() {
-// var doubledown;
-//  document.getElementById("double-down").onclick = doubledown;
-//    var down;
-//   document.getElementById("down").onclick = down;
-//  var up;
-// document.getElementById("up").onclick = up;
-//  var doubleup;
-// document.getElementById("double-up").onclick = doubleup;
 
 
-
-//} 
-
-//function sledge() {
-//var x = document.getElementById("sledge_id").value;
-//document.getElementById("demo").innerHTML = "You selected: " + x;
-//}
-
-var sledge = document.getElementsByName("sledge");
-var selectedSledge;
-
-for (var i = 0; i < sledge.length; i++) {
-    if (sledge[i].checked)
-        selectedSledge = sledge[i].value;
-    
-}
-
-function X(){
-    if ( 0<a<20){
-        x = 4;
-    }
-    if ( 20<a<40){
-        x = 8;
-    }
-}
-console.log(x);
 function myFunction() {
   var x = document.getElementById("myInput").value;
     var y = new Number;
@@ -232,7 +206,13 @@ function myFunction() {
        y = 0;
         z = "down";
    }
-    console.log (y);
+    
+    if (rosConnected) {
+       science.publish("s"+ y + "f");
+        
+    }
+    h = ("s"+ y +  "f");
+    console.log (h);
    
   document.getElementById("demo").innerHTML = "You wrote: " + z;
 
