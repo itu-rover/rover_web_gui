@@ -6,7 +6,7 @@
 # defined in the URDF file.
 #
 import rospy
-import roslib; roslib.load_manifest('itu_rover_web_ui')
+import roslib; roslib.load_manifest('rover_web_gui')
 import os
 import sys
 import SimpleHTTPServer
@@ -64,7 +64,7 @@ def main():
     signal.signal(signal.SIGTERM, signalHandler)
 
     # cd into src dir
-    my_package_path = roslib.packages.get_pkg_dir("itu_rover_web_ui")
+    my_package_path = roslib.packages.get_pkg_dir("rover_web_gui")
     os.chdir(my_package_path + "/assets")
     # Run the web server!
     http_handler = SimpleHTTPServer.SimpleHTTPRequestHandler
