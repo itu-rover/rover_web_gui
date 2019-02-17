@@ -19,6 +19,7 @@ var sledge;
 var x ;
 var a ;
 var science = new String;
+var science_str = ["s" , 0 , 0 , 0 , 0 , 0 ,"f"];
 var science_publisher;
 
 
@@ -64,15 +65,15 @@ ros.on("close", function () {
 ros.connect("ws://" + ros_server_url);
 
 function initPublishers() {
-    joystick_publisher1 = new ROSLIB.Topic({
+    science_publisher = new ROSLIB.Topic({
         ros: ros,
         name: 'rover_joy/cmd_vel',
         messageType: '/sledge'
     });
-    science_publisher.publish(science);
+   
 }
 
-
+ //science_publisher.publish(science);
 
 function initSubscribers() {
 
@@ -186,7 +187,7 @@ window.onload = function () {
 
 function myFunction() {
   var x = document.getElementById("myInput").value;
-    var y = new Number;
+    var y = 2;
     var z;
    
     if (parseFloat(x)>80){
@@ -205,15 +206,31 @@ function myFunction() {
    }else if ( parseFloat(x)>0) {
        y = 0;
         z = "down";
+   }else {
+       y = 2;
+       z = "stop";
    }
-    
-    if (rosConnected) {
-       science.publish("s"+ y + "f");
-        
-    }
-    h = ("s"+ y +  "f");
-    console.log (h);
+     science_str[1] = y;
+    initPublishers();
+  
+   
+    console.log (y);
+    console.log(science_str);
    
   document.getElementById("demo").innerHTML = "You wrote: " + z;
 
 }
+
+
+    
+    
+
+if (rosConnected) {
+    science_publisher.publish(science);
+        
+console.log("r");  };
+
+setInterval(function(myFunction){
+    var science_str = ["s" , 0 , 0 , 0 , 0 , 0 ,"f"];
+    science_publisher.publish(science);
+})
