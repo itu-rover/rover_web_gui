@@ -16,16 +16,16 @@ var up = "";
 var doubleup = "";
 
 var sledge;
-var x ;
-var a ;
+var x;
+var a;
 var science = new String;
-var science_str = ["s" , 0 , 0 , 0 , 0 , 0 ,"f"];
+var science_array = ["s", 0, 0, 0, 0, 0, "f"];
 var science_publisher;
 
 
-var data_bio = [60, 45]
-var data_ec = [80, 46]
-var data_ph = [40, 90]
+var data_bio = [60, 45];
+var data_ec = [80, 46];
+var data_ph = [40, 90];
 
 
 var dps_bio = [];
@@ -51,8 +51,8 @@ map.doubleClickZoom.disable();
 ros.on("connection", function () {
     console.debug("Connected to ROS server");
     rosConnected = true;
-    initSubscribers();
     initPublishers();
+    initSubscribers();
     chart.render();
 });
 
@@ -64,16 +64,14 @@ ros.on("close", function () {
 // Create connection
 ros.connect("ws://" + ros_server_url);
 
-function initPublishers() {
-    science_publisher = new ROSLIB.Topic({
-        ros: ros,
-        name: 'rover_joy/cmd_vel',
-        messageType: '/sledge'
-    });
-   
-}
+var publisher = new ROSLIB.Topic({
+    ros: ros,
+    name: '/sci',
+    messageType: 'std_msgs/String'
+});
 
- //science_publisher.publish(science);
+
+//science_publisher.publish(science);
 
 function initSubscribers() {
 
@@ -210,7 +208,7 @@ function myFunction() {
        y = 2;
        z = "stop";
    }
-     science_str[1] = y;
+     science_array[1] = y;
     initPublishers();
   
    
@@ -221,16 +219,19 @@ function myFunction() {
 
 }
 
+science_str = science_array.toString();
 
-    
-    
 
-if (rosConnected) {
-    science_publisher.publish(science);
-        
-console.log("r");  };
 
-setInterval(function(myFunction){
-    var science_str = ["s" , 0 , 0 , 0 , 0 , 0 ,"f"];
-    science_publisher.publish(science);
-})
+var science = new ROSLIB.Message({data : science_str });
+
+function initPublishers() {
+    setInterval(function (e) {
+        publisher.publish(science);
+        console.log(science);
+    });
+}
+
+
+
+
