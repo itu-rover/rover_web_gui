@@ -30,77 +30,81 @@ var itu_map = {
         "maxzoom": 19
         }]
 };
-var isp_map_bound = new mapboxgl.LngLatBounds([30.555052198293847, 37.762614527675673], [30.575406497586659, 37.774211111850491]);
-var isp_map = {
+
+var home_map_bound = new mapboxgl.LngLatBounds([-111.51117087116326, 
+        40.510128442073558], [-111.49370993168023, 
+        40.521399058894318]);
+var home_map = {
     "version": 8,
     "sources": {
-        "isp_map_tile": {
+        "home_map_tile": {
             "type": "raster",
             // "url": "mapbox://map-id"
             //"url": location.origin+location.pathname+"itu-ayazaga" 
-            "tiles": [location.origin + "/maps/isparta/{z}/{x}/{y}.png"],
+            "tiles": [location.origin + "/maps/home/{z}/{x}/{y}.png"],
             //"maxzoom": 19,
-            //"minzoom": 12,        
+            //"minzoom": 14,        
 
         }
     },
     "layers": [{
-        "id": "isp_map_tile",
+        "id": "home_map_tile",
         "type": "raster",
-        "source": "isp_map_tile",
+        "source": "home_map_tile",
         "minzoom": 12,
-        "maxzoom": 19
+        "maxzoom": 16
         }]
 };
 
-var utah_1_bound = new mapboxgl.LngLatBounds([-110.79389650482354, 38.4057982037259], [-110.78977663177666, 38.406956319882759]);
-var utah_1 = {
+
+var midway_home_map_bound = new mapboxgl.LngLatBounds([ -111.50937905944953, 
+        40.5102765321257], [-111.48599963850066, 
+        40.525713298379813]);
+var midway_home_map = {
     "version": 8,
     "sources": {
-        "utah_1_tile": {
+        "midway_home_map_tile": {
             "type": "raster",
             // "url": "mapbox://map-id"
             //"url": location.origin+location.pathname+"itu-ayazaga" 
-            "tiles": [location.origin + "/maps/utah-1/{z}/{x}/{y}.pbf"],
+            "tiles": [location.origin + "/maps/midway_home/{z}/{x}/{y}.png"],
             //"maxzoom": 19,
             //"minzoom": 14,        
 
         }
     },
     "layers": [{
-        "id": "utah_1_tile",
+        "id": "midway_home_map_tile",
         "type": "raster",
-        "source": "utah_1_tile",
+        "source": "midway_home_map_tile",
         "minzoom": 0,
-        "maxzoom": 19
+        "maxzoom": 22
         }]
 };
-
-var utah_2_bound = new mapboxgl.LngLatBounds([-110.80391473427945, 38.394643283958821], [-110.77716804847765, 38.415678114259329]);
-var utah_2 = {
+var home2_map_bound = new mapboxgl.LngLatBounds([ -111.50937905944953, 
+        40.5102765321257], [  -111.48599963850066, 
+        40.525713298379813]);
+var home2_map = {
     "version": 8,
     "sources": {
-        "utah_2_tile": {
+        "home2_map_tile": {
             "type": "raster",
             // "url": "mapbox://map-id"
             //"url": location.origin+location.pathname+"itu-ayazaga" 
-            "tiles": [location.origin + "/maps/utah-2/{z}/{x}/{y}.pbf"],
+            "tiles": [location.origin + "/maps/home2/{z}/{x}/{y}.png"],
             //"maxzoom": 19,
             //"minzoom": 14,        
 
         }
     },
     "layers": [{
-        "id": "utah_2_tile",
+        "id": "home2_map_tile",
         "type": "raster",
-        "source": "utah_2_tile",
-        "minzoom": 0,
-        "maxzoom": 19
+        "source": "home2_map_tile",
+        "minzoom": 13,
+        "maxzoom": 17
         }]
 };
-
-//----------------------------map-stylelarının sonu
-
 var ui_variables = { // control değişkenleri oluşturuldu
     focused: false,
     editable: false,
@@ -199,6 +203,13 @@ var map = new mapboxgl.Map({
     center: [-110.791941, 38.406320, ],
     zoom: 15
 });
+
+map.on('mousemove', function (e) {
+	document.getElementById('info').innerHTML =
+	// e.lngLat is the longitude, latitude geographical position of the event
+	JSON.stringify(e.lngLat);
+	});
+
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 map.doubleClickZoom.disable();
 
@@ -572,27 +583,22 @@ $("#map-offline-1").click(function () {
     map.setZoom(15);
 });
 
-$("#map-offline-2").click(function () {
-    map.setStyle(utah_1);
-    map.setCenter([-110.791941, 38.406320]);
-    map.setMaxBounds(utah_1_bound);
-    map.setZoom(15);
-});
 
 $("#map-offline-3").click(function () {
-    map.setStyle(utah_2);
-    map.setCenter([-110.791941, 38.406320]);
-    map.setMaxBounds(utah_2_bound);
-    map.setZoom(15);
-
+    map.setStyle(midway_home_map);
+    map.setCenter([  -111.49768934897509, 
+        40.517994915252757]);
+    map.setMaxBounds(midway_home_map_bound);
+    map.setZoom(12);
 });
-$("#map-offline-4").click(function () {
-    map.setStyle(isp_map);
-    map.setCenter([30.565229347940253, 37.768412819763086]);
-    map.setMaxBounds();
-    map.setZoom(15);
 
-});
+
+
+
+
+
+
+
 
 $(document).on("click", ".waypoint", function (e) {
     if (ui_variables.remove && ui_variables.editable) {
@@ -600,8 +606,8 @@ $(document).on("click", ".waypoint", function (e) {
     } else if (!ui_variables.editable && rosConnected == true) {
         var target_index = e.target.getAttribute("index");
         var target_pos = waypoints[target_index].coordinates;
-        pos_msg.latitude = target_pos[0];
-        pos_msg.longitude = target_pos[1];
+        pos_msg.latitude = parseFloat( target_pos[0]);
+        pos_msg.longitude = parseFloat( target_pos[1]);
         position_publisher.publish(pos_msg);
     }
 });

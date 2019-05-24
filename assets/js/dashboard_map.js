@@ -566,12 +566,13 @@ map.on('click', function (e) {
      map.setZoom(15);
  });
 
- $("#map-offline-2").click(function () {
-     map.setStyle(utah_home);
+ $("#map-offline-3").click(function () {
+     map.setStyle(midway_home_map);
      //alt satır değişecek
-     map.setCenter([29.02677916503476, 41.104005936601482]);
-     map.setMaxBounds(utah_home_bound);
-     map.setZoom(15);
+     map.setCenter([ -111.49768934897509, 
+        40.517994915252757]);
+     map.setMaxBounds(midway_home_bound);
+     map.setZoom(12);
  });
 
 map.on('styledata', function () {
