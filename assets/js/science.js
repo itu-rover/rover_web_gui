@@ -5,6 +5,7 @@ var ros = new ROSLIB.Ros();
 var rosConnected = false;
 
 
+
 var bio_data;
 
 var ec_data;
@@ -111,6 +112,8 @@ function initSubscribers() {
 
 }
 
+ initPublishers();
+    initSubscribers();
 
 
 window.onload = function () {
@@ -184,6 +187,7 @@ window.onload = function () {
 
 
 function myFunction() {
+
   var x = document.getElementById("myInput").value;
     var y = 2;
     var z;
@@ -208,7 +212,7 @@ function myFunction() {
        y = 2;
        z = "stop";
    }
-     science_array[1] = y;
+     science_array[4] = y;
     initPublishers();
   
    
@@ -217,7 +221,12 @@ function myFunction() {
    
   document.getElementById("demo").innerHTML = "You wrote: " + z;
 
+
 }
+
+
+
+console.log(science_array);
 
 science_str = science_array.toString();
 
@@ -229,9 +238,10 @@ function initPublishers() {
     setInterval(function (e) {
         publisher.publish(science);
         console.log(science);
-    });
+    },3000);
 }
 
+console.log(science);
 
 
 
