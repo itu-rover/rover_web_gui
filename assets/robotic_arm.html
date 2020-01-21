@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/external/jquery.min.js"></script>
+	<script src="js/external/popper.min.js"></script>
+	<script src="js/external/bootstrap.min.js"></script>
+	<script src="js/external/canvasjs.min.js"></script>
+	<script src="js/robotic_arm.js"></script>
+	<style>
+		#vr{
+			width : 1px ;
+			height : 100px ;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-static-top">
+			<div class="container">
+					<div class="navbar-header">
+							<a class="navbar-brand" href="#"><img src="./images/itu_rover_white.png" alt="ITU Rover Team" style="box-sizing: border-box; width: 60px;"></a>
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+									<i class="fa fa-bars"></i>
+							</button>
+					</div>
+					<div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+							<ul class="nav navbar-nav">
+									<li><a href="index.html">Dashboard</a></li>
+									<li><a href="mission-planning.html">Plan</a></li>
+									<li><a href="science.html">ISRL</a></li>
+                                    <li><a href="robotic_arm.html">Robotic Arm</a></li>
+							</ul>
+							<ul class="nav navbar-nav bg-red">
+									<li><a href="science_ecph.html">BIO-EC-PH</a></li>
+									<li><a href="science_raman.html">RAMAN</a></li>
+									<li><a href="science_nir.html">VIS-NIR</a></li>
+									<li><a href="science_sensor.html">SENSOR</a></li>
+							</ul>
+					</div>
+
+			</div>
+	</nav>
+	
+    <div id="chartContainer_1" style="height: 600px; width: 60%; margin: 0 auto;"></div>
+    
+</body>
+</html>
