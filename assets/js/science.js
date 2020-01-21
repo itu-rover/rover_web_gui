@@ -1,3 +1,4 @@
+
 // BİLİM GÖREVİ İÇİN SAYFA JS
 
 
@@ -257,5 +258,6 @@ window.onload = function () {
     document.getElementById("exportChart_6").addEventListener("click",function(){
     	chart_6.exportChart({format: "jpeg"});
     });
+
 
 }

@@ -686,7 +686,6 @@ function addMark(data) {
 
             line drawing procedure:
 
-
     */
     var temp_index = waypoints.indexOf(marker_prototype);
     var el = document.createElement('div');

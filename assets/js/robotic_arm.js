@@ -1,9 +1,7 @@
 
 
+
 // ROSTAN GELEN VERİLERLE AÇI DEĞERLERİNE GÖRE BİR ROBOT KOL GRAFİĞİ ÇİZER
-
-
-
 
 function degrees_to_radian(my_degree){ //veri veri rostan derece olarak gelir. Radyana çeviremiz gerek.
 
