@@ -2,14 +2,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGVrc3ByaW1lIiwiYSI6ImNqOGsxb3dyYzA4b2wyeHBsd
 
 var ros_server_url = document.location.hostname + ":9090";
 
-var ros = new ROSLIB.Ros();
+var ros = new ROSLIB.Ros(); // websocket için gerekli.
 
 var rosConnected = false; //control variable
 var prevControl = new Array();
 
 //map style 'Ları burada tanımlanıyor-----
-var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116, 41.1139016927532]);
-var itu_map = {
+var itu_map_bound = new mapboxgl.LngLatBounds([29.012778611801405, 41.094110180449768], [29.040779718268116, 41.1139016927532]); // sol alt köşesinden sağ üst köşesine. sınırlar burası.
+var itu_map = { // GEOJSON - Lat Long bulundurur.
     "version": 8,
     "sources": {
         "itu_map_tile": {
@@ -148,7 +148,7 @@ var pos_msg = new ROSLIB.Message({ //position mesaj objesini oluşturdum.
 });
 //-------------------------------------------------------------------------
 //define publishers--
-var position_publisher = new ROSLIB.Topic({
+var position_publisher = new ROSLIB.Topic({ // rover_gps/waypoint ismindeki topicle eşleşir.
     ros: ros,
     name: 'rover_gps/waypoint',            //rover_gps/waypoint
     messageType: 'sensor_msgs/NavSatFix'
@@ -196,7 +196,7 @@ var gps_listener = new ROSLIB.Topic({
 });
 //-------------------------------------------
 
-var markerLineString = {
+var markerLineString = { //marker'lar arası çizilen çizgi
 
 
     "type": "Feature",
@@ -213,17 +213,18 @@ $(document).ready(function () {
     $("#edit-controls").hide();
     $("converter_section").hide();
 });
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v9',
-    center: [-110.791941, 38.406320, ],
-    zoom: 15
+var map = new mapboxgl.Map({ 
+    container: 'map', // arkaplanı kaplayan haritanın container id'si
+    style: 'mapbox://styles/mapbox/satellite-streets-v9', //haritanın alındığı yer
+    center: [-110.791941, 38.406320, ], // haritanın merkezi
+    zoom: 15 // görüneceği büyüklük
 });
 
 map.on('mousemove', function (e) {
 	document.getElementById('info').innerHTML =
 	// e.lngLat is the longitude, latitude geographical position of the event
 	JSON.stringify(e.lngLat);
+    console.log(e.lngLat)
 	});
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
@@ -256,7 +257,7 @@ function setDronePos() {
 
     //map.setLayoutProperty('drone', 'icon-rotate', direction);
 
-    if (ui_variables.focused === true) {
+    if (ui_variables.focused === true) {+
         map.setCenter(drone.coordinates);
     }
 }
@@ -297,7 +298,7 @@ var linestring = {
 
 // create DOM element for the marker
 // create the marker
-map.on('click', function (e) {
+map.on('click', function (e) { // uygun variable koşulları sağlandığında, tıkladığın yeri işaretle
     if (ui_variables.add && ui_variables.editable) {
         addMark([e.lngLat.lng, e.lngLat.lat]);
     }
@@ -305,7 +306,7 @@ map.on('click', function (e) {
 });
 
 map.on('mousemove', function (e) {
-    if (ui_variables.move && ui_variables.editable && ui_variables.marker_moving) {
+    if (ui_variables.move && ui_variables.editable && ui_variables.marker_moving) { // edit markers ve ekleme tuşlarına basılmış olması.
         moveMarker(ui_variables.target_index, [e.lngLat.lng, e.lngLat.lat]);
     }
 });
@@ -326,7 +327,7 @@ map.on('styledata', function () {
     });
 
     // add the GeoJSON above to a new vector tile source
-    if (rosConnected) {
+    if (rosConnected) { 
         map.addSource('drone', {
             type: 'geojson',
             data: drone
@@ -658,11 +659,25 @@ $(document).on("mouseup", ".waypoint", function (e) {
         ui_variables.marker_moving = false;
     }
 });
+/*
+function addMark2() {
+    var coord_lng = parseFloat(document.getElementById("coord-lng").value);
+    var coord_lat = parseFloat(document.getElementById("coord-lat").value);
+    marker_prototype.coordinates[0] = coord_lng;
+    marker_prototype.coordinates[1] = coord_lat;
+}       
 
+    TRIED TO ADD ANOTHER FUNCTION TO ADD MARKER BUT NOT BUILDED IT WELL. THEN TRIED TO IMPROVE AT THE BOTTOM.
+
+*/
 function addMark(data) {
     var marker_prototype = new marker_rs(data);
     markerDatas.features.push(marker_prototype.getFeature()); //geojson data. creates a bunch of points dynamically.
-    waypoints.push(marker_prototype); //holds marker_rs objects
+    waypoints.push(marker_prototype); //holds marker_rs objects ------------ waypoints are important
+    console.log(marker_prototype); // marker_prototype.coordinates[0] = longtitude
+    console.log(waypoints)
+
+
 
     /*
         System structure
@@ -675,16 +690,17 @@ function addMark(data) {
             --id of the object is "waypoint-" + index.So the first marker will have an id of "waypoint-0"
             --geojson data extracted from this object is pushed to markerDatas.features[] array.
             --the geojson source "waypoints" watches markerDatas.İt automatically updates the points
-            
+
             waypoint deleting procedure:
-            
+
             --index of deleted marker will be held.
             -- waypoint will first be deleted from markerDatas Array, then from waypoints array and finally div object that has the correct "index" attribute.
             -- previous data will be shifted accordingly.
             --line data will be updated.
             --new data will be shown
-            
+
             line drawing procedure:
+
     */
     var temp_index = waypoints.indexOf(marker_prototype);
     var el = document.createElement('div');
@@ -695,12 +711,10 @@ function addMark(data) {
     waypoints[temp_index].setIndex(temp_index);
 
     map.getSource("waypoints").setData(markerDatas); //this "waypoints" is not the array that marker_rs s are stored.It is name of the source.
-    waypoints[temp_index].marker = new mapboxgl.Marker(el)
-        .setLngLat(data)
-        .addTo(map);
+    waypoints[temp_index].marker = new mapboxgl.Marker(el).setLngLat(data).addTo(map);
     updateLines();
-
 }
+
 
 function updateLines() {
     markerLineString.geometry.coordinates = [];
