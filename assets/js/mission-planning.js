@@ -224,6 +224,7 @@ map.on('mousemove', function (e) {
 	document.getElementById('info').innerHTML =
 	// e.lngLat is the longitude, latitude geographical position of the event
 	JSON.stringify(e.lngLat);
+    console.log(e.lngLat)
 	});
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
@@ -658,11 +659,25 @@ $(document).on("mouseup", ".waypoint", function (e) {
         ui_variables.marker_moving = false;
     }
 });
+/*
+function addMark2() {
+    var coord_lng = parseFloat(document.getElementById("coord-lng").value);
+    var coord_lat = parseFloat(document.getElementById("coord-lat").value);
+    marker_prototype.coordinates[0] = coord_lng;
+    marker_prototype.coordinates[1] = coord_lat;
+}       
 
+    TRIED TO ADD ANOTHER FUNCTION TO ADD MARKER BUT NOT BUILDED IT WELL. THEN TRIED TO IMPROVE AT THE BOTTOM.
+
+*/
 function addMark(data) {
     var marker_prototype = new marker_rs(data);
     markerDatas.features.push(marker_prototype.getFeature()); //geojson data. creates a bunch of points dynamically.
-    waypoints.push(marker_prototype); //holds marker_rs objects
+    waypoints.push(marker_prototype); //holds marker_rs objects ------------ waypoints are important
+    console.log(marker_prototype); // marker_prototype.coordinates[0] = longtitude
+    console.log(waypoints)
+
+
 
     /*
         System structure
@@ -696,12 +711,10 @@ function addMark(data) {
     waypoints[temp_index].setIndex(temp_index);
 
     map.getSource("waypoints").setData(markerDatas); //this "waypoints" is not the array that marker_rs s are stored.It is name of the source.
-    waypoints[temp_index].marker = new mapboxgl.Marker(el)
-        .setLngLat(data)
-        .addTo(map);
+    waypoints[temp_index].marker = new mapboxgl.Marker(el).setLngLat(data).addTo(map);
     updateLines();
-
 }
+
 
 function updateLines() {
     markerLineString.geometry.coordinates = [];
