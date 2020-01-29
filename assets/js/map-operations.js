@@ -15,9 +15,9 @@ var marker_rs = function (pos_init) {
     this.id = null;
 
     this.coordinates = pos_init;
-    
-    this.setPosition = function(pos){
-        this.coordinates = pos;
+
+    this.setPosition = function(pos){  // refers to mouse position. MUST CHANGE TO INPUTS
+        this.coordinates = pos;         // can be investigated if there are any function for input lng and lat
     }
     
     this.altitude = 0;

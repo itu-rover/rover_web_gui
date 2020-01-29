@@ -1,4 +1,7 @@
 
+// BİLİM GÖREVİ İÇİN SAYFA JS
+
+
 window.onload = function () {
 
 	var dps_1 = []; // dataPoints
@@ -8,7 +11,7 @@ window.onload = function () {
 	var dps_5 = []; // dataPoints
 	var dps_6 = []; // dataPoints
 
-	var chart_1 = new CanvasJS.Chart("chartContainer_1", {
+	var chart_1 = new CanvasJS.Chart("chartContainer_1", { //chart oluşturuyor
 		title :{
 			text: "Dynamic Data"
 		},
@@ -143,11 +146,11 @@ window.onload = function () {
 	var updateInterval = 1000;
 	var dataLength = 20; // number of dataPoints visible at any point
 
-	var updateChart_1 = function (count) {
+	var updateChart_1 = function (count) { // oluşturulan chartları renderlar
 
 		count = count || 1;
 
-		for (var j = 0; j < count; j++) {
+		for (var j = 0; j < count; j++) {         //random bir sayı bulup listeye ekler.
 			yVal_1 = yVal_1 +  Math.round(5 + Math.random() *(-5-5));
 			dps_1.push({
 				x: xVal_1,
@@ -156,7 +159,7 @@ window.onload = function () {
 			xVal_1++;
 		}
 
-		if (dps_1.length > dataLength) {
+		if (dps_1.length > dataLength) { // son 10 datayı göstermesini sağlar. eğer olmasaydı tüm pointler gözüküyrdü
 			dps_1.shift();
 		}
 
@@ -227,12 +230,12 @@ window.onload = function () {
 	updateChart_2(dataLength);
 	updateChart_3(dataLength);
 	updateChart_4(dataLength);
-	setInterval(function(){updateChart_1()}, updateInterval);
+	setInterval(function(){updateChart_1()}, updateInterval); // setinterval belli aralıklarla fonksiyonu çağırır.
 	setInterval(function(){updateChart_2()}, updateInterval);
 	setInterval(function(){updateChart_3()}, updateInterval);
 	setInterval(function(){updateChart_4()}, updateInterval);
 
-	document.getElementById("exportChart_1").addEventListener("click",function(){
+	document.getElementById("exportChart_1").addEventListener("click",function(){ // chart'a basınca jpeg olarak kaydeder. Hazır fonksiyon
     	chart_1.exportChart({format: "jpeg"});
     });
 
@@ -255,5 +258,6 @@ window.onload = function () {
     document.getElementById("exportChart_6").addEventListener("click",function(){
     	chart_6.exportChart({format: "jpeg"});
     });
+
 
 }
