@@ -1,5 +1,9 @@
 
-function degrees_to_radian(my_degree){
+
+
+// ROSTAN GELEN VERİLERLE AÇI DEĞERLERİNE GÖRE BİR ROBOT KOL GRAFİĞİ ÇİZER
+
+function degrees_to_radian(my_degree){ //veri veri rostan derece olarak gelir. Radyana çeviremiz gerek.
 
 	var radian = ((my_degree * (1.0))/180)*(Math.PI);
 	return radian;
