@@ -675,16 +675,18 @@ function addMark(data) {
             --id of the object is "waypoint-" + index.So the first marker will have an id of "waypoint-0"
             --geojson data extracted from this object is pushed to markerDatas.features[] array.
             --the geojson source "waypoints" watches markerDatas.İt automatically updates the points
-            
+
             waypoint deleting procedure:
-            
+
             --index of deleted marker will be held.
             -- waypoint will first be deleted from markerDatas Array, then from waypoints array and finally div object that has the correct "index" attribute.
             -- previous data will be shifted accordingly.
             --line data will be updated.
             --new data will be shown
-            
+
             line drawing procedure:
+
+
     */
     var temp_index = waypoints.indexOf(marker_prototype);
     var el = document.createElement('div');
