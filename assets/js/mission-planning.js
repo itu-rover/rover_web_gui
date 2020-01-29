@@ -401,9 +401,9 @@ map.on('styledata', function () {
         "type": "circle",
         "source": "waypoints",
         "paint": {
-            "circle-radius": 30,
+            "circle-radius": 26,
             "circle-color": "#000",
-            "circle-opacity": 0.5
+            "circle-opacity": 1
         }
 
     });
@@ -697,7 +697,7 @@ function addMark(data) {
     var temp_index = waypoints.indexOf(marker_prototype);
     var el = document.createElement('div');
     if (temp_index == 0) {
-        el.style.backgroundColor = "green";
+        el.style.backgroundColor = "yellow";
     }
     waypoints[temp_index].marker_div = el;
     waypoints[temp_index].setIndex(temp_index);
