@@ -1,5 +1,5 @@
-//this class is being written to simplify future data storage attempts and to ensure semanticity of
-// the code. map-operations.js only includes special constructor functions to be used with mapbox-gl.js library. Constructor functions does not
+//this class is being written to simplify future data storage attempts and to ensure semanticity of 
+// the code. map-operations.js only includes special constructor functions to be used with mapbox-gl.js library. Constructor functions does not 
 // contain any mapboxgl functions.They only contain the needed data, functions to manipulalate this data and create html pieces.
 
 var marker_rs = function (pos_init) {
@@ -19,30 +19,30 @@ var marker_rs = function (pos_init) {
     this.setPosition = function(pos){  // refers to mouse position. MUST CHANGE TO INPUTS
         this.coordinates = pos;         // can be investigated if there are any function for input lng and lat
     }
-
+    
     this.altitude = 0;
-
+    
     this.setAltitude = function(alt){
         this.altitude = alt;
     }
-
+    
     this.direction = 0;
-
+    
     this.setDirection = function(dir){
         this.direction = dir;
     }
     this.comment = " nothing is true, everything is permitted.";
-
+    
     this.setComment = function(cmt){
         this.comment = cmt;
     }
-
+    
     this.icon_path = "./images/itu.png";
-
+    
     this.setIcon = function (path){
         this.icon_path = path;
     }
-
+    
     this.getFeature = function(){
         return {
             "type" : "Feature",
@@ -56,10 +56,10 @@ var marker_rs = function (pos_init) {
             }
         }
     },
-
+    
     this.marker_div = null;
-
+    
     this.marker = null;
-
+    
 }
 /* marker_rs*/

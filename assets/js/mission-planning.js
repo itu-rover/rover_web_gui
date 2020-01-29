@@ -453,12 +453,7 @@ function converter() {
 
     document.getElementById("outputSec").innerHTML = long_sec;
 
-
-
-
-
 }
-
 
 
 function initPublishers() {
@@ -628,9 +623,6 @@ $("#map-offline-5").click(function () {
     //map.setMaxBounds(utah_GM_sat_map_bound);
     map.setZoom(16);
 });
-
-
-
 
 
 $(document).on("click", ".waypoint", function (e) {
