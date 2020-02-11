@@ -258,16 +258,7 @@ var rover = {
 //heading value fo drone marker
 var direction;
 
-//sync drone position
-function setDronePos() {
-    map.getSource('drone').setData(drone);
 
-    //map.setLayoutProperty('drone', 'icon-rotate', direction);
-
-    if (ui_variables.focused === true) {+
-        map.setCenter(drone.coordinates);
-    }
-}
 
 function setRoverPos() {
     map.getSource('rover').setData(rover);
