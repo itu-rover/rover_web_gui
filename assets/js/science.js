@@ -12,85 +12,124 @@ window.onload = function () {
 	var dps_6 = []; // dataPoints
 
 	var chart_1 = new CanvasJS.Chart("chartContainer_1", { //chart oluşturuyor
+		backgroundColor: "#141414",
 		title :{
+			fontColor: "white",
 			text: "Dynamic Data"
 		},
 		axisY: {
-			includeZero: false
+			includeZero: false,
+			gridColor: "white",
+			labelFontColor: "white",
+		},
+		axisX: {
+			gridColor: "white",
+			labelFontColor: "white",
 		},
 		data: [{
 			type: "line",
-			dataPoints: dps_1
+			dataPoints: dps_1,
+			lineColor: "#C74333",
+			color: "#C74333",
 		}]
 	});
+	chart_1.render();
 
 	var chart_2 = new CanvasJS.Chart("chartContainer_2", {
+		backgroundColor: "#141414",
 		title :{
-			text: "Dynamic Data"
+			text: "Dynamic Data",
+			fontColor: "white",
 		},
 		axisY: {
-			includeZero: false
+			includeZero: false,
+			gridColor: "white",
+			labelFontColor: "white",
+		},
+		axisX: {
+			gridColor: "white",
+			labelFontColor: "white",
 		},
 		data: [{
 			type: "line",
-			dataPoints: dps_2
+			dataPoints: dps_2,
+			lineColor: "#C74333",
+			color: "#C74333",
 		}]
 	});
+	chart_2.render();
 
 	var chart_3 = new CanvasJS.Chart("chartContainer_3", {
+		backgroundColor: "#141414",
 		title :{
-			text: "Dynamic Data"
+			text: "Dynamic Data",
+			fontColor: "white",
 		},
 		axisY: {
-			includeZero: false
+			includeZero: false,
+			gridColor: "white",
+			labelFontColor: "white",
+		},
+		axisX: {
+			gridColor: "white",
+			labelFontColor: "white",
 		},
 		data: [{
 			type: "line",
-			dataPoints: dps_3
+			dataPoints: dps_3,
+			lineColor: "#C74333",
+			color: "#C74333",
 		}]
 	});
+	chart_3.render();
 
 	var chart_4 = new CanvasJS.Chart("chartContainer_4", {
+		backgroundColor: "#141414",
 		title :{
-			text: "Dynamic Data"
+			text: "Dynamic Data",
+			fontColor: "white",
 		},
 		axisY: {
-			includeZero: false
+			includeZero: false,
+			gridColor: "white",
+			labelFontColor: "white",
+		},
+		axisX: {
+			gridColor: "white",
+			labelFontColor: "white",
 		},
 		data: [{
 			type: "line",
-			dataPoints: dps_4
+			dataPoints: dps_4,
+			lineColor: "#C74333",
+			color: "#C74333",
 		}]
 	});
+	chart_4.render();
 
-	var chart_5 = new CanvasJS.Chart("chartContainer_5", {
+	var chart_5 = new CanvasJS.Chart("chartContainer_4", {
+		backgroundColor: "#141414",
 		title :{
-			text: "Addable Data"
+			text: "Dynamic Data",
+			fontColor: "white",
 		},
 		axisY: {
-			includeZero: false
+			includeZero: false,
+			gridColor: "white",
+			labelFontColor: "white",
+		},
+		axisX: {
+			gridColor: "white",
+			labelFontColor: "white",
 		},
 		data: [{
 			type: "line",
-			dataPoints: dps_5
+			dataPoints: dps_5,
+			lineColor: "#C74333",
+			color: "#C74333",
 		}]
 	});
-
-	var chart_6 = new CanvasJS.Chart("chartContainer_6", {
-		title :{
-			text: "Addable Data 2"
-		},
-		axisY: {
-			includeZero: false
-		},
-		data: [{
-			type: "line",
-			dataPoints: dps_6
-		}]
-	});
-
 	chart_5.render();
-	chart_6.render();
 
 	function addDataPointsAndRender() {
 			xValue = Number(document.getElementById("xValue").value);
@@ -138,10 +177,12 @@ window.onload = function () {
 	var xVal_2 = 0;
 	var xVal_3 = 0;
 	var xVal_4 = 0;
+	var xVal_5 = 0;
 	var yVal_1 = 100;
 	var yVal_2 = 100;
 	var yVal_3 = 100;
 	var yVal_4 = 100;
+	var yVal_5 = 100;
 
 	var updateInterval = 1000;
 	var dataLength = 20; // number of dataPoints visible at any point
@@ -226,14 +267,36 @@ window.onload = function () {
 		chart_4.render();
 	};
 
+	var updateChart_5 = function (count) {
+
+		count = count || 1;
+
+		for (var j = 0; j < count; j++) {
+			yVal_5 = yVal_5 +  Math.round(5 + Math.random() *(-5-5));
+			dps_5.push({
+				x: xVal_5,
+				y: yVal_5
+			});
+			xVal_5++;
+		}
+
+		if (dps_5.length > dataLength) {
+			dps_5.shift();
+		}
+
+		chart_5.render();
+	};
+
 	updateChart_1(dataLength);
 	updateChart_2(dataLength);
 	updateChart_3(dataLength);
 	updateChart_4(dataLength);
+	updateChart_5(dataLength);
 	setInterval(function(){updateChart_1()}, updateInterval); // setinterval belli aralıklarla fonksiyonu çağırır.
 	setInterval(function(){updateChart_2()}, updateInterval);
 	setInterval(function(){updateChart_3()}, updateInterval);
 	setInterval(function(){updateChart_4()}, updateInterval);
+	setInterval(function(){updateChart_5()}, updateInterval);
 
 	document.getElementById("exportChart_1").addEventListener("click",function(){ // chart'a basınca jpeg olarak kaydeder. Hazır fonksiyon
     	chart_1.exportChart({format: "jpeg"});
