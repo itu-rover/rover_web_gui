@@ -15,7 +15,7 @@ window.onload = function () {
 		backgroundColor: "#141414",
 		title :{
 			fontColor: "white",
-			text: "Dynamic Data"
+			text: "Methane (CH4)"
 		},
 		axisY: {
 			includeZero: false,
@@ -38,7 +38,7 @@ window.onload = function () {
 	var chart_2 = new CanvasJS.Chart("chartContainer_2", {
 		backgroundColor: "#141414",
 		title :{
-			text: "Dynamic Data",
+			text: "Carbon dioxide (CO2)",
 			fontColor: "white",
 		},
 		axisY: {
@@ -62,7 +62,7 @@ window.onload = function () {
 	var chart_3 = new CanvasJS.Chart("chartContainer_3", {
 		backgroundColor: "#141414",
 		title :{
-			text: "Dynamic Data",
+			text: "Ammonia (NH3)",
 			fontColor: "white",
 		},
 		axisY: {
@@ -86,7 +86,7 @@ window.onload = function () {
 	var chart_4 = new CanvasJS.Chart("chartContainer_4", {
 		backgroundColor: "#141414",
 		title :{
-			text: "Dynamic Data",
+			text: "Carbon monoxide (CO)",
 			fontColor: "white",
 		},
 		axisY: {
@@ -107,10 +107,10 @@ window.onload = function () {
 	});
 	chart_4.render();
 
-	var chart_5 = new CanvasJS.Chart("chartContainer_4", {
+	var chart_5 = new CanvasJS.Chart("chartContainer_5", {
 		backgroundColor: "#141414",
 		title :{
-			text: "Dynamic Data",
+			text: "Ethanol (C2H5OH)",
 			fontColor: "white",
 		},
 		axisY: {
@@ -178,11 +178,11 @@ window.onload = function () {
 	var xVal_3 = 0;
 	var xVal_4 = 0;
 	var xVal_5 = 0;
-	var yVal_1 = 100;
-	var yVal_2 = 100;
-	var yVal_3 = 100;
-	var yVal_4 = 100;
-	var yVal_5 = 100;
+	var yVal_1 = 1840;
+	var yVal_2 = 400;
+	var yVal_3 = 600;
+	var yVal_4 = 200;
+	var yVal_5 = 1150;
 
 	var updateInterval = 1000;
 	var dataLength = 20; // number of dataPoints visible at any point
