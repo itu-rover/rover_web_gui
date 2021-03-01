@@ -34,9 +34,13 @@ function cmdStarter(){
 }
 
 
-/*
-listener.subscribe(function(message) {
-    console.log('Received message on ' + listener.name + ': ' + message.data);
-    listener.unsubscribe();
+var gpsListener = new ROSLIB.Topic({
+  ros: ros,
+  name: '/gps/fix',
+  messageType: 'sensor_msgs/NavSatFix'
+})
+
+gpsListener.subscribe(function(message) {
+  console.log('Received message on ' + listener.name + ': ' + message.data);
+  listener.unsubscribe();
 });
-*/

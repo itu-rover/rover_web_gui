@@ -18,7 +18,7 @@ def cmdStarterListener():
     # anonymous=True flag means that rospy will choose a unique
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
-    rospy.init_node('cmdStarterNode')
+    rospy.init_node('cmd_starter_node')
 
     rospy.Subscriber("/cmd_starter_topic", String, cmdStart)
 

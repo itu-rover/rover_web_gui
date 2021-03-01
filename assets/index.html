@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>ROVER'19</title>
+    <title>ROVER'21</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.css' rel='stylesheet' />
@@ -27,7 +27,13 @@
     <script type="text/javascript" src="./js/external/canvasjs.min.js"></script>
     <script type="text/javascript" src="./js/external/geopoint.js"></script>
     <script type="text/javascript" src="./js/autonomous.js"></script>
+    <script type="text/javascript" src="./js/science.js"></script>
 
+    <style>
+        body{
+            background-color: #141414 !important;
+        }
+    </style>
 
 </head>
 
@@ -88,7 +94,7 @@
                         <!-- Section 1 Robotic Arm -->
                         
                         <div class="col-md-3 col-sm-12 col-xs-12" style="border-right: 1px solid gray; height: 80vh">
-                            <div class="text-big" style="color: white">Robotic Arm</div>
+                            <div class="" style="color: white"><h1>Robotic Arm</h1></div>
                             <div class="row">
                                 <!-- State Info -->
                                 <div class="col-md-12 col-sm-12 col-xs-12"></div>
@@ -104,13 +110,26 @@
                         <!-- Section 2  Drive System -->
 
                         <!-- map field -->
+                        
                         <div class="col-md-6 col-xs-12" style="border-right: 1px solid gray; height: 30vh">
-                            <div class="text-big" style="color: white">Drive System</div>
+                            <div class="" style="color: white"><h1>Drive System</h1></div>
 
-                            <button onclick="cmdStarter()">button</button>
+                            <!--  -->
+
+                            <div class="col-md-6 col-xs-12" style="border-right: 1px solid white">
+                                <h3 style="color: white">GPS Data</h3>
+                                <br><br><br><br><br>
+                                <h3 style="color: white">IMU Data</h3>
+                                <br><br><br><br><br>
+                                <h3 style="color: white">Velocity:</h3>
+                            </div>
+
+                            <div class="col-md-6 col-xs-12">
+                                <button onclick="cmdStarter()">CMD Starter Button</button>
+                            </div>
                         </div>
                         <div class="col-md-6 col-xs-12" style="border-right: 1px solid gray; height: 50vh">
-                            <div class="text-big" style="color: white">Mission Plan</div>
+                            <div class="" style="color: white"><h2>Mission Plan</h2></div>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <span class="caret"></span>
@@ -129,7 +148,36 @@
                         <!-- Section 3 Science System -->
 
                         <div class="col-md-3 col-xs-12">
-                            <div class="text-big" style="color: white">Science System</div>
+                            <div class="text-big" style="color: white"><h1>Science System</h1></div>
+
+                            <div class="p-5 text-center" style="padding-left: 25px">
+                                <br><br>
+            
+                                <div class="col-sm" id="chartContainer_1" style="height: 300px; width: 60%;"></div>
+                                <br>
+                                <br>
+                                <div class="col-sm" id="chartContainer_2" style="height: 300px; width: 60%; "></div>
+                                <br>
+                                <br>			
+                                <div class="col-sm" id="chartContainer_3" style="height: 300px; width: 60%; "></div>
+                                <br>
+                                <br>
+                                <div class="col-sm" id="chartContainer_4" style="height: 300px; width: 60%; "></div>
+                                <br>
+                                <br>
+                                <div class="col-sm" id="chartContainer_5" style="height: 300px; width: 60%; "></div>
+                        
+                                <div class="col-sm-4" style="height: 300px;">
+                                    <button id="renderButton1">Add Data to Chart</button>
+                                    <button id="deleteButton1">Delete Last Data</button>
+                                </div>
+            
+                                    <button id="renderButton2">Add Data to Chart</button>
+                                    <button id="deleteButton2">Delete Last Data</button>
+                
+                
+            
+                            </div>
 
                         </div>
                     </div>
