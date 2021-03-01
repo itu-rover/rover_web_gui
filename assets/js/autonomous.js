@@ -41,6 +41,10 @@ var gpsListener = new ROSLIB.Topic({
 })
 
 gpsListener.subscribe(function(message) {
-  console.log('Received message on ' + listener.name + ': ' + message.data);
-  listener.unsubscribe();
+  
+  gps = message.data;
+  document.getElementById("gps-data").innerHTML = JSON.stringify(message)
+  console.log(message.data.long);
+  //console.log('Received message on ' + listener.name + ': ' + message.data);
+  //listener.unsubscribe();
 });
