@@ -16,7 +16,11 @@ var ros = new ROSLIB.Ros({
   });
 
 
-function cmdStarter(){
+  // roslaunch starter function
+
+function cmdStarter(cmd){
+
+    console.log(cmd)
     
     var cmdStarterTopic = new ROSLIB.Topic({
         ros: ros,
@@ -24,7 +28,7 @@ function cmdStarter(){
         messageType: 'std_msgs/String'
     })
     
-    var cmdStarterMsg = new ROSLIB.Message({data: "ataparlar"});
+    var cmdStarterMsg = new ROSLIB.Message({data: cmd});
 
     
     console.log(cmdStarterMsg.data);
@@ -34,6 +38,9 @@ function cmdStarter(){
 }
 
 
+
+// GPS LISTENER AND SUBSCRIBER
+
 var gpsListener = new ROSLIB.Topic({
   ros: ros,
   name: '/gps/fix',
@@ -42,9 +49,25 @@ var gpsListener = new ROSLIB.Topic({
 
 gpsListener.subscribe(function(message) {
   
-  gps = message.data;
-  document.getElementById("gps-data").innerHTML = JSON.stringify(message)
-  console.log(message.data.long);
-  //console.log('Received message on ' + listener.name + ': ' + message.data);
-  //listener.unsubscribe();
+  document.getElementById("gps-lat").innerHTML = JSON.stringify(message.latitude);
+  document.getElementById("gps-long").innerHTML = JSON.stringify(message.longitude);
+
 });
+
+
+// IMU LISTENER AND SUBSCRIBER
+
+var imuListener = new ROSLIB.Topic({
+  ros: ros,
+  name: '/imu/data',
+  messageType: 'sensor_msgs/Imu'
+})
+
+imuListener.subscribe(function(message) {
+  
+  document.getElementById("imu-x").innerHTML = JSON.stringify(message.orientation.x);
+  document.getElementById("imu-y").innerHTML = JSON.stringify(message.orientation.y);
+  document.getElementById("imu-z").innerHTML = JSON.stringify(message.orientation.z);
+
+});
+

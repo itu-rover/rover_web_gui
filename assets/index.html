@@ -108,69 +108,107 @@
 
 
                         <!-- Section 2  Drive System -->
+                        <div class="col-md-6 col-xs-12">
+                            <div class="" style="border-right: 1px solid gray; height: 30vh">
+                                <div class="" style="color: white"><h1>Drive System</h1></div>
+                                <div class="col-md-8 col-xs-12" style="border-right: 1px solid white">
 
-                        <!-- map field -->
-                        
-                        <div class="col-md-6 col-xs-12" style="border-right: 1px solid gray; height: 30vh">
-                            <div class="" style="color: white"><h1>Drive System</h1></div>
 
-                            <!--  -->
+                                    <!-- GPS Data -->
+                                    
+                                    <h3 style="color: white">GPS Data</h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div style="color: orange">
+                                                <h4>Latitude:</h4>
+                                                <h4><div id="gps-lat" style="color: whitesmoke">sth</div></h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="color: orange">
+                                            <h4>Longitude:</h4>
+                                            <h4><div id="gps-long" style="color: whitesmoke"></div></h4>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
 
-                            <div class="col-md-6 col-xs-12" style="border-right: 1px solid white">
 
-                                <h3 style="color: white">GPS Data</h3>
-                                <div id="gps-data" style="color: white"></div>
+                                    <!-- IMU Data -->
 
-                                <h3 style="color: white">IMU Data</h3>
-                                <div id="imu-data" style="color: white"></div>
+                                    <h3 style="color: white">IMU Data</h3>
+                                    <div class="row">
+                                        <div class="col-xs-4" style="color: orange">
+                                            <h4>X Orientation:</h4>
+                                            <h4><div id="imu-x" style="color: white"></div></h4>
+                                        </div>
+                                        <div class="col-xs-4" style="color: orange">
+                                            <h4>Y Orientation:</h4>
+                                            <h4><div id="imu-y" style="color: white"></div></h4>
+                                        </div>
+                                        <div class="col-xs-4" style="color: orange">
+                                            <h4>Z Orientation:</h4>
+                                            <h4><div id="imu-z" style="color: white"></div></h4>
+                                        </div>
+                                    </div>
 
-                                <h3 style="color: white">Velocity:</h3>
-                                <div id="vel-data" style="color: white"></div>
 
+                                    <!-- Velocity Part 
+
+                                    <h3 style="color: white">Velocity:</h3>
+                                    <div id="vel-data" style="color: whit"></div>
+                                    
+                                    -->
+
+                                </div>
+
+                                <div class="col-md-4 col-xs-12 text-center">
+                                    <button onclick="cmdStarter('desc')" style="margin-bottom: 15px"><h4>Rover Description Starter Button</h4></button>
+                                    <button onclick="cmdStarter('loc')" style="margin-bottom: 15px"><h4>Rover Localization Starter Button</h4></button>
+                                    <button onclick="cmdStarter('nav')" style="margin-bottom: 15px"><h4>Rover Navigation Starter Button</h4></button>
+                                    <button onclick="cmdStarter('cont')" style="margin-bottom: 15px"><h4>Rover Teleop Control Starter Button</h4></button>
+                                </div>
                             </div>
 
-                            <div class="col-md-6 col-xs-12">
-                                <button onclick="cmdStarter()">CMD Starter Button</button>
+                            <!-- map field -->
+                            <div class="" style="border-right: 1px solid gray; height: 50vh">
+                                <div class="" style="color: white"><h2>Mission Plan</h2></div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="bg-green"><a style="color:white" id="map-online">Online</a></li>
+                                        <li class="bg-yellow"><a id="map-offline-1">Offline(Utah_2)</a></li>
+                                        <li class="bg-yellow"><a id="map-offline">Offline(Utah_home)</a></li>
+                                        <li class="bg-yellow"><a id="map-offline-5">Offline(Home)</a></li>
+                                    </ul>
+                                </div>
+                                <div id="map" class="map-sm"></div>
                             </div>
+                            <!-- map field ends-->
                         </div>
-                        <div class="col-md-6 col-xs-12" style="border-right: 1px solid gray; height: 50vh">
-                            <div class="" style="color: white"><h2>Mission Plan</h2></div>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li class="bg-green"><a style="color:white" id="map-online">Online</a></li>
-                                    <li class="bg-yellow"><a id="map-offline-1">Offline(Utah_2)</a></li>
-                                    <li class="bg-yellow"><a id="map-offline">Offline(Utah_home)</a></li>
-                                    <li class="bg-yellow"><a id="map-offline-5">Offline(Home)</a></li>
-                                </ul>
-                            </div>
-                            <div id="map" class="map-sm"></div>
-                        </div>
-                        <!-- map field ends-->
 
                         <!-- Section 3 Science System -->
 
-                        <div class="col-md-3 col-xs-12">
+                        <div class="col-md-3 col-xs-12" style="">
                             <div class="text-big" style="color: white"><h1>Science System</h1></div>
 
                             <div class="p-5 text-center" style="padding-left: 25px">
                                 <br><br>
             
-                                <div class="col-sm" id="chartContainer_1" style="height: 300px; width: 60%;"></div>
+                                <div class="col-sm" id="chartContainer_1" style="height: 300px"></div>
                                 <br>
                                 <br>
-                                <div class="col-sm" id="chartContainer_2" style="height: 300px; width: 60%; "></div>
+                                <div class="col-sm" id="chartContainer_2" style="height: 300px "></div>
                                 <br>
                                 <br>			
-                                <div class="col-sm" id="chartContainer_3" style="height: 300px; width: 60%; "></div>
+                                <div class="col-sm" id="chartContainer_3" style="height: 300px"></div>
                                 <br>
                                 <br>
-                                <div class="col-sm" id="chartContainer_4" style="height: 300px; width: 60%; "></div>
+                                <div class="col-sm" id="chartContainer_4" style="height: 300px"></div>
                                 <br>
                                 <br>
-                                <div class="col-sm" id="chartContainer_5" style="height: 300px; width: 60%; "></div>
+                                <div class="col-sm" id="chartContainer_5" style="height: 300px"></div>
                         
                                 <div class="col-sm-4" style="height: 300px;">
                                     <button id="renderButton1">Add Data to Chart</button>

@@ -4,12 +4,18 @@ from std_msgs.msg import String
 import os
 
 def cmdStart(data):
-    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-    if data:
-        rospy.loginfo("data geliyor")
-    if data.data == "ataparlar":
+    # Executes a 'roslaunch' terminal according to data. 
+
+    rospy.loginfo(data.data)
+
+    if data.data == "desc":
         os.system("roslaunch rover_21_description gazebo.launch")
-        rospy.loginfo("donex")
+    if data.data == "loc":
+        os.system("roslaunch rover_21_localization localization.launch")
+    if data.data == "nav":
+        os.system("roslaunch rover_21_navigation move_base.launch")
+    if data.data == "cont":
+        os.system("roslaunch rover_21_control teleop_joy_f310.launch")
     
 def cmdStarterListener():
 
@@ -27,3 +33,5 @@ def cmdStarterListener():
 
 if __name__ == '__main__':
     cmdStarterListener()
+
+
