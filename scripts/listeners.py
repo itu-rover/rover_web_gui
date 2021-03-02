@@ -16,6 +16,10 @@ def cmdStart(data):
         os.system("roslaunch rover_21_navigation move_base.launch")
     if data.data == "cont":
         os.system("roslaunch rover_21_control teleop_joy_f310.launch")
+    if data.data == "arm":
+        os.system("roslaunch deneme arm_gazebo.launch")
+    if data.data == "contArm":
+        os.system("roslaunch arm_control cntr21.launch")
     
 def cmdStarterListener():
 
