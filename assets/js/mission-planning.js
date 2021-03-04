@@ -399,9 +399,9 @@ map.on('styledata', function () {
         "type": "circle",
         "source": "waypoints",
         "paint": {
-            "circle-radius": 30,
+            "circle-radius": 26,
             "circle-color": "#000",
-            "circle-opacity": 0.5
+            "circle-opacity": 1
         }
 
     });
@@ -451,12 +451,7 @@ function converter() {
 
     document.getElementById("outputSec").innerHTML = long_sec;
 
-
-
-
-
 }
-
 
 
 function initPublishers() {
@@ -628,9 +623,6 @@ $("#map-offline-5").click(function () {
 });
 
 
-
-
-
 $(document).on("click", ".waypoint", function (e) {
     if (ui_variables.remove && ui_variables.editable) {
         removeMarker(e.target);
@@ -708,7 +700,7 @@ function addMark(data) {
     var temp_index = waypoints.indexOf(marker_prototype);
     var el = document.createElement('div');
     if (temp_index == 0) {
-        el.style.backgroundColor = "green";
+        el.style.backgroundColor = "yellow";
     }
     waypoints[temp_index].marker_div = el;
     waypoints[temp_index].setIndex(temp_index);

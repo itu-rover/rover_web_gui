@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -68,8 +68,8 @@
                                 <button type="button" class="btn btn-default btn-flat toggle-btn" id="edit-markers">EDIT MARKERS</button>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                      <span class="caret"></span>
-                                    </button>
+                          <span class="caret"></span>
+                        </button>
                                     <ul class="dropdown-menu">
                                         <li class="bg-green"><a style="color:white" id="map-online">Online</a></li>
                                         <li class="bg-yellow"><a id="map-offline-1">Offline(İtu Maslak 1)</a></li>
@@ -82,38 +82,34 @@
                                 </div>
 
                             </div>
-                            
-                            <!---------------------RIGHT SIDE INPUTS----------------------------
-                            <div class="col-md-4 pull-right"> 
+
+                            <div class="col-md-4 pull-right">
                                 <div class="input-group" id="marker-adder">
                                     <span class="input-group-addon bg-gray">lat:</span>
                                     <input type="text" class="form-control" placeholder="Latitude" id="addMarkLat">
                                     <span class="input-group-addon bg-gray">lng:</span>
                                     <input type="text" class="form-control" placeholder="Longtitude" id="addMarkLng">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default bg-purple" id="addMarkBtn">Add</button>
-                                    </span>
+                                <button type="button" class="btn btn-default bg-purple" id="addMarkBtn">Add</button>
+                            </span>
                                 </div>
                             </div>
-                            -->
-                            
-                            
-                            <!-----------------------LEFT SIDE INPUTS-------------------------->
-                            <div class="col-md-8">
-                                <div class="input-group" id="go-on-map" style="border: 2px solid blue">
+
+                            <div class="col-md-3 ">
+                                <div class="input-group" id="go-on-map">
                                     <span class="input-group-addon bg-gray">lat:</span>
-                                    <input type="text" class="form-control" id="coord-lat" style="height: 60px" placeholder="Latitude">
+                                    <input type="text" class="form-control" placeholder="Latitude">
                                     <span class="input-group-addon bg-gray">lng:</span>
-                                    <input type="text" class="form-control" id="coord-lng" style="height: 60px" placeholder="Longtitude">
+                                    <input type="text" class="form-control" placeholder="Longtitude">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-danger" onclick="addMark()" style="height: 60px; width: 200px; font-size: 16pt;">ADD-MARKER</button>
-                                    </span>
+                                <button type="button" class="btn btn-danger">GO</button>
+                            </span>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <h3 id="temp-pos"></h3>
                             </div>
-                        </div>o
+                        </div>
                     </div>
 
                     <div style="padding-top:20px" id="edit-controls">
@@ -125,8 +121,8 @@
                             <br>
                             <button type="button" class="btn btn-default btn-lg bg-red" id="remove-all-markers"><span class="fa fa-trash"></span></button>
                             <br>
+
                         </div>
-                        
                         <div class="col-md-2 col-sm-2 col-xs-2 pull-left">
                             <div class="box box-danger bg-gray " id="convert_section">
                                 <div class="box-header with-border">
@@ -167,7 +163,7 @@
                                         <div class="box-footer bg-gray">
 
                                             <input type="button" value="convert" onclick="converter()" id="convert" class="btn btn-info pull-right bg-red" onload="longitude" />
-                                            <p>Longitude/Latitude: <span id="outputLong"></span></p> <!-- for converting -->
+                                            <p>Longitude/Latitude: <span id="outputLong"></span></p>
 
                                             <div class="form-group">
                                                 <label for="inputPassword3" class="col-sm-2 control-label">Longitude <br>
@@ -194,7 +190,7 @@
                 </section>
 
             </div>
-              <pre id='info' style="position:absolute;bottom:0px;border-radius: 10px;margin-left: 350px;background-color:#222;color: white;border:3px solid purple"></pre>
+              <pre id='info' style="position:absolute;bottom:0px;border-radius: 10px;margin-left: 350px;background-color:#222;color: white"></pre>
 
 
 
