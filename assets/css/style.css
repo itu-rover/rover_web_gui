@@ -1,3 +1,7 @@
+body{
+    background-color: #141414 !important;
+}
+
 .info-box-detail {
     clear: both;
     background: #fff;
@@ -127,4 +131,32 @@
   border-radius: 50%;
 }
 
-
+.sar-table{
+    background-color: #141414 ;
+    font-size: 14pt;
+    margin-right: 25px;
+    margin-bottom: 30px;
+    width: 60%;
+    float: right;
+    height: 300px;
+}   
+tr:nth-child(odd) {
+    background-color: #141414;
+}
+tr:nth-child(even) {
+    background-color: #141414;
+}
+td:nth-child(even) {
+    color: red !important;
+    border-bottom: 1px solid rgb(73, 73, 73);
+}
+td:nth-child(odd) {
+    border-left: 2px solid white;
+    border-bottom: 1px solid rgb(73, 73, 73);
+}
+th{
+    border-bottom: 2px solid white;
+}
+.sar-table tr, .sar-table th{
+    text-align: center;
+}

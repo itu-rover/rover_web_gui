@@ -224,18 +224,25 @@ map.on('mousemove', function (e) {
 	document.getElementById('info').innerHTML =
 	// e.lngLat is the longitude, latitude geographical position of the event
 	JSON.stringify(e.lngLat);
-    console.log(e.lngLat)
+    //console.log(e.lngLat)
 	});
 
 map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 map.doubleClickZoom.disable();
 
 // GeoJSON object to hold our measurement features
-var geojson = {
+var geojson = { 
     "type": "FeatureCollection",
-    "features": [
-
-    ]
+    "features": [{
+        "type": "Feature",
+        "id": "id0",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                [parseFloat(document.getElementById("coord-lat").value), parseFloat(document.getElementById("coord-lng").value)]
+            ],
+        },
+    }]
 };
 
 //GeoJson object for drone marker
@@ -251,16 +258,7 @@ var rover = {
 //heading value fo drone marker
 var direction;
 
-//sync drone position
-function setDronePos() {
-    map.getSource('drone').setData(drone);
 
-    //map.setLayoutProperty('drone', 'icon-rotate', direction);
-
-    if (ui_variables.focused === true) {+
-        map.setCenter(drone.coordinates);
-    }
-}
 
 function setRoverPos() {
     map.getSource('rover').setData(rover);
@@ -663,11 +661,16 @@ function addMark2() {
 
 */
 function addMark(data) {
-    var marker_prototype = new marker_rs(data);
+    //var marker_prototype = new marker_rs(data);
+    var coord_lng = parseFloat(document.getElementById("coord-lng").value);
+    var coord_lat = parseFloat(document.getElementById("coord-lat").value);
+    var coord_ = [coord_lng, coord_lat]
+    var marker_prototype = new marker_rs();
     markerDatas.features.push(marker_prototype.getFeature()); //geojson data. creates a bunch of points dynamically.
     waypoints.push(marker_prototype); //holds marker_rs objects ------------ waypoints are important
     console.log(marker_prototype); // marker_prototype.coordinates[0] = longtitude
     console.log(waypoints)
+    console.log(geojson)
 
 
 

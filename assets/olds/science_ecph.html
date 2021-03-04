@@ -27,7 +27,7 @@
     <script type="text/javascript" src="./js/external/canvasjs.min.js"></script>
     <script type="text/javascript" src="./js/external/geopoint.js"></script>
 
-    <script type="text/javascript" src="./js/science.js"></script>
+    <!--<script type="text/javascript" src="./js/science.js"></script>-->
 
 
     <body class="hold-transition skin-real-dark layout-top-nav">
@@ -75,14 +75,18 @@
                                             <span class="info-box-icon">
                                             <i class="fa fa-fw fa-gears"></i>
                                         </span>
-                                            <div class="info-box-content bg-gray">
+                                            <div class="info-box-content bg-gray" style="height: 90vh;">
                                                 <span class="info-box-text">state</span>
                                                 <span class="info-box-number" id="txtState">System Control Panel</span>
                                                 <div class="pull-right">
                                                     <button type="button" class="btn btn-sm btn-info-box" data-widget="collapse-detail">Details: <i class="fa fa-plus"></i></button>
                                                 </div>
+                                                <div id="chartContainer" style="height: 300px; width: 100%; display: block"></div>
                                             </div>
-                                            <div class="info-box-detail no-padding bg-gray">
+                                            
+                                            
+                                            
+                                            <!--<div class="info-box-detail no-padding bg-gray">
                                                 <button id="ec_btn0" value="0" onclick="ec0()">Try it</button>
                                                  <button id="ec_btn1" value="1" onclick="ec1()">Try it</button>
                                               
@@ -93,8 +97,10 @@
 
                                                 <input type="range" id="myInput" oninput="myFunction()">
                                                 <p id="demo"></p>
+                                                
+                                            
 
-                                            </div>
+                                            </div>-->
 
                                         </div>
                                     </div>
@@ -135,6 +141,79 @@
             </div>
         </div>
         <script src="./js/science.js" type="application/javascript"></script>
+        
+        <script type="text/javascript" type="text/javascript">
+          // Connecting to ROS
+          // -----------------
+
+          var ros = new ROSLIB.Ros({
+            url : 'ws://localhost:9090'
+          });
+
+          ros.on('connection', function() {
+            console.log('Connected to websocket server.');
+          });
+
+          ros.on('error', function(error) {
+            console.log('Error connecting to websocket server: ', error);
+          });
+
+          ros.on('close', function() {
+            console.log('Connection to websocket server closed.');
+          });
+
+          // Subscribing to a Topic
+          // ----------------------
+
+          var listener = new ROSLIB.Topic({
+            ros : ros,
+            name : '/chatter',
+            messageType : 'std_msgs/Int32'
+          });
+            
+        
+            
+
+          window.onload = function () {
+
+          var chart = new CanvasJS.Chart("chartContainer", {
+              animationEnabled: true,
+              theme: "light2",
+              title:{
+                  text: "Simple Line Chart"
+              },
+              axisY:{
+                  includeZero: false
+              },
+              data: [{        
+                  type: "line",       
+                  dataPoints: [
+                      { y: 450 },
+                      { y: 414 },
+                      { y: 520 },
+                      { y: 460 },
+                      { y: 450 },
+                      { y: 500 },
+                      { y: 480 },
+                      { y: 480 },
+                      { y: 410 },
+                      { y: 500 },
+                      { y: 480 },
+                      { y: 510 }
+                  ]
+              }]
+          });
+          chart.render();
+              
+            listener.subscribe(function(message) {
+                console.log('Received message on ' + listener.name + ': ' + message.data);
+                data = message.data;
+                if 450 < data < 500
+                  chart.data[0].addTo("dataPoints", {y: message.data});
+              });
+            
+          }
+    </script>
     </body>
 
 </html>
